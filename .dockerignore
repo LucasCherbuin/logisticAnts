@@ -1,0 +1,25 @@
+# Node
+node_modules
+npm-debug.log
+dist
+.angular
+
+# Maven
+target
+.m2
+
+# IDE
+.vscode
+.idea
+*.iml
+.classpath
+.project
+.settings
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
