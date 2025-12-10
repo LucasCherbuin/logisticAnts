@@ -1,0 +1,19 @@
+@startuml
+
+class prix {
+  int id
+  int prixTotal
+  int remboursement
+  int achat
+  date date
+}
+
+
+class produitPhare {
+  int id
+  int produit
+  int achat
+}
+
+
+@enduml

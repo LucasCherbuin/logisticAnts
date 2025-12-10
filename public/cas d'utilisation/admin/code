@@ -1,0 +1,20 @@
+@startuml
+
+actor admin
+
+participant connexion
+Participant menuAdmin
+Participant dashboard
+Participant database
+
+
+admin -> connexion : connexion en tant qu'Admin
+connexion -> menuAdmin : accès à l'application en tant qu'admin
+menuAdmin -> dashboard : consultation d'un des dashboard (article ou prix)
+dashboard -> database : recuperation des données NoSql
+database  -> dashboard : affichage des informations
+dashboard -> menuAdmin : sortie du dashboard
+menuAdmin -> connexion : deconnexion 
+connexion -> admin : Sortit de l'application 
+
+@enduml

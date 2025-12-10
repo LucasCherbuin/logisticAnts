@@ -1,0 +1,17 @@
+@startuml
+
+actor visiteur
+participant connexion
+participant authentification
+participant database
+
+visiteur -> connexion : accès page de connexion
+connexion -> authentification : création d'un compte avec un email de confirmation
+authentification -> database : enregistrement du nouveau compte sur la base de donnée
+database -> authentification : attribution du rôle "client" et retour à la page de connexion
+authentification -> connexion : Connexion avec un compte crée
+connexion -> visiteur : sortie de l'application
+
+
+
+@enduml
