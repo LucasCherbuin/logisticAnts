@@ -1,0 +1,63 @@
+@startuml
+
+class user {
+  int id
+  String pseudo
+  String email
+  String motDePasse
+  int   roleId
+}
+
+class produit {
+  int id
+  String nom
+  int prix
+  int QuantitéStock
+  date derniereAjout
+  bool perissable
+  Date DatePeremption
+  int fournisseurId
+  int imageid
+}
+
+class commande {
+  int id
+  id articleCommandeid
+  int userId
+}
+
+class articleCommande {
+  int id
+  int produitId
+  int quantite
+}
+
+
+class image {
+  int id
+  String lien
+}
+
+class role {
+  int id
+  String label
+}
+
+class fournisseur {
+    int id
+    string nom
+    string email
+    string adresse
+}
+' Relations
+
+
+
+user "1" -- "1" role : role attribué 
+produit "1" -- "1" image : illustration
+commande "1" -- "0" articleCommande : contenu de la commande
+user "1" -- "0" commande : client
+produit "0" -- "0" fournisseur : approvisionneur
+produit "1" -- "1" articleCommande : produit commandé
+
+@enduml
