@@ -1,0 +1,25 @@
+@startuml
+
+actor secrétaire
+participant connexion
+participant menuSecrétaire
+participant commandeClient
+participant PageUtilisateur
+participant preparation
+participant commandes
+participant database
+
+
+secrétaire -> connexion : connexion en tant que secrétaire
+connexion -> menuSecrétaire : accès au menu secrétaire
+menuSecrétaire -> commandeClient : consultation des commandes en cours
+commandeClient -> database : recuperation des informations
+database -> commandeClient : affichage des informations
+commandeClient  -> menuSecrétaire : retour au menu secrétaire
+menuSecrétaire -> PageUtilisateur : consultation des utilisateurs de l'application
+PageUtilisateur -> database : ajout d'un nouvel employé ou modification, suppression d'un employé ou client
+database -> PageUtilisateur : validation des modification
+PageUtilisateur -> menuSecrétaire : retour sur le menu secrétaire
+menuSecrétaire -> connexion : deconnexion de compte secrétaire
+connexion -> secrétaire : sortit de l'application
+@enduml
