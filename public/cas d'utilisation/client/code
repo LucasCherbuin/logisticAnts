@@ -1,0 +1,24 @@
+@startuml
+
+actor client
+participant connexion
+participant accueil
+Participant shop
+Participant pageArticle
+Participant caisse
+Participant apiPaiement
+Participant database
+
+
+client -> connexion : accès à l'application (aucune connexion)
+connexion -> accueil : connexion en tant que Client
+accueil -> shop : naviguer dans le magasin de l'application en tant que Client
+shop -> pageArticle : consultation d'un article avec les informations et ajout en panier
+pageArticle -> caisse : passage en caisse pour le paiement
+caisse -> apiPaiement : achat du produit 
+apiPaiement -> accueil : retour à l'accueil avec confirmation d'achat et email automatique
+caisse -> database : modification du nombre de article et création d'une ligne dans la table commande
+database -> accueil : Validation des modifications
+accueil -> connexion : deconnexion 
+connexion -> client : le client quitte l'application
+@enduml
