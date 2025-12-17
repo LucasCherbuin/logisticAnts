@@ -1,8 +1,10 @@
-public class image {
+package model;
+
+public class Image {
     private int id;
     private String url;
 
-    public image(int id, String url) {
+    public Image(int id, String url) {
         this.id = id;
         this.url = url;
     }

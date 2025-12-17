@@ -1,10 +1,12 @@
-public class fournisseur {
+package model;
+
+public class Fournisseur {
     private int id;
     private String nom;
     private String adresse;
     private String email;
 
-    public fournisseur(int id, String nom, String adresse, String email) {
+    public Fournisseur(int id, String nom, String adresse, String email) {
         this.id = id;
         this.nom = nom;
         this.adresse = adresse;
