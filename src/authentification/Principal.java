@@ -1,4 +1,4 @@
-package java.security;
+package security;
 
 import java.io.Serializable;
 import javas.security.Principal;
