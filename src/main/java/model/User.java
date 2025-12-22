@@ -2,11 +2,14 @@ package model;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import jakarta.persistence.OneToOne;
+
 public class User {
     private int id;
     private String pseudo;
     private String email;
     private String password;
+    @OneToOne
     private int roleId;
     
     public User(int id, String pseudo, String email, String password, int roleId) {

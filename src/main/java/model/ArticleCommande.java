@@ -1,7 +1,10 @@
 package model;
 
+import jakarta.persistence.ManyToMany;
+
 public class ArticleCommande {
     private int id;
+    @ManyToMany
     private int produitId; 
     private int quantite;
     

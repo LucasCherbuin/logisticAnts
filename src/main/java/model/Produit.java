@@ -2,6 +2,9 @@ package model;
 
 import java.sql.Date;
 
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+
 public class Produit {
     private int id;
     private String nom;
@@ -10,7 +13,9 @@ public class Produit {
     private Date derniereAjout;
     private boolean perissable;
     private Date datePeremption;
+    @ManyToMany
     private int fournisseurId;
+    @OneToOne
     private int imageId;
     
     public Produit(int id, String nom, int prix, int quantiteStock, Date derniereAjout, boolean perissable, Date datePeremption, int fournisseurId, int imageId) {  // ✅ Parenthèse ajoutée
