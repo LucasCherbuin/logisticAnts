@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/logisticants</property>
+        <property name="hibernate.connection.user">root</property>
+        <property name="hibernate.connection.password">root</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- Création auto des tables -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <mapping class="com.project.model.User"/>
+        <mapping class="com.project.model.Role"/>
+
+    </session-factory>
+</hibernate-configuration>

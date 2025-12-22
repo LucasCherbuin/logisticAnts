@@ -1,35 +1,37 @@
-version: "3.9"
+version: "4"
 
 services:
-  frontend:
+  angular:
     build:
       dockerfile: Dockerfile
-    container_name: logisticants-frontend
+    container_name: angular_logisticants
     ports:
-      - "4200:80"       # Angular build sert sur Tomcat/NGINX
+      - "4200:80"     
     depends_on:
-      - backend
+      - maven
 
-  backend:
+  maven:
     build:
       dockerfile: Dockerfile
-    container_name: logisticants-backend
+    container_name: maven_logisticants
     ports:
       - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/logisticants
-      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_USERNAME=mysql
       - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - db
 
   db:
     image: mysql:8.1
-    container_name: logisticants-db
+    container_name: db
     restart: always
     environment:
+      MYSQL_USER: mysql
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: logisticants
+
     ports:
       - "3306:3306"
     volumes:
@@ -37,3 +39,4 @@ services:
 
 volumes:
   db-data:
+
