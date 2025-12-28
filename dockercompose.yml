@@ -10,19 +10,19 @@ services:
     depends_on:
       - maven
 
-  maven:
-    build:
-      dockerfile: Dockerfile
-    container_name: maven_logisticants
+  app:
+    build: .
+    container_name: logisticants-app
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/logisticants
-      - SPRING_DATASOURCE_USERNAME=mysql
-      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
-      - db
-
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/logisticants
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    
   db:
     image: mysql:8.1
     container_name: db

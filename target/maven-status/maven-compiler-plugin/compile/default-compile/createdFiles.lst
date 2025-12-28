@@ -1,0 +1,8 @@
+model/Produit.class
+model/Image.class
+model/Fournisseur.class
+model/User.class
+model/Role.class
+model/ArticleCommande.class
+model/Commande.class
+model/TableCreation.class

@@ -1,6 +1,7 @@
 package model;
 
-import org.mindrot.jbcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 
 public class User {
     private int id;
@@ -52,18 +53,16 @@ public class User {
     }
     
     public void setPassword(String password) {
-        this.password = hashPassword(password);
+    this.password = BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
+
     
     public void setRole(int roleId) {
         this.roleId = roleId;
     }
     
-    private String hashPassword(String plainPassword) {
-        return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
-    }
-    
-    public boolean checkPassword(String plainPassword) {
-        return BCrypt.checkpw(plainPassword, this.password);
+    public boolean checkPassword(String password) {
+        BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), this.password);
+        return result.verified;
     }
 }
