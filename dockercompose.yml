@@ -1,42 +1,39 @@
-version: "4"
+version: "3.9"
 
 services:
-  angular:
-    build:
-      dockerfile: Dockerfile
-    container_name: angular_logisticants
-    ports:
-      - "4200:80"     
-    depends_on:
-      - maven
-
-  maven:
-    build:
-      dockerfile: Dockerfile
-    container_name: maven_logisticants
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/logisticants
-      - SPRING_DATASOURCE_USERNAME=mysql
-      - SPRING_DATASOURCE_PASSWORD=root
-    depends_on:
-      - db
-
   db:
     image: mysql:8.1
-    container_name: db
+    container_name: db_logisticants
     restart: always
     environment:
-      MYSQL_USER: mysql
-      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: logisticants
-
+      MYSQL_USER: logisticants
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./
+    container_name: backend_logisticants
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/logisticants?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: logisticants
+      SPRING_DATASOURCE_PASSWORD: 1234
+    depends_on:
+      db:
+        condition: service_healthy
+
 
 volumes:
   db-data:
-
