@@ -1,0 +1,12 @@
+# docker run -p 8080:8080 logisticants-dev
+FROM node:20-alpine
+
+WORKDIR /angular
+
+COPY angular/package.json angular/package-lock.json ./
+RUN npm install
+
+COPY angular/ .
+
+EXPOSE 4200
+CMD ["npm", "start"]
