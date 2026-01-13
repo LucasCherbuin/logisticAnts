@@ -1,5 +1,9 @@
 package model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "role")
 public class Role {  
     private int id;
     private String label;

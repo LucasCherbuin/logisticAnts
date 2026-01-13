@@ -1,5 +1,10 @@
 package model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "fournisseur")
+
 public class Fournisseur {
     private int id;
     private String nom;

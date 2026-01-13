@@ -1,7 +1,11 @@
 package model;
 
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
+
+@Entity
+@Table(name = "article_commande")
 public class ArticleCommande {
     private int id;
     @ManyToMany

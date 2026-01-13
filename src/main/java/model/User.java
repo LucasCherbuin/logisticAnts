@@ -3,6 +3,10 @@ package model;
 import org.mindrot.jbcrypt.BCrypt;
 
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "user")
 
 public class User {
     private int id;

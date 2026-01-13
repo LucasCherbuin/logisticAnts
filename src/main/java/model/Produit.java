@@ -4,6 +4,10 @@ import java.sql.Date;
 
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "produit")
 
 public class Produit {
     private int id;
