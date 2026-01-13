@@ -2,6 +2,7 @@
 /app/src/main/java/model/TableCreation.java
 /app/src/main/java/model/Fournisseur.java
 /app/src/main/java/model/Produit.java
+/app/src/main/java/com/maven/DummyLoginModule.java
 /app/src/main/java/model/ArticleCommande.java
 /app/src/main/java/model/Commande.java
 /app/src/main/java/model/Image.java
