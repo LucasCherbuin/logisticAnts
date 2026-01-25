@@ -1,12 +1,16 @@
-model/Produit.class
-model/Image.class
-model/Fournisseur.class
-model/User.class
+repository/CommandeRepository.class
+repository/UserRepository.class
+controller/CommandeController.class
+controller/ArticleCommandeController.class
 model/Role.class
-<<<<<<< HEAD
-=======
-com/maven/DummyLoginModule.class
->>>>>>> login
 model/ArticleCommande.class
 model/Commande.class
 model/TableCreation.class
+model/Produit.class
+controller/UserController.class
+model/Image.class
+repository/ArticleCommandeRepository.class
+model/Fournisseur.class
+model/User.class
+com/maven/DummyLoginModule.class
+repository/RoleRepository.class

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="LoginModuleTest" time="0.08" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="ArticleCommandeControllerTest" time="0.634" tests="1" errors="1" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -39,7 +39,6 @@
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="java.vendor.version" value="Temurin-17.0.11+9"/>
     <property name="localRepository" value="/root/.m2/repository"/>
-    <property name="java.security.auth.login.config" value="src/test/resources/login.config"/>
     <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="java.version" value="17.0.11"/>
@@ -54,8 +53,25 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testLoginModule" classname="LoginModuleTest" time="0.06">
-    <system-out><![CDATA[Login successful. Principals: javax.security.auth.Subject$SecureSet@68df9280
+  <testcase name="" classname="ArticleCommandeControllerTest" time="0.634">
+    <error message="Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test" type="java.lang.IllegalStateException"><![CDATA[java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test
+	at org.springframework.util.Assert.state(Assert.java:76)
+	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.findConfigurationClass(SpringBootTestContextBootstrapper.java:246)
+	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses(SpringBootTestContextBootstrapper.java:233)
+	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.processMergedContextConfiguration(SpringBootTestContextBootstrapper.java:150)
+	at org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper.processMergedContextConfiguration(WebMvcTestContextBootstrapper.java:36)
+	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:351)
+	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:267)
+	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:215)
+	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:108)
+	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:111)
+	at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:142)
+	at org.springframework.test.context.TestContextManager.<init>(TestContextManager.java:126)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.getTestContextManager(SpringExtension.java:366)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.beforeAll(SpringExtension.java:131)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+]]></error>
+    <system-out><![CDATA[12:09:46.551 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [ArticleCommandeControllerTest]: ArticleCommandeControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 ]]></system-out>
   </testcase>
 </testsuite>
