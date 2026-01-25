@@ -1,6 +1,6 @@
-package maven.repository;
+package repository;
 
-import maven.model.Commande;
+import model.Commande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,3 +12,5 @@ public interface CommandeRepository extends JpaRepository<Commande, Integer> {
     List<Commande> findByArticleCommandeId(int articleCommandeId);
 
 }
+
+
