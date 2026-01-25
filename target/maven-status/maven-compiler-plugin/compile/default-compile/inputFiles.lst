@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /app/src/main/java/model/Fournisseur.java
 /app/src/main/java/controller/UserController.java
 /app/src/main/java/model/ArticleCommande.java
@@ -11,6 +12,13 @@
 /app/src/main/java/repository/CommandeRepository.java
 /app/src/main/java/repository/UserRepository.java
 /app/src/main/java/controller/CommandeController.java
+=======
+/app/src/main/java/model/Role.java
+/app/src/main/java/model/TableCreation.java
+/app/src/main/java/model/Fournisseur.java
+/app/src/main/java/model/Produit.java
+/app/src/main/java/model/ArticleCommande.java
+>>>>>>> 11d1e4e (fix)
 /app/src/main/java/model/Commande.java
 /app/src/main/java/model/Image.java
 /app/src/main/java/model/User.java

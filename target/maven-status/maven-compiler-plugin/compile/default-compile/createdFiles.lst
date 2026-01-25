@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 repository/CommandeRepository.class
 repository/UserRepository.class
 controller/CommandeController.class
 controller/ArticleCommandeController.class
+=======
+model/Produit.class
+model/Image.class
+model/Fournisseur.class
+model/User.class
+>>>>>>> 11d1e4e (fix)
 model/Role.class
 model/ArticleCommande.class
 model/Commande.class
 model/TableCreation.class
+<<<<<<< HEAD
 model/Produit.class
 controller/UserController.class
 model/Image.class
@@ -14,3 +22,5 @@ model/Fournisseur.class
 model/User.class
 com/maven/DummyLoginModule.class
 repository/RoleRepository.class
+=======
+>>>>>>> 11d1e4e (fix)
