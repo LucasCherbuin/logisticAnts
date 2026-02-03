@@ -1,101 +1,86 @@
-package dev.draft.payement_hub_service.main.Service;
+package Service;
 
 import okhttp3.*;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.webbind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestService;
-import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Service;
 import org.json.simple.JSONObject;
+import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.KeyStore.SecretKeyEntry;
-
+import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.springframework.stereotype.Service;
-
-@RestController
+@Service
 public class PaiementService {
-    
+
     private static final OkHttpClient client = new OkHttpClient();
+    private static final String SUCCESS_MESSAGE = "Payment request processed";
 
     @CrossOrigin
     @PostMapping("/create-payment-intent")
-    public String createPaymentIntent() throws NoSuchAlgorithmException, InvalidKeyException {
-        // Récupération des données banquaires 
-       string cardNumber = inputBody.get("carteBancaire").toString();
-       string CVV = inputBody.get("CVV").toString();
-       string dateExpiration = inputBody.get("dateExpiration").toString();
-       string montant = inputBody.get("montant").toString();
+    public String createPaymentIntent(JSONObject inputBody)
+            throws NoSuchAlgorithmException, InvalidKeyException {
 
-       // définir un autre moyen de payement
+        String cardNumber = inputBody.get("carteBancaire").toString();
+        String CVV = inputBody.get("CVV").toString();
+        String dateExpiration = inputBody.get("dateExpiration").toString();
+        String montant = inputBody.get("montant").toString();
 
-       string cardEntrymethod = "x";
-       string industryType = "x";
-       boolean capture = true;
+        String cardEntrymethod = "x";
+        String industryType = "x";
+        boolean capture = true;
 
-       String epild = "XXXX-XXXXXX-X-X";
-       String epiKey = "XXXXXXXXXXXXXXXXXX"; 
-       String baseUrl = "https://api.europeanpaymentsinitiative.eu/v1/payments";
-       String endpoint = "/payement";
+        String epild = "XXXX-XXXXXX-X-X";
+        String epiKey = "XXXXXXXXXXXXXXXXXX"; 
+        String baseUrl = "https://api.europeanpaymentsinitiative.eu/v1/payments";
+        String endpoint = "/payement";
 
-       // definir le corps de la requête
-       String contentType = "application/json";
-       Double transctionId = Math.random() * 1000000;
-       String orderNumber = String.valueOf(Math.random());
-       Double batchId = Math.random();
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("account", cardNumber);
+        jsonBody.put("currency", "CHF");
+        jsonBody.put("amount", montant);
+        jsonBody.put("cvv", CVV);
+        jsonBody.put("expiryDate", dateExpiration);
+        jsonBody.put("transactionId", Math.random() * 1000000);
+        jsonBody.put("orderNumber", String.valueOf(Math.random()));
+        jsonBody.put("batchId", Math.random());
+        jsonBody.put("cardEntryMethod", cardEntrymethod);
+        jsonBody.put("industryType", industryType);
+        jsonBody.put("capture", capture);
 
-       JSONObject jsonBody = new JSONObject();
+       // Création signature
+        String signature = createSignature(endpoint, jsonBody.toString(), epiKey); 
 
-       bodyJSON.put("account", cardNumber);
-       bodyJSON.put("currency", "CHF" );
-       bodyJSON.put("amount", montant);
-       bodyJSON.put("cvv", CVV);
-       bodyJSON.put("expiryDate", dateExpiration);
-       bodyJSON.put("transactionId", transctionId);
-       bodyJSON.put("orderNumber", orderNumber);
-       bodyJSON.put("batchId", batchId);
-       bodyJSON.put("cardEntryMethod", cardEntrymethod);
-       bodyJSON.put("industryType", industryType);
-       bodyJSON.put("capture", capture);
-    
+        // Create MediaType and RequestBody
+        MediaType JSON = MediaType.get("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
-    // creation signature 
-    String signature = createSignature(endpoint, jsonBody.toString(), epiKey);
-
-    // preparement de la requête
-    RequestBody requestBody = RequestBody.create(
-        jsonBody.toString(),
-        MediaType.parse("application/json; charset=utf-8")
-    );
+        Request request = new Request.Builder()
+                .url(baseUrl + endpoint)
+                .addHeader("Content-Type", "application/json")
+                .addHeader("epild", epild)
+                .addHeader("signature", signature)
+                .post(body)
+                .build();
 
 
-    // création de la requête
-    Request request = new Request.Builder()
-        .url(baseUrl + endpoint)
-        .addHeader("Content-Type", contentType)
-        .addHeader("epild", epild)
-        .addHeader("signature", signature)
-        .post(RequestBody.create(jsonBody.toString(), MediaType.parse("application/json")))
-        .build();
+        // Exécution
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful())
+                throw new IOException("Unexpected code " + response);
 
-    // exécution de la requête
-    try (Response response = client.newCall(request).execute()) {
-        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-        JSONParser jsonParser = new JSONParser();
-        JSONObject responseBody = (JSONObject) jsonParser.parse(response.body().string());
-
-        return ((JSONObject) responseBodyJSON.get("data")).get("status").toString();
+            return SUCCESS_MESSAGE;
         } catch (Exception e) {
             e.printStackTrace();
             return "Error: " + e.getMessage();
         }
     }
 
-// Implémentation de la création de la signature 
-    public static String createSignature(String endpoint, String payload, String epiKey) throws NoSuchAlgorithmException, InvalidKeyException {
+    public static String createSignature(String endpoint, String payload, String epiKey)
+            throws NoSuchAlgorithmException, InvalidKeyException {
         String algorithm = "HmacSHA256";
         SecretKeySpec secretKeySpec = new SecretKeySpec(epiKey.getBytes(), algorithm);
         Mac mac = Mac.getInstance(algorithm);

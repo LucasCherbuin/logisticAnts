@@ -1,4 +1,4 @@
-package main.Service;
+package Service;
 
 
 public interface MailService {
