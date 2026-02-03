@@ -12,7 +12,6 @@
         <!-- URL de connexion au conteneur Docker -->
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/logisticants?useSSL=false&amp;serverTimezone=UTC</property>
 
-<<<<<<< HEAD
         <!-- Identifiants MySQL -->
         <property name="hibernate.connection.username">root</property>
 
@@ -35,14 +34,12 @@
         <mapping class="com.project.model.Produit"/>
         <mapping class="com.project.model.Role"/>
         <mapping class="com.project.model.User"/>
-=======
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
         <property name="hibernate.archive.autodetection">class</property>
->>>>>>> 11d1e4e (fix)
 
     </session-factory>
 </hibernate-configuration>

@@ -1,10 +1,9 @@
 package model;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-
-
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "user")
