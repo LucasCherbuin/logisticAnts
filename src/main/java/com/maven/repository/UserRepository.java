@@ -1,6 +1,6 @@
-package maven.repository;
+package com.maven.repository;
 
-import maven.model.User;
+import com.maven.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

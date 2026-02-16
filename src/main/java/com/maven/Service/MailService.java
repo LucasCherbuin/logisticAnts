@@ -1,4 +1,4 @@
-package main.Service;
+package com.maven.Service;
 
 
 public interface MailService {

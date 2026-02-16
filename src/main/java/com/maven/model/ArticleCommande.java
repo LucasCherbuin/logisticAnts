@@ -1,4 +1,4 @@
-package model;
+package com.maven.model;
 
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.*;
