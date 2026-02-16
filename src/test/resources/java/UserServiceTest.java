@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.maven.test;
+=======
+
+>>>>>>> PageLogisticien
 
 import com.maven.Service.UserService;
 import com.maven.model.User;

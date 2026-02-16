@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.maven.test;
+=======
+
+>>>>>>> PageLogisticien
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.CallbackHandler;

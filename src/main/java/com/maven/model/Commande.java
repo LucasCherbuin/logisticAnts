@@ -1,5 +1,6 @@
 package com.maven.model;
 
+
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.*;
