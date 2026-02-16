@@ -1,10 +1,11 @@
-package Service;
+package com.maven.Service;
 
 
 
 import org.springframework.stereotype.Service;
-import model.User;
-import repository.UserRepository;
+
+import com.maven.model.User;
+import com.maven.repository.UserRepository;
 
 
 @Service

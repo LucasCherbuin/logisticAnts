@@ -1,4 +1,4 @@
-package model;
+package com.maven.model;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import jakarta.persistence.OneToOne;

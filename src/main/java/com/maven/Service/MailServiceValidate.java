@@ -1,4 +1,4 @@
-package Service;
+package com.maven.Service;
 
 import java.util.Properties;
 import jakarta.mail.Message;
