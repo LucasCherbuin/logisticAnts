@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Driver JDBC pour MySQL -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+        <!-- URL de connexion au conteneur Docker -->
+        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/logisticants?useSSL=false&amp;serverTimezone=UTC</property>
+
+        <!-- Identifiants MySQL -->
+        <property name="hibernate.connection.username">root</property>
+
+
+        <!-- Dialecte Hibernate pour MySQL 8 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <!-- Mise à jour automatique du schéma -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Affichage des requêtes SQL -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Classes mappées -->
+        <mapping class="com.project.model.ArticleCommande"/>
+        <mapping class="com.project.model.Commande"/>
+        <mapping class="com.project.model.Fournisseur"/>
+        <mapping class="com.project.model.Image"/>
+        <mapping class="com.project.model.Produit"/>
+        <mapping class="com.project.model.Role"/>
+        <mapping class="com.project.model.User"/>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <property name="hibernate.archive.autodetection">class</property>
+
+    </session-factory>
+</hibernate-configuration>
