@@ -1,25 +1,38 @@
 /app/src/main/java/com/maven/model/Produit.java
 /app/src/main/java/com/maven/Service/MailService.java
 <<<<<<< HEAD
+<<<<<<< HEAD
 /app/src/main/java/com/maven/model/User.java
 /app/src/main/java/com/maven/Service/MailServiceValidate.java
 /app/src/main/java/com/maven/Service/UserService.java
 =======
 /app/src/main/java/com/maven/controller/FournisseurController.java
+=======
+/app/src/main/java/com/maven/repository/ArticleCommandeRepository.java
+/app/src/main/java/com/maven/controller/ArticleCommandeController.java
+>>>>>>> PageVisiteur
 /app/src/main/java/com/maven/model/User.java
 /app/src/main/java/com/maven/Service/MailServiceValidate.java
 /app/src/main/java/com/maven/Service/UserService.java
 /app/src/main/java/com/maven/repository/ImageRepository.java
+<<<<<<< HEAD
 /app/src/main/java/com/maven/controller/ProduitController.java
 >>>>>>> PageLogisticien
 /app/src/main/java/com/maven/repository/CommandeRepository.java
 /app/src/main/java/com/maven/model/TableCreation.java
 /app/src/main/java/com/maven/repository/UserRepository.java
 /app/src/main/java/com/maven/controller/UserController.java
+=======
+/app/src/main/java/com/maven/repository/CommandeRepository.java
+/app/src/main/java/com/maven/model/TableCreation.java
+/app/src/main/java/com/maven/repository/UserRepository.java
+/app/src/main/java/com/maven/controller/CommandeController.java
+>>>>>>> PageVisiteur
 /app/src/main/java/com/maven/model/Role.java
 /app/src/main/java/com/maven/model/ArticleCommande.java
 /app/src/main/java/com/maven/model/Image.java
 /app/src/main/java/com/maven/model/Fournisseur.java
+<<<<<<< HEAD
 <<<<<<< HEAD
 /app/src/main/java/com/maven/model/Commande.java
 =======
@@ -27,4 +40,10 @@
 /app/src/main/java/com/maven/model/Commande.java
 /app/src/main/java/com/maven/repository/ProduitRepository.java
 >>>>>>> PageLogisticien
+=======
+/app/src/main/java/com/maven/Service/PaiementService.java
+/app/src/main/java/com/maven/DummyLoginModule.java
+/app/src/main/java/com/maven/model/Commande.java
+/app/src/main/java/com/maven/controller/CustomPayController.java
+>>>>>>> PageVisiteur
 /app/src/main/java/com/maven/repository/RoleRepository.java

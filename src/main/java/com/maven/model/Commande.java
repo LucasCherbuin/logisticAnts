@@ -1,5 +1,8 @@
 package com.maven.model;
+<<<<<<< HEAD
 
+=======
+>>>>>>> PageVisiteur
 
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
