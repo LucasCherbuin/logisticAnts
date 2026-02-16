@@ -8,9 +8,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import controller.CommandeController;
-import model.Commande;
-import repository.CommandeRepository;
+import com.maven.controller.CommandeController;
+import com.maven.model.Commande;
+import com.maven.repository.CommandeRepository;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

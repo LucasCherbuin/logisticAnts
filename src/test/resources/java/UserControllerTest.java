@@ -11,10 +11,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import controller.UserController;
-import model.User;
-import repository.UserRepository;
+import com.maven.controller.UserController;
+import com.maven.model.User;
+import com.maven.repository.UserRepository;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

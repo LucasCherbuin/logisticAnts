@@ -10,8 +10,7 @@ import org.json.simple.JSONObject;
 
 import org.springframework.test.web.servlet.MockMvc;
 
-import Service.PaiementService;
-
+import com.maven.Service.PaiementService;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
