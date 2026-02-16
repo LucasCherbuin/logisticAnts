@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 package com.maven.test;
-=======
-
->>>>>>> PageLogisticien
-=======
-package com.maven.test;
-
->>>>>>> PageVisiteur
 
 import javax.security.auth.Subject;
 import javax.security.auth.callback.CallbackHandler;

@@ -6,7 +6,7 @@ import okhttp3.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.stereotype.Service;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;

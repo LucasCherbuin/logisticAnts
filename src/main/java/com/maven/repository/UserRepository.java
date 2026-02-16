@@ -1,13 +1,9 @@
 package com.maven.repository;
 
-<<<<<<< HEAD
 import com.maven.model.User;
-=======
->>>>>>> PageVisiteur
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.maven.model.User;
 
 import java.util.Optional;
 

@@ -1,21 +1,9 @@
 package com.maven.Service;
 
-<<<<<<< HEAD
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
-=======
-import java.util.Properties;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-import org.springframework.stereotype.Service;
-
->>>>>>> PageVisiteur
 
 public class MailServiceValidate implements MailService {
 
@@ -23,13 +11,7 @@ public class MailServiceValidate implements MailService {
             "Vous allez recevoir un email de confirmation.";
 
     @Override
-<<<<<<< HEAD
-    public void sendEmail(String senderEmail, String to, String subject) {
-
-        String body = "Votre email de confirmation"; 
-=======
     public void sendEmail(String to, String subject, String body) {
->>>>>>> PageVisiteur
 
         Properties smtpProperties = new Properties();
         smtpProperties.put("mail.smtp.auth", "true");
@@ -38,11 +20,6 @@ public class MailServiceValidate implements MailService {
         smtpProperties.put("mail.smtp.port", "587");
 
         try {
-<<<<<<< HEAD
-            Message message = new MimeMessage(Session.getDefaultInstance(smtpProperties));
-            message.setFrom(new InternetAddress(senderEmail));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-=======
             Message message = new MimeMessage(
                     Session.getDefaultInstance(smtpProperties)
             );
@@ -52,7 +29,6 @@ public class MailServiceValidate implements MailService {
                     Message.RecipientType.TO,
                     new InternetAddress(to)
             );
->>>>>>> PageVisiteur
             message.setSubject(subject);
             message.setText(body);
 

@@ -17,8 +17,11 @@ CMD ["catalina.sh", "run"]
 
 # docker build -f Dockerfile.maven -t logisticants-maven .
 # docker run --rm logisticants-maven
+
+# adapter avec le chemin de votre projet sur votre machine
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean install
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean test
+# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean compile
 # docker exec -it logisticants-mysql mysql -u root -p mdp root
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn "exec:java" "-Dexec.mainClass=model.TableCreation"
 
