@@ -1,9 +1,11 @@
-package maven.controller;
+package com.maven.controller;
 
-import maven.model.User;
-import maven.repository.UserRepository;
+import com.maven.model.User;
+import com.maven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 public class UserController {
 

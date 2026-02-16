@@ -1,9 +1,11 @@
-package maven.controller;
+package com.maven.controller;
 
-import maven.model.Fournisseur;
-import maven.repository.FournisseurRepository;
+import com.maven.model.Fournisseur;
+import com.maven.repository.FournisseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 public class FournisseurController {
     @Autowired
@@ -27,7 +29,7 @@ public class FournisseurController {
         return fournisseurRepository.findById(id).orElse(null);
     }
 
-    @putMapping("/Fournisseurs/{id}/create")
+    @PutMapping("/Fournisseurs/{id}/create")
 
     public void createFournisseur(Fournisseur fournisseur) {
 
@@ -36,7 +38,7 @@ public class FournisseurController {
 
     } 
 
-    @putMapping("/Fournisseurs/{id}/update")
+    @PutMapping("/Fournisseurs/{id}/update")
 
 
     public void updateFournisseur(Fournisseur fournisseur) {
@@ -45,7 +47,7 @@ public class FournisseurController {
 
     }
 
-    @putMapping("/Fournisseurs/{id}/delete")
+    @PutMapping("/Fournisseurs/{id}/delete")
     public void deleteFournisseur(int id) {
         // Implementation to delete a Fournisseur by ID
 

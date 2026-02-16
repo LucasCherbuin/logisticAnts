@@ -1,6 +1,6 @@
-package maven.repository;
+package com.maven.repository;
 
-import maven.model.Fournisseur;
+import com.maven.model.Fournisseur;
 
 import java.util.List;
 

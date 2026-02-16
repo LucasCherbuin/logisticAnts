@@ -1,6 +1,6 @@
-package maven.repository;
+package com.maven.repository;
 
-import maven.model.Image;
+import com.maven.model.Image;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
