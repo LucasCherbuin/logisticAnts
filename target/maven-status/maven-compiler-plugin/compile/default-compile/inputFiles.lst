@@ -1,12 +1,18 @@
 /app/src/main/java/com/maven/model/Produit.java
 /app/src/main/java/com/maven/Service/MailService.java
+/app/src/main/java/com/maven/modelNosql/Prix.java
 /app/src/main/java/com/maven/repository/ArticleCommandeRepository.java
 /app/src/main/java/com/maven/Service/UserService.java
 /app/src/main/java/com/maven/repository/ImageRepository.java
+/app/src/main/java/com/maven/db/mongo.java
+/app/src/main/java/com/maven/controller/AdminDashboardController.java
+/app/src/main/java/com/maven/repositoryNosql/PrixRepository.java
 /app/src/main/java/com/maven/model/Image.java
 /app/src/main/java/com/maven/model/Fournisseur.java
+/app/src/main/java/com/maven/modelNosql/ProduitPhare.java
 /app/src/main/java/com/maven/repository/ProduitRepository.java
 /app/src/main/java/com/maven/repository/RoleRepository.java
+/app/src/main/java/com/maven/repositoryNosql/ProduitPhareRepository.java
 /app/src/main/java/com/maven/controller/ArticleCommandeController.java
 /app/src/main/java/com/maven/controller/FournisseurController.java
 /app/src/main/java/com/maven/model/User.java
@@ -17,6 +23,7 @@
 /app/src/main/java/com/maven/repository/UserRepository.java
 /app/src/main/java/com/maven/controller/CommandeController.java
 /app/src/main/java/com/maven/controller/UserController.java
+/app/src/main/java/com/maven/db/database.java
 /app/src/main/java/com/maven/model/Role.java
 /app/src/main/java/com/maven/model/ArticleCommande.java
 /app/src/main/java/com/maven/Service/PaiementService.java
