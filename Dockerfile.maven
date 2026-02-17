@@ -22,6 +22,7 @@ CMD ["catalina.sh", "run"]
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean install
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean test
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean compile
+# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn clean clean
 # docker exec -it logisticants-mysql mysql -u root -p mdp root
 # docker run --rm -it -v "L:\Projet developpements\logisticAnts:/app" -w /app maven:3.9.6-eclipse-temurin-17 mvn "exec:java" "-Dexec.mainClass=model.TableCreation"
 
