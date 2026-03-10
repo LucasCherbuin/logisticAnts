@@ -7,6 +7,7 @@ Participant shop
 Participant pageArticle
 Participant caisse
 Participant apiPaiement
+Participant pageCommande
 Participant database
 
 
@@ -19,6 +20,10 @@ caisse -> apiPaiement : achat du produit
 apiPaiement -> accueil : retour à l'accueil avec confirmation d'achat et email automatique
 caisse -> database : modification du nombre de article et création d'une ligne dans la table commande
 database -> accueil : Validation des modifications
+accueil -> pageCommande : accès page pour consulter les commandes
+pageCommande -> database : annuler une commande
+database -> pageCommande : commande supprimer de la base de donnée et remboursement
+pageCommande -> accueil : sortit de la page de consultation des commandes
 accueil -> connexion : deconnexion 
 connexion -> client : le client quitte l'application
 @enduml
