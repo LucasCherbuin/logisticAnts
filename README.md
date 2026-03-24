@@ -12,7 +12,7 @@ travailler sur le projet
 
 ```bash
   1. cloner le github
-  2. executer le fichier dockerfile pour les dépendences
+  2. executer les fichiers dockerfiles pour les dépendences
   3. executer le fichier dockercompose pour utiliser les services
 ```
     
