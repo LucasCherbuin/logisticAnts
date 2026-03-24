@@ -24,3 +24,15 @@ services:
       mysql:
         condition: service_healthy
     command: mvn -Dexec.mainClass=model.TableCreation exec:java
+
+  angular:
+    build:
+      context: ./angular
+      dockerfile: Dockerfile.angular
+    container_name: logisticants-angular
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./angular:/app
+      - /app/node_modules
+    command: npm run start
