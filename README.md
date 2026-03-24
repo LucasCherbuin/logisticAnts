@@ -33,7 +33,12 @@ travailler sur le projet
 **container** 
 docker
 
-### Maquette 
+### FrontEnd
 
 wireframe, maquettage et prototype de l'interface de l'application. lien : https://www.figma.com/community/file/1610297131830775342
+
+### Backend
+
+Diagrammes de classes et cas d'utilisation dans le dossier public
+
 
