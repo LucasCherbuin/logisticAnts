@@ -41,26 +41,45 @@ class ProduitControllerTest {
 
     @Test
     void testGetAllProduits() throws Exception {
-        // Création de deux produits
-        Produit p1 = new Produit(1, "Produit A", 10.0, 5, 01/01/2024, false, null, 1, 1);
-        Produit p2 = new Produit(2, "Produit B", 20.0, 5, 02/01/2024, true, 02/02/2024, 1, 1);
 
-      
-        // Mock du repository
-        when(produitRepository.findAll()).thenReturn(Arrays.asList(p1, p2));
+        Fournisseur fournisseur = new Fournisseur();
+            fournisseur.setId(1);
+        Image image = new Image();
+            image.setId(1);
 
-        // Exécution de la requête GET /produits
+        Produit p1 = new Produit();
+            p1.setId(1);
+            p1.setNom("Produit A");
+            p1.setPrix(10);
+            p1.setQuantiteStock(5);
+            p1.setDerniereAjout(Date.valueOf("2024-01-01"));
+            p1.setPerissable(false);
+            p1.setFournisseur(fournisseur);
+            p1.setImage(image);
+
+        Produit p2 = new Produit();
+            p2.setId(2);
+            p2.setNom("Produit B");
+            p2.setPrix(20);
+            p2.setQuantiteStock(5);
+            p2.setDerniereAjout(Date.valueOf("2024-01-02"));
+            p2.setPerissable(true);
+            p2.setDatePeremption(Date.valueOf("2024-02-02"));
+            p2.setFournisseur(fournisseur);
+            p2.setImage(image);
+
+            when(produitRepository.findAll()).thenReturn(Arrays.asList(p1, p2));
+
         String response = mockMvc.perform(get("/produits"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                                .andExpect(status().isOk())
+                                .andReturn()
+                                .getResponse()
+                                .getContentAsString();
 
         Produit[] produits = objectMapper.readValue(response, Produit[].class);
 
-        // Vérification des produits retournés
-        assertTrue(produits.length == 2);
-        assertTrue(produits[0].getNom().equals("Produit A"));
-        assertTrue(produits[1].getNom().equals("Produit B"));
+            assertTrue(produits.length == 2);
+            assertTrue(produits[0].getNom().equals("Produit A"));
+            assertTrue(produits[1].getNom().equals("Produit B"));
     }
 }

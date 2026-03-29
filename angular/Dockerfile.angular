@@ -1,16 +1,17 @@
 FROM node:20-alpine
 
-WORKDIR /app
+# Aller dans le dossier Angular
+WORKDIR /app/angular
 
-# Copier uniquement package.json (safe)
-COPY package.json ./
+# Copier uniquement les fichiers nécessaires pour les dépendances
+COPY angular/package*.json ./
 
 # Installer dépendances
 RUN npm install -g @angular/cli \
-    && npm install
+    && npm install 
 
 # Copier le reste du projet
-COPY . .
+COPY angular/ ./
 
 EXPOSE 4200
 
@@ -18,4 +19,4 @@ CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
 
 # docker build -f angular/Dockerfile.angular -t logisticants-angular .
 
-# docker run -it --rm logisticants-angular sh (shell)
+# docker run -it --rm logisticants-angular sh 

@@ -1,46 +1,36 @@
 package com.maven.model;
 
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.*;
-
 
 @Entity
 @Table(name = "article_commande")
 public class ArticleCommande {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToMany
-    private int produitId; 
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit;
+
     private int quantite;
-    
-    public ArticleCommande(int id, int produitId, int quantite) {
-        this.id = id;
-        this.produitId = produitId;
-        this.quantite = quantite;
-    }
-    
-    // Getters
-    public int getId() {
-        return id;
-    }
-    
-    public int getProduitId() {
-        return produitId;
-    }
-    
-    public int getQuantite() {
-        return quantite;
-    }
-    
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public void setProduitId(int produitId) {
-        this.produitId = produitId;
-    }
-    
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
-    }
+
+    @ManyToOne
+    @JoinColumn(name = "commande_id")
+    private Commande commande; // <-- propriété manquante pour mappedBy
+     
+    // constructeurs, getters et setters
+    public ArticleCommande() {}
+
+    public int getId() { return id; }
+    public Produit getProduit() { return produit; }
+    public int getQuantite() { return quantite; }
+    public Commande getCommande() { return commande; }
+
+    public void setId(int id) { this.id = id; }
+    public void setProduit(Produit produit) { this.produit = produit; }
+    public void setQuantite(int quantite) { this.quantite = quantite; }
+    public void setCommande(Commande commande) { this.commande = commande; }
+
 }

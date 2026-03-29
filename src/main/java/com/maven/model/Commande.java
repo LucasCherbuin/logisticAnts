@@ -1,34 +1,31 @@
 package com.maven.model;
 
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.*;
-
+import java.util.List;
 
 @Entity
 @Table(name = "commande")
-
 public class Commande {
-    private int id;
-    @ManyToOne
-    private int articleCommandeId;
-    @OneToMany
-    private int userId;
-    
-    public Commande(int id, int articleCommandeId, int userId) {
-        this.id = id;
-        this.articleCommandeId = articleCommandeId;
-        this.userId = userId;
-    }
 
-    //getters
-    public int getId() {
-        return id;
-    }
-    public int getArticleCommandeId() {
-        return articleCommandeId;
-    }
-    public int getUserId() {
-        return userId;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    private List<ArticleCommande> articles;
+
+    // constructeurs, getters et setters
+    public Commande() {}
+
+    public int getId() { return id; }
+    public User getUser() { return user; }
+    public List<ArticleCommande> getArticles() { return articles; }
+
+    public void setId(int id) { this.id = id; }
+    public void setUser(User user) { this.user = user; }
+    public void setArticles(List<ArticleCommande> articles) { this.articles = articles; }
 }

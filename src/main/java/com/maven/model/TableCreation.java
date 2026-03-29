@@ -3,7 +3,6 @@ package com.maven.model;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-
 public class TableCreation {
 
     public static void main(String[] args) {
@@ -11,6 +10,7 @@ public class TableCreation {
         Configuration cfg = new Configuration();
         cfg.configure("hibernate.cfg.xml");
 
+        // Ajouter toutes les classes annotées avant de construire la SessionFactory
         cfg.addAnnotatedClass(ArticleCommande.class);
         cfg.addAnnotatedClass(Commande.class);
         cfg.addAnnotatedClass(Fournisseur.class);
@@ -19,7 +19,10 @@ public class TableCreation {
         cfg.addAnnotatedClass(Role.class);
         cfg.addAnnotatedClass(User.class);
 
+        // Créer la SessionFactory
         SessionFactory factory = cfg.buildSessionFactory();
+
+        // Fermer la factory
         factory.close();
 
         System.out.println("Tables created successfully!");

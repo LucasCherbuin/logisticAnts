@@ -1,7 +1,6 @@
 package com.maven.model;
 
 import org.mindrot.jbcrypt.BCrypt;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -18,65 +17,34 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "role_id")
-    private int roleId;
+    private Role role;  
 
- 
+    // Constructeur vide requis par JPA
+    public User() {}
 
-    public User() {
-    }
-
-    // Parameterized constructor
-    public User(int id, String pseudo, String email, String password, int roleId) {
-        this.id = id;
+    // Constructeur avec paramètres
+    public User(String pseudo, String email, String password, Role role) {
         this.pseudo = pseudo;
         this.email = email;
-        setPassword(password); 
-        this.roleId = roleId;
+        setPassword(password);
+        this.role = role;
     }
 
+    // Getters
+    public int getId() { return id; }
+    public String getPseudo() { return pseudo; }
+    public String getEmail() { return email; }
+    public String getPassword() { return password; }
+    public Role getRole() { return role; }  // 🔹 Retourne un objet Role
 
-    public int getId() {
-        return id;
-    }
+    // Setters
+    public void setId(int id) { this.id = id; }
+    public void setPseudo(String pseudo) { this.pseudo = pseudo; }
+    public void setEmail(String email) { this.email = email; }
+    public void setPassword(String password) { this.password = hashPassword(password); }
+    public void setRole(Role role) { this.role = role; }  // 🔹 Prend un objet Role
 
-    public String getPseudo() {
-        return pseudo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getRole() {
-        return roleId;
-    }
-
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = hashPassword(password);
-    }
-
-    public void setRole(int roleId) {
-        this.roleId = roleId;
-    }
-
-
+    // Méthodes pour le hashage du mot de passe
     private String hashPassword(String plainPassword) {
         if (plainPassword == null) return null;
         return BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));

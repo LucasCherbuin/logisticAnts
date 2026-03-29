@@ -5,27 +5,16 @@
                                              http://www.hibernate.org/xsd/orm/cfg/hibernate-configuration-6.0.xsd">
 
     <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://logisticants:3306/logisticants</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
 
-        <!-- Connexion MySQL -->
-        <property name="jakarta.persistence.jdbc.driver">com.mysql.cj.jdbc.Driver</property>
-        <property name="jakarta.persistence.jdbc.url">jdbc:mysql://127.0.0.1:3306/logisticants?useSSL=false&amp;serverTimezone=UTC</property>
-        <property name="jakarta.persistence.jdbc.user">root</property>
-        <property name="jakarta.persistence.jdbc.password"></property>
-
-        <!-- Dialecte -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
-
-        <!-- Mise à jour automatique du schéma -->
         <property name="hibernate.hbm2ddl.auto">update</property>
-
-        <!-- Affichage SQL -->
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-
-        <!-- Auto-détection des classes annotées -->
         <property name="hibernate.archive.autodetection">class</property>
 
-        <!-- Mapping des classes -->
         <mapping class="com.maven.model.ArticleCommande"/>
         <mapping class="com.maven.model.Commande"/>
         <mapping class="com.maven.model.Fournisseur"/>
@@ -33,6 +22,5 @@
         <mapping class="com.maven.model.Produit"/>
         <mapping class="com.maven.model.Role"/>
         <mapping class="com.maven.model.User"/>
-
     </session-factory>
 </hibernate-configuration>

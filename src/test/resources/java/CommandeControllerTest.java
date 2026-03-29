@@ -9,7 +9,9 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.maven.controller.CommandeController;
+import com.maven.model.ArticleCommande;
 import com.maven.model.Commande;
+import com.maven.model.User;
 import com.maven.repository.CommandeRepository;
 
 import static org.mockito.Mockito.when;
@@ -30,19 +32,49 @@ class CommandeControllerTest {
     @WithMockUser(username = "Jean", roles = {"CLIENT"})
     void testGetAllCommandes() throws Exception {
 
-        Commande c1 = new Commande(1, 1, 1);
-        Commande c2 = new Commande(2, 2, 2);
+        // Création des utilisateurs fictifs
+        User user1 = new User();
+            user1.setId(1);
+            user1.setPseudo("Jean");
+        User user2 = new User();
+            user2.setId(2);
+            user2.setPseudo("Paul");
+
+        // Création des articles de commande fictifs
+        ArticleCommande ac1 = new ArticleCommande();
+            ac1.setId(101);
+        ArticleCommande ac2 = new ArticleCommande();
+            ac2.setId(102);
+
+        ArticleCommande ac3 = new ArticleCommande();
+            ac3.setId(201);
+        ArticleCommande ac4 = new ArticleCommande();
+            ac4.setId(202);
+
+        // Création des commandes avec relations
+        Commande c1 = new Commande();
+            c1.setUser(user1);
+            c1.setArticles(Arrays.asList(ac1, ac2));
+
+        Commande c2 = new Commande();
+            c2.setUser(user2);
+            c2.setArticles(Arrays.asList(ac3, ac4));
 
         List<Commande> mockList = Arrays.asList(c1, c2);
 
-        when(commandeRepository.findAll()).thenReturn(Arrays.asList(c1, c2));
+        when(commandeRepository.findAll()).thenReturn(mockList);
 
+        // Test HTTP GET et vérification des JSON imbriqués
         mockMvc.perform(get("/commandes"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.length()").value(2))
-               .andExpect(jsonPath("$[0].articleCommandeId").value(1))
-               .andExpect(jsonPath("$[0].userId").value(1))
-               .andExpect(jsonPath("$[1].articleCommandeId").value(2))
-               .andExpect(jsonPath("$[1].userId").value(2));
+               .andExpect(jsonPath("$[0].user.id").value(1))
+               .andExpect(jsonPath("$[0].articles.length()").value(2))
+               .andExpect(jsonPath("$[0].articles[0].id").value(101))
+               .andExpect(jsonPath("$[0].articles[1].id").value(102))
+               .andExpect(jsonPath("$[1].user.id").value(2))
+               .andExpect(jsonPath("$[1].articles.length()").value(2))
+               .andExpect(jsonPath("$[1].articles[0].id").value(201))
+               .andExpect(jsonPath("$[1].articles[1].id").value(202));
     }
 }
