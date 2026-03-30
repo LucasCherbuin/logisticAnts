@@ -5,6 +5,7 @@ import javax.security.auth.callback.*;
 import javax.security.auth.login.LoginException;
 import javax.security.auth.spi.LoginModule;
 import java.util.Map;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class DummyLoginModule implements LoginModule {
 
@@ -78,5 +79,20 @@ public class DummyLoginModule implements LoginModule {
         // Nettoyage du Subject lors de la déconnexion
         subject.getPrincipals().clear();
         return true;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+
+        if (UserStore.exists(request.pseudo)) {
+            return ResponseEntity.badRequest().body("User already exists");
+        }
+
+        // Hash du mot de passe
+        String hashedPassword = BCrypt.hashpw(request.password, BCrypt.gensalt());
+
+        UserStore.addUser(request.pseudo, hashedPassword);
+
+        return ResponseEntity.ok("User registered successfully");
     }
 }
