@@ -1,0 +1,50 @@
+$font-stack: Helvetica, sans-serif;
+$padding-base: 10px;
+
+//adapt colors environment on the role of the user
+$role-themes: ( 
+
+  'ADMIN': ("primary": #207DE6, "secondary": #4D91DF),
+  'LOGISTICIEN': ("primary": #FD3131, "secondary": #EA8888),
+  'VISITEUR': ("primary": #F087DD, "secondary": #FAE4FA),
+  'CLIENT': ("primary": #E0E82E, "secondary": #EEF378)
+);
+
+
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@each $role, $colors in $role-themes {
+  .#{$role}-theme {
+    background-color: map-get($colors, "secondary");
+    color: white;
+    
+    .formulaire {
+      border: 50px solid map-get($colors, "primary");
+    }
+
+    .dashboard {
+      background-color: map-get($colors, "primary");
+    }
+
+    .popup {
+      background-color: map-get($colors, "secondary");
+    }
+
+    .table {
+      background-color: map-get($colors, "secondary");
+    }
+
+    .colomn-table-filter::onclick {
+      background-color: map-get(#D9D9D9, "primary");
+    }
+  }
+
+
+
+}
