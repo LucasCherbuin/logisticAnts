@@ -2,7 +2,11 @@ import { OnInit } from '@angular/core';
 import { FournisseurService } from '../services/fournisseur.service';
 import { Fournisseur } from '../models/fournisseur.model';
 
-
+@Component({
+  selector: 'app-fournisseur',
+  templateUrl: './fournisseur.component.html',
+  styleUrls: ['mains.css']
+})
 
 
     export class FournisseurComponent implements OnInit {

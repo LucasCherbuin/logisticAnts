@@ -3,6 +3,12 @@ import { CommandeService } from '../services/commande.service';
 import { Commande } from '../models/commande.model';
 
 
+@Component({
+  selector: 'commande',
+  templateUrl: './commande.component.html',
+  styleUrls: ['mains.css']
+})
+
     export class CommandeComponent implements OnInit {
     commandes: Commande[] = [];
 
