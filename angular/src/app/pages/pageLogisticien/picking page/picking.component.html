@@ -1,0 +1,18 @@
+
+<p>Commande n* {{ commande.id }}</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th>Quantité</th>
+            <th>valider</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let article of commande.articles">
+            <td>{{ articleCommande.produit }}</td>
+            <td>{{ articleCommande.quantite }}</td>
+            <td><button (click)="openConfirmDialog"><i class="ph ph-check-circle"></i></button></td>
+        </tr>
+</tab>
