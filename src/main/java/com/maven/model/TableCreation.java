@@ -8,7 +8,7 @@ public class TableCreation {
     public static void main(String[] args) {
 
         Configuration cfg = new Configuration();
-        cfg.configure("hibernate.cfg.xml");
+        cfg.configure("Hibernate.cfg.xml");
 
         // Ajouter toutes les classes annotées avant de construire la SessionFactory
         cfg.addAnnotatedClass(ArticleCommande.class);

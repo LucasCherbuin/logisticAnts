@@ -1,9 +1,10 @@
-import {injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ArticleCommande} from '../models/ArticleCommande.model';
 
-@injectable({
+@Injectable({
+
   providedIn: 'root'
 })
 export class ArticleCommandeService {
