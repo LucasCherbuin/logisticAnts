@@ -4,6 +4,7 @@ import com.maven.service.mailer.MailService;
 import com.maven.dto.MailRequest;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/mail")
 public class MailController {

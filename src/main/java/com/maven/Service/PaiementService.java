@@ -1,4 +1,4 @@
-package com.maven.Service;
+package com.maven.service;
 
 import okhttp3.*;
 import okhttp3.MediaType;
