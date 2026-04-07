@@ -1,39 +1,43 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { MailService, MailRequest } from '../services/mailer.service';
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./styles.scss']
 })
-export class AuthService {
+export class RegisterComponent {
 
-  private api = 'http://localhost:8080/auth';
+  pseudo = '';
+  email = '';
+  password = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private authService: AuthService,
+    private mailService: MailService
+  ) {}
 
-  login(pseudo: string, password: string) {
-    return this.http.post<any>(`${this.api}/login`, {
-      pseudo,
-      password
-    });
-  }
+  register() {
+    this.authService.register(this.pseudo, this.email, this.password)
+      .subscribe({
+        next: (res) => {
+          console.log('User créé ', res);
 
-  register(pseudo: string, email: string, password: string) {
-    return this.http.post<any>(`${this.api}/register`, {
-      pseudo,
-      email,
-      password
-    });
-  }
+          const mail: MailRequest = {
+            to: this.email,
+            subject: 'Inscription réussie - Logisticiants',
+            body: `Cher ${this.pseudo}, votre compte a bien été créé.`
+          };
 
-  saveToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
-  }
-
-  logout() {
-    localStorage.removeItem('token');
+          this.mailService.sendMail(mail).subscribe({
+            next: () => console.log('Email envoyé '),
+            error: (err) => console.error('Mail error ', err)
+          });
+        },
+        error: (err) => {
+          console.error('Register error ', err);
+        }
+      });
   }
 }

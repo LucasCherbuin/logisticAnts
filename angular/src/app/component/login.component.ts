@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
-// Typage des réponses backend
+
 interface LoginResponse {
   token: string;
   username: string;
@@ -15,7 +15,8 @@ interface RegisterResponse {
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./styles.scss']
 })
 export class LoginComponent {
 
