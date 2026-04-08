@@ -18,7 +18,7 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "role_id")
-    private int roleId;
+    private Role role;
 
  
 
@@ -31,7 +31,7 @@ public class User {
         this.pseudo = pseudo;
         this.email = email;
         setPassword(password); 
-        this.roleId = roleId;
+        this.role = role;
     }
 
 
@@ -51,8 +51,8 @@ public class User {
         return password;
     }
 
-    public int getRole() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
 
@@ -72,8 +72,8 @@ public class User {
         this.password = hashPassword(password);
     }
 
-    public void setRole(int roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 
