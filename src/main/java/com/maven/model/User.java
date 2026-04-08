@@ -35,7 +35,7 @@ public class User {
     public String getPseudo() { return pseudo; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-    public Role getRole() { return role; }  // 🔹 Retourne un objet Role
+    public Role getRole() { return role; }  
 
     // Setters
     public void setId(int id) { this.id = id; }

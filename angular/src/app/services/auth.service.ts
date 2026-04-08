@@ -17,11 +17,12 @@ export class AuthService {
     });
   }
 
-  register(pseudo: string, email: string, password: string) {
+  register(pseudo: string, email: string, password: string, roleId : string) {
     return this.http.post<any>(`${this.api}/register`, {
       pseudo,
       email,
-      password
+      password,
+      roleId
     });
   }
 
