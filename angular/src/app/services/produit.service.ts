@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { Produit } from '../models/produit.model';
 
 @Injectable({
@@ -29,5 +29,10 @@ export class ProduitService {
     
     deleteProduit(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
+
+    searchProduits(term: string): Observable<Produit[]> {
+        return this.http.get<Produit[]>(`${this.apiUrl}?search=${term}`);
+
     }
 }

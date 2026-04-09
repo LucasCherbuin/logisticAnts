@@ -14,7 +14,7 @@ public class CustomPayController {
     private static final OkHttpClient httpClient = new OkHttpClient();
 
     @CrossOrigin
-    @PostMapping(path = "/pay")
+    @PostMapping(path = "api/pay")
     public static String pay(@org.springframework.web.bind.annotation.RequestBody JSONObject inputBody) throws NoSuchAlgorithmException, InvalidKeyException {
         try {
             // Extract payment details from inputBody
