@@ -14,6 +14,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
         RoleSeeder.seedRoles();
         UserSeeder.seedUsers();
+        PaymentMethodSeeder.seedPayementMethods();
         System.out.println("Seeding done");
     }
 }

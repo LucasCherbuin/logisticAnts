@@ -1,6 +1,9 @@
 package com.maven.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.sql.Blob;
 import java.util.List;
 
 @Entity
@@ -11,6 +14,11 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String payement;
+    @JsonIgnore
+    private Blob facture;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -18,14 +26,24 @@ public class Commande {
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private List<ArticleCommande> articles;
 
+
     // constructeurs, getters et setters
     public Commande() {}
 
+    public Commande(String payement, Blob facture) {
+        this.payement = payement;
+        this.facture = facture;
+    }
+
     public int getId() { return id; }
+    public String getPayment() { return payement; }
+    public Blob getfacture() { return facture; }
     public User getUser() { return user; }
     public List<ArticleCommande> getArticles() { return articles; }
 
     public void setId(int id) { this.id = id; }
+    public void setPayement(String payement) { this.payement = payement; }
+    public void setFacture(Blob facture) { this.facture = facture; }
     public void setUser(User user) { this.user = user; }
     public void setArticles(List<ArticleCommande> articles) { this.articles = articles; }
 }
