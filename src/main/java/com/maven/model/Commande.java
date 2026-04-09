@@ -4,8 +4,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 740c22f (mise à jour classe 'commande')
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.sql.Blob;
@@ -25,6 +28,9 @@ public class Commande {
     private Blob facture;
 
 
+<<<<<<< HEAD
+>>>>>>> 740c22f (mise à jour classe 'commande')
+=======
 >>>>>>> 740c22f (mise à jour classe 'commande')
     @ManyToOne
     private int articleCommandeId;
