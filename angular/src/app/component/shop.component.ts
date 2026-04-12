@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
 import  { ProduitService } from 'src/app/services/produit.service';
 import { Produit } from 'src/app/models/produit.model';
 
@@ -22,9 +20,13 @@ export class shopComponent implements OnInit {
     }
 
     loadProduits() {
-        this.produitService.getProduits().subscribe(data => {
-            this.produits = data;
-        });
+            this.produitService.getProduits().subscribe(data => {
+                this.produits = data;
+            },
+            (error: any) => {
+            console.error('Error fetching produits', error);
+            }
+        );
     }
 
     onSearch() {

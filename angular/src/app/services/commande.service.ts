@@ -30,4 +30,8 @@ export class CommandeService {
     deleteCommande(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
+
+    searchCommande(term: string): Observable<Commande[]> {
+            return this.http.get<Commande[]>(`${this.apiUrl}?search=${term}`);
+        }
 }

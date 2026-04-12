@@ -33,6 +33,5 @@ export class ProduitService {
 
     searchProduits(term: string): Observable<Produit[]> {
         return this.http.get<Produit[]>(`${this.apiUrl}?search=${term}`);
-
     }
 }

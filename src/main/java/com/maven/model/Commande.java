@@ -1,65 +1,32 @@
 package com.maven.model;
 
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.*;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 740c22f (mise à jour classe 'commande')
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.sql.Blob;
 import java.util.List;
->>>>>>> 740c22f (mise à jour classe 'commande')
 
 @Entity
 @Table(name = "commande")
-
 public class Commande {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-<<<<<<< HEAD
-=======
 
     private String payement;
+
     @JsonIgnore
     private Blob facture;
 
-
-<<<<<<< HEAD
->>>>>>> 740c22f (mise à jour classe 'commande')
-=======
->>>>>>> 740c22f (mise à jour classe 'commande')
     @ManyToOne
-    private int articleCommandeId;
-    @OneToMany
-    private int userId;
-    
-    public Commande(int id, int articleCommandeId, int userId) {
-        this.id = id;
-        this.articleCommandeId = articleCommandeId;
-        this.userId = userId;
-    }
+    @JoinColumn(name = "user_id")
+    private User user;
 
-<<<<<<< HEAD
-    //getters
-    public int getId() {
-        return id;
-    }
-    public int getArticleCommandeId() {
-        return articleCommandeId;
-    }
-    public int getUserId() {
-        return userId;
-    }
-=======
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private List<ArticleCommande> articles;
 
-
-    // constructeurs, getters et setters
+    // Constructeur vide (obligatoire)
     public Commande() {}
 
     public Commande(String payement, Blob facture) {
@@ -67,16 +34,17 @@ public class Commande {
         this.facture = facture;
     }
 
+    // Getters
     public int getId() { return id; }
-    public String getPayment() { return payement; }
-    public Blob getfacture() { return facture; }
+    public String getPayement() { return payement; }
+    public Blob getFacture() { return facture; }
     public User getUser() { return user; }
     public List<ArticleCommande> getArticles() { return articles; }
 
+    // Setters
     public void setId(int id) { this.id = id; }
     public void setPayement(String payement) { this.payement = payement; }
     public void setFacture(Blob facture) { this.facture = facture; }
     public void setUser(User user) { this.user = user; }
     public void setArticles(List<ArticleCommande> articles) { this.articles = articles; }
->>>>>>> 740c22f (mise à jour classe 'commande')
 }
