@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed} from '@angular/core/testing';
 import {beforeEach, describe, expect, it} from 'vitest';
-import { CommandeComponent } from 'src/app/component/commande.component';
+import { CommandeComponent } from 'src/app/component/commandes/commande.component';
 
 
 describe('CommandeComponent', () => {
