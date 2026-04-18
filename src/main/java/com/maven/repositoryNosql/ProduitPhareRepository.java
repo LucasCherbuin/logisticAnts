@@ -7,14 +7,12 @@ import com.maven.modelNosql.ProduitPhare;
 
 import java.util.List;
 
+@Repository
 public interface ProduitPhareRepository extends JpaRepository<ProduitPhare, Integer> {
-    
-    List<ProduitPhare> findByProduitPhare(int Id);
-    List<ProduitPhare> findByPrixTotal(int prixTotal);
-    List<ProduitPhare> findByRemboursement(int remboursement);
+
+    List<ProduitPhare> findByPrix(int Id);
+    List<ProduitPhare> findByProduit(int produit);
     List<ProduitPhare> findByAchat(int achat);
-    List<ProduitPhare> findByDate(String date);
-    
 
 
 }

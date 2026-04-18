@@ -7,12 +7,14 @@ import com.maven.modelNosql.Prix;
 
 import java.util.List;
 
-@Repository
 public interface PrixRepository extends JpaRepository<Prix, Integer> {
-
-    List<Prix> findByPrix(int Id);
-    List<Prix> findByProduit(int produit);
+    
+    List<Prix> findByProduitPhare(int Id);
+    List<Prix> findByPrixTotal(int prixTotal);
+    List<Prix> findByRemboursement(int remboursement);
     List<Prix> findByAchat(int achat);
+    List<Prix> findByDate(String date);
+    
 
 
 }

@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div>
+    <label for="pseudo">Pseudo:</label>
+    <input id="pseudo" formControlName="pseudo" />
+    <div *ngIf="loginForm.get('pseudo')?.invalid && loginForm.get('pseudo')?.touched">
+      <small *ngIf="loginForm.get('pseudo')?.errors?.['required']">Le pseudo est requis.</small>
+      <small *ngIf="loginForm.get('pseudo')?.errors?.['minlength']">Le pseudo doit comporter au moins 3 caractères.</small>
+    </div>
+  </div>
+
+
+
+
+  <div>
+    <label for="password">Mot de passe:</label>
+    <input id="password" type="password" formControlName="password" />
+    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+      <small *ngIf="loginForm.get('password')?.errors?.['required']">Le mot de passe est requis.</small>
+      <small *ngIf="loginForm.get('password')?.errors?.['minlength']">Le mot de passe doit comporter au moins 4 caractères.</small>
+    </div>
+  </div>
+
+
+  <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+</form>

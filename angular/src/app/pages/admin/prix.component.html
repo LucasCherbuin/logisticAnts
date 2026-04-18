@@ -1,0 +1,31 @@
+
+<div >
+    <input 
+        type="text" 
+        [formControl]="filterfcvar" 
+        placeholder="Rechercher un utilisateur..."
+        class="form-control mb-3"
+        />
+    <table>
+        <thead>
+            <tr></tr>
+                <th scope="col">achat</th>
+                <th scope="col">remboursement</th>
+                <th scope="col">Total</th>
+                <th scope="col">date du jour</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="filtre"
+            *ngFor="let prix of filteredPrix$ | async; let i = index"
+            class="list-group-item"
+            (click)="setCurrentAntrag(prix, i)"
+            >
+                <td> {{ prix.id }} </td>
+                <td> {{ prix.remboursement }}</td>
+                <td> {{ prix.prixTotal}}<td>
+                <td> {{ prix.date}}<td>
+            </tr>
+        </tbody>
+    </table>
+</div>
