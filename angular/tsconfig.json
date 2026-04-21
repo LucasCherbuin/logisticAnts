@@ -16,12 +16,16 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "skipLibCheck": true,
     "useDefineForClassFields": false,
+<<<<<<< HEAD
     "types": ["jasmine"],
     "baseUrl": "./",
     "paths": {
       "@angular/*": ["./node_modules/@angular/*"]
     },
+=======
+>>>>>>> d429531 (correction fichier pour builds)
     "lib": [
       "ES2022",
       "dom"
