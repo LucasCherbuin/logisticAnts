@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed} from '@angular/core/testing';
 import {beforeEach, describe, expect, it} from 'vitest';
-import { UserComponent } from 'src/app/component/user.component';
+import { UserComponent } from 'src/app/components/user.component';
 
 describe('UserComponent', () => {
   let component: UserComponent;

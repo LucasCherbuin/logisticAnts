@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed} from '@angular/core/testing';
 import {beforeEach, describe, expect, it} from 'vitest';
-import { ImageComponent } from 'src/app/component/image.component';
+import { ImageComponent } from 'src/app/components/image.component';
 
 describe('ImageComponent', () => {
   let component: ImageComponent;

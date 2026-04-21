@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed} from '@angular/core/testing';
 import {beforeEach, describe, expect, it} from 'vitest';
-import { FournisseurComponent } from 'src/app/component/fournisseur.component';
+import { FournisseurComponent } from 'src/app/components/fournisseur.component';
 
 describe('FournisseurComponent', () => {
   let component: FournisseurComponent;
