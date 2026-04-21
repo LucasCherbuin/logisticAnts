@@ -16,11 +16,8 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "skipLibCheck": true,
     "useDefineForClassFields": false,
-    "baseUrl": "./",
-    "paths": {
-      "@angular/*": ["./node_modules/@angular/*"]
-    },
     "lib": [
       "ES2022",
       "dom"
