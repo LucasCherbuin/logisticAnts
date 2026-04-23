@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/register.service';
 import { Router } from '@angular/router';
 
 
@@ -16,7 +16,7 @@ interface RegisterResponse {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./styles.scss']
+  styleUrls: ['./main.scss']
 })
 export class LoginComponent {
 

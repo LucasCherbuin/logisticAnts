@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "compile-sass": "sass src/styles.scss"
+    "compile-sass": "sass src/main.scss"
   },
   "dependencies": {
     "@angular/animations": "21.2.6",

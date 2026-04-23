@@ -88,11 +88,7 @@
               "src/assets"
             ],
             "styles": [
-<<<<<<< HEAD
-              "src/styles.css"
-=======
               "src/main.scss"
->>>>>>> d429531 (correction fichier pour builds)
             ],
             "scripts": []
           }
