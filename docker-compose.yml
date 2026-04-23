@@ -1,8 +1,8 @@
 services:
   java-app:
     build:
-      context: .
-      dockerfile: Dockerfile.maven
+      context: ..
+      dockerfile: .devcontainer/java/Dockerfile.maven
     container_name: logisticants-java
     depends_on:
       mysql:
@@ -34,8 +34,8 @@ services:
 
   angular:
     build:
-      context: .
-      dockerfile: angular/Dockerfile.angular
+      context: ..
+      dockerfile: .devcontainer/angular/Dockerfile.angular
     container_name: logisticants-angular
     ports:
       - "4200:4200"
