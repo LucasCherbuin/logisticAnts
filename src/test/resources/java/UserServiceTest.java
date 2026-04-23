@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-package com.maven.test;
-=======
-
->>>>>>> PageLogisticien
-=======
 package com.maven.test;
 
->>>>>>> PageVisiteur
+
 
 import com.maven.Service.UserService;
 import com.maven.model.User;
