@@ -1,0 +1,24 @@
+FROM node:20-alpine
+
+# Install Angular CLI globally
+RUN npm install -g @angular/cli
+
+# Set working directory matching the project structure
+WORKDIR /logisticants/angular
+
+# Copy dependency files first for better layer caching
+COPY angular/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the Angular project
+COPY angular/ ./
+
+EXPOSE 4200
+
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
+
+# docker build -f .devcontainer/angular/Dockerfile.angular -t logisticants-angular .
+
+# docker run -it --rm logisticants-angular sh 
