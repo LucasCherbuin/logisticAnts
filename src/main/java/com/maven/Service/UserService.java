@@ -1,4 +1,4 @@
-package com.maven.Service;
+package com.maven.service;
 
 import com.maven.repository.UserRepository;
 import com.maven.model.User;
