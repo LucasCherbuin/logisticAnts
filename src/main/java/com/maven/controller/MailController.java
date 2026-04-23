@@ -1,6 +1,6 @@
 package com.maven.controller;
 
-import com.maven.service.mailer.MailService;
+import com.maven.service.mailer.*;
 import com.maven.dto.MailRequest;
 import org.springframework.web.bind.annotation.*;
 
