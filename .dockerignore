@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-node_modules
-dist
-.git
-.gitignore
-Dockerfile
-docker-compose.yml
-=======
 
 **/node_modules
 **/.git
 **/dist
 **/.angular
->>>>>>> db81b49 (update fichiers dockers)
