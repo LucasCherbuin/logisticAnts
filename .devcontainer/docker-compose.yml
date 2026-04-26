@@ -40,8 +40,8 @@ services:
     ports:
       - "4200:4200"
     volumes:
-      - ./angular:/app/angular
-      - /app/angular/node_modules
+      - ./angular:/logisticants/angular
+      - /logisticants/angular/node_modules
     networks:
       - mynetwork
 
