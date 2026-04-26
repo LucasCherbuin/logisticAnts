@@ -33,18 +33,18 @@ services:
       retries: 10
 
   angular:
-    build:
-      context: ..
-      dockerfile: .devcontainer/angular/Dockerfile.angular
-    container_name: logisticants-angular
-    ports:
-      - "4200:4200"
-    volumes:
-      - ./angular:/logisticants/angular
-      - /logisticants/angular/node_modules
-    networks:
-      - mynetwork
+      build:
+        context: ..
+        dockerfile: .devcontainer/angular/Dockerfile.angular
+      container_name: logisticants-angular
+      ports:
+        - "4200:4200"
+      networks:
+        - mynetwork
 
 networks:
   mynetwork:
     driver: bridge
+
+volumes:
+  angular_node_modules:
