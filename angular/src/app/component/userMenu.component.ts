@@ -6,7 +6,7 @@ import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-menu',
-  templateUrl: './userMenu.component.html',
+  templateUrl: './menus/*',
   styleUrls: ['./main.scss'],
   standalone: true,
   imports: [ RouterOutlet,]

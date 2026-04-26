@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import  { ProduitService } from 'src/app/services/produit.service';
-import { Produit } from 'src/app/models/produit.model';
+import  { ProduitService } from '../services/produit.service';
+import { Produit } from '../models/produit.model';
 
 @Component({
     selector: 'app-shop',
-    templateUrl: './shop.component.html',
+    templateUrl: './client/shop.component.html',
     styleUrls: ['./main.scss']
 })
 export class shopComponent implements OnInit {
