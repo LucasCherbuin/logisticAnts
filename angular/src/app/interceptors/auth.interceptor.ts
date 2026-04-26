@@ -4,16 +4,16 @@ import {
   HttpRequest,
   HttpHandler
 } from '@angular/common/http';
-import { AuthService } from '../services/register.service';
+import { RegisterService } from '../services/register.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthService) {}
+  constructor(private registerService: RegisterService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
-    const token = this.authService.getToken();
+    const token = this.registerService.getToken();
 
     if (token) {
       req = req.clone({

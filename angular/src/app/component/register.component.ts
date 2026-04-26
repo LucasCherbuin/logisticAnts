@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { RegisterService } from '../services/register.service';
+import { FormsModule } from '@angular/forms';
 import { MailService, MailRequest } from '../services/mailer.service';
-import { User } from '../models/user';
 import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./main.scss']
+  templateUrl: '../pages/login/register.component.html',
+  styleUrls: ['../../main.scss'],
+  imports: [FormsModule],
 })
 export class RegisterComponent {
 
@@ -17,12 +18,12 @@ export class RegisterComponent {
   roleId = '';
 
   constructor(
-    private authService: AuthService,
+    private registerService: RegisterService,
     private mailService: MailService
   ) {} 
 
 register() {
-  this.authService.register(this.pseudo, this.email, this.password, 'CLIENT')
+  this.registerService.register(this.pseudo, this.email, this.password, 'CLIENT')
       .pipe(
         switchMap(() => {
           const mail: MailRequest = {

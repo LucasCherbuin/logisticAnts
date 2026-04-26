@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from '../services/register.service';
+import { FormsModule } from '@angular/forms';
+import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
 
 
@@ -13,26 +14,30 @@ interface RegisterResponse {
   message: string;
 }
 
+
+
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./main.scss']
+  templateUrl: '../pages/login/login.component.html',
+  styleUrls: ['../../main.scss'],
+  imports: [FormsModule],
 })
 export class LoginComponent {
 
+  pseudo: string = '';
+  password: string = '';
+
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private registerService: RegisterService,
     private router: Router
   ) {}
 
   loginForm = this.fb.group({
     pseudo: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email, Validators.minLength(5)]],
     password: ['', [Validators.required, Validators.minLength(4)]]
   });
 
-  // LOGIN
   login() {
 
     if (this.loginForm.invalid) {
@@ -41,10 +46,10 @@ export class LoginComponent {
 
     const { pseudo, password } = this.loginForm.value;
 
-    this.authService.login(pseudo!, password!)
+    this.registerService.login(pseudo!, password!)
       .subscribe({
         next: (res: LoginResponse) => {
-          this.authService.saveToken(res.token);
+          this.registerService.saveToken(res.token);
           this.router.navigate(['/dashboard']);
         },
         error: () => {
@@ -53,22 +58,4 @@ export class LoginComponent {
       });
   }
 
-  register() {
-
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    const { pseudo, email, password } = this.loginForm.value;
-
-    this.authService.register(pseudo!, email!, password!)
-      .subscribe({
-        next: (res: RegisterResponse) => {
-          alert('Registration successful, you can now log in');
-        },
-        error: () => {
-          alert('Registration failed');
-        }
-      });
-  }
 }
