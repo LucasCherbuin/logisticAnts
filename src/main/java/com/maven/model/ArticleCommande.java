@@ -18,9 +18,8 @@ public class ArticleCommande {
 
     @ManyToOne
     @JoinColumn(name = "commande_id")
-    private Commande commande; // <-- propriété manquante pour mappedBy
-     
-    // constructeurs, getters et setters
+    private Commande commande;
+
     public ArticleCommande() {}
 
     public int getId() { return id; }
@@ -32,5 +31,4 @@ public class ArticleCommande {
     public void setProduit(Produit produit) { this.produit = produit; }
     public void setQuantite(int quantite) { this.quantite = quantite; }
     public void setCommande(Commande commande) { this.commande = commande; }
-
 }
