@@ -30,8 +30,38 @@ class CommandeControllerTest {
     @WithMockUser(username = "Jean", roles = {"CLIENT"})
     void testGetAllCommandes() throws Exception {
 
+<<<<<<< HEAD
         Commande c1 = new Commande(1, 1, 1);
         Commande c2 = new Commande(2, 2, 2);
+=======
+        // Création des utilisateurs fictifs
+        User user1 = new User();
+            user1.setId(1);
+            user1.setPseudo("Jean");
+        User user2 = new User();
+            user2.setId(2);
+            user2.setPseudo("Paul");
+
+        // Création des articles de commande fictifs
+        ArticleCommande ac1 = new ArticleCommande();
+            ac1.setId(101);
+        ArticleCommande ac2 = new ArticleCommande();
+            ac2.setId(102);
+
+        ArticleCommande ac3 = new ArticleCommande();
+            ac3.setId(201);
+        ArticleCommande ac4 = new ArticleCommande();
+            ac4.setId(202);
+
+        // Création des commandes avec relations
+        Commande c1 = new Commande();
+            c1.setUser(user1);
+            c1.setArticleCommandes(Arrays.asList(ac1, ac2));
+
+        Commande c2 = new Commande();
+            c2.setUser(user2);
+            c2.setArticleCommandes(Arrays.asList(ac3, ac4));
+>>>>>>> 5a82615 (correction back end)
 
         List<Commande> mockList = Arrays.asList(c1, c2);
 
@@ -40,9 +70,20 @@ class CommandeControllerTest {
         mockMvc.perform(get("/commandes"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.length()").value(2))
+<<<<<<< HEAD
                .andExpect(jsonPath("$[0].articleCommandeId").value(1))
                .andExpect(jsonPath("$[0].userId").value(1))
                .andExpect(jsonPath("$[1].articleCommandeId").value(2))
                .andExpect(jsonPath("$[1].userId").value(2));
+=======
+               .andExpect(jsonPath("$[0].user.id").value(1))
+               .andExpect(jsonPath("$[0].articleCommandes.length()").value(2))
+               .andExpect(jsonPath("$[0].articleCommandes[0].id").value(101))
+               .andExpect(jsonPath("$[0].articleCommandes[1].id").value(102))
+               .andExpect(jsonPath("$[1].user.id").value(2))
+               .andExpect(jsonPath("$[1].articleCommandes.length()").value(2))
+               .andExpect(jsonPath("$[1].articleCommandes[0].id").value(201))
+               .andExpect(jsonPath("$[1].articleCommandes[1].id").value(202));
+>>>>>>> 5a82615 (correction back end)
     }
 }

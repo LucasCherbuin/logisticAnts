@@ -21,6 +21,7 @@ public class Commande {
         this.userId = userId;
     }
 
+<<<<<<< HEAD
     //getters
     public int getId() {
         return id;
@@ -32,3 +33,18 @@ public class Commande {
         return userId;
     }
 }
+=======
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    private List<ArticleCommande> articleCommandes;
+
+    public Commande() {}
+
+    public int getId() { return id; }
+    public User getUser() { return user; }
+    public List<ArticleCommande> getArticleCommandes() { return articleCommandes; }
+
+    public void setId(int id) { this.id = id; }
+    public void setUser(User user) { this.user = user; }
+    public void setArticleCommandes(List<ArticleCommande> articleCommandes) { this.articleCommandes = articleCommandes; }
+}
+>>>>>>> 5a82615 (correction back end)

@@ -14,6 +14,7 @@ public class Role {
     this.label = label;
 }
 
+<<<<<<< HEAD
  // Getters
 public int getId() {
 return id;
@@ -31,4 +32,15 @@ this.id = id;
  public void setLabel(String label) {
  this.label = label;
 }
+=======
+    public Role() {}
+
+    public Role(String label) { this.label = label; }
+
+    public int getId() { return id; }
+    public String getLabel() { return label; }
+
+    public void setId(int id) { this.id = id; }
+    public void setLabel(String label) { this.label = label; }
+>>>>>>> 5a82615 (correction back end)
 }

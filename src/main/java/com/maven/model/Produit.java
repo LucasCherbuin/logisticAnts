@@ -107,4 +107,27 @@ public class Produit {
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
+<<<<<<< HEAD
+=======
+
+    public int getId() { return id; }
+    public String getNom() { return nom; }
+    public int getPrix() { return prix; }
+    public int getQuantiteStock() { return quantiteStock; }
+    public Date getDerniereAjout() { return derniereAjout; }
+    public boolean isPerissable() { return perissable; }
+    public Date getDatePeremption() { return datePeremption; }
+    public Fournisseur getFournisseur() { return fournisseur; }
+    public Image getImage() { return image; }
+
+    public void setId(int id) { this.id = id; }
+    public void setNom(String nom) { this.nom = nom; }
+    public void setPrix(int prix) { this.prix = prix; }
+    public void setQuantiteStock(int quantiteStock) { this.quantiteStock = quantiteStock; }
+    public void setDerniereAjout(Date derniereAjout) { this.derniereAjout = derniereAjout; }
+    public void setPerissable(boolean perissable) { this.perissable = perissable; }
+    public void setDatePeremption(Date datePeremption) { this.datePeremption = datePeremption; }
+    public void setFournisseur(Fournisseur fournisseur) { this.fournisseur = fournisseur; }
+    public void setImage(Image image) { this.image = image; }
+>>>>>>> 5a82615 (correction back end)
 }
