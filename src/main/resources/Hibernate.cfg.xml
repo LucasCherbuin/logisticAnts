@@ -6,9 +6,13 @@
 
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+<<<<<<< HEAD
         <property name="hibernate.connection.url">
             jdbc:mysql://172.21.0.2:3306/logisticants
         </property>
+=======
+        <property name="hibernate.connection.url">jdbc:mysql://mysql:3306/logisticants?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true</property>
+>>>>>>> 5a82615 (correction back end)
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
 

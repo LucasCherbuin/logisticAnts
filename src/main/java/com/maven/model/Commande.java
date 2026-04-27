@@ -16,16 +16,15 @@ public class Commande {
     private User user;
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    private List<ArticleCommande> articles;
+    private List<ArticleCommande> articleCommandes;
 
-    // constructeurs, getters et setters
     public Commande() {}
 
     public int getId() { return id; }
     public User getUser() { return user; }
-    public List<ArticleCommande> getArticles() { return articles; }
+    public List<ArticleCommande> getArticleCommandes() { return articleCommandes; }
 
     public void setId(int id) { this.id = id; }
     public void setUser(User user) { this.user = user; }
-    public void setArticles(List<ArticleCommande> articles) { this.articles = articles; }
+    public void setArticleCommandes(List<ArticleCommande> articleCommandes) { this.articleCommandes = articleCommandes; }
 }
