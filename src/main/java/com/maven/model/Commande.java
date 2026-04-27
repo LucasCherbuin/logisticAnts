@@ -24,9 +24,12 @@ public class Commande {
     private User user;
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    private List<ArticleCommande> articles;
+    private List<ArticleCommande> articleCommandes;
 
+<<<<<<< HEAD
     // Constructeur vide (obligatoire)
+=======
+>>>>>>> 5a82615 (correction back end)
     public Commande() {}
 
     public Commande(String payement, Blob facture) {
@@ -39,12 +42,16 @@ public class Commande {
     public String getPayement() { return payement; }
     public Blob getFacture() { return facture; }
     public User getUser() { return user; }
-    public List<ArticleCommande> getArticles() { return articles; }
+    public List<ArticleCommande> getArticleCommandes() { return articleCommandes; }
 
     // Setters
     public void setId(int id) { this.id = id; }
     public void setPayement(String payement) { this.payement = payement; }
     public void setFacture(Blob facture) { this.facture = facture; }
     public void setUser(User user) { this.user = user; }
+<<<<<<< HEAD
     public void setArticles(List<ArticleCommande> articles) { this.articles = articles; }
+=======
+    public void setArticleCommandes(List<ArticleCommande> articleCommandes) { this.articleCommandes = articleCommandes; }
+>>>>>>> 5a82615 (correction back end)
 }
