@@ -39,7 +39,6 @@ public class Produit {
         this.image = image;
     }
 
-    // Getters et setters
     public int getId() { return id; }
     public String getNom() { return nom; }
     public int getPrix() { return prix; }
