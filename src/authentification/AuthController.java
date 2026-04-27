@@ -1,4 +1,4 @@
-package com.maven.test;
+package com.authentification;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import javax.security.auth.login.LoginContext;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/")
 public class AuthController {
 
     // LOGIN

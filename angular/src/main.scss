@@ -1,14 +1,13 @@
+@use 'sass:map';  
+
 $font-stack: Helvetica, sans-serif;
 $padding-base: 10px;
-
 $role-themes: ( 
   'ADMIN': ("primary": #207DE6, "secondary": #4D91DF),
   'LOGISTICIEN': ("primary": #FD3131, "secondary": #EA8888),
   'VISITEUR': ("primary": #F087DD, "secondary": #FAE4FA),
   'CLIENT': ("primary": #E0E82E, "secondary": #EEF378)
 );
-
-@use 'sass:map';
 
 @mixin center {
   display: flex;
