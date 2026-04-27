@@ -1,5 +1,7 @@
 package com.maven.modelNosql;
 
+import java.sql.Date;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,8 +19,10 @@ public class Prix {
 
     public Prix(int id, int produit, int achat) {
         this.id = id;
-        this.produit = produit;
-        this.achat = achat;
+        this.prixTotal = prixTotal;
+        this.remboursement = remboursement;
+        this.Achat = Achat;
+        this.date = date;
     }
 
     public int getId() { return id; }

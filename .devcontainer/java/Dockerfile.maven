@@ -1,43 +1,33 @@
 # Stage 1 : Build avec Maven
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /logisticiants
-
-# Copier le fichier pom.xml et télécharger les dépendances
 COPY pom.xml .
 RUN mvn dependency:go-offline
-
-# Copier le code source et compiler / packager
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Stage 2 : Tomcat
-FROM tomcat:10.1-jdk17
-
-# Vider les applications Tomcat par défaut
-RUN rm -rf /usr/local/tomcat/webapps/*
-
-# Copier le WAR généré par Maven (prend le premier WAR trouvé dans target/)
-COPY --from=build /logisticiants/target/*.war /usr/local/tomcat/webapps/app.war
-
-# Exposer le port Tomcat
+# Stage 2 : Run avec Java directement
+FROM eclipse-temurin:17-jre
+WORKDIR /app
+COPY --from=build /logisticiants/target/*.jar app.jar
 EXPOSE 8080
-
-# Démarrer Tomcat
-CMD ["catalina.sh", "run"]
+CMD ["java", "-jar", "app.jar"]
 
 
-# docker build -f .devcontainer/java/Dockerfile.maven -t logisticants-maven .
+# docker build -f .devcontainer/java/Dockerfile.maven -t logisticants-maven . 
+# docker logs logisticants-java --tail 100
 # docker run --rm logisticants-maven
+
 
 # adapter avec le chemin de votre projet sur votre machine
 
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean install
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean test
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean compile
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean clean
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean package
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn "exec:java" "-Dexec.mainClass=com.maven.model.TableCreation"
-# docker run --rm -it -v "L:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn "exec:java" "-Dexec.mainClass=com.maven.seeder.DatabaseSeeder"
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean install
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean test
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean compile
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean clean
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean package
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn "exec:java" "-Dexec.mainClass=com.maven.model.TableCreation"
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn "exec:java" "-Dexec.mainClass=com.maven.seeder.DatabaseSeeder"
 
 
 # docker exec -it mysql mysql -u root -p logistants

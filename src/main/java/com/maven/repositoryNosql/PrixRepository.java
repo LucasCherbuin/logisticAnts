@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.maven.modelNosql.Prix;
 import java.util.List;
 
-@Repository
 public interface PrixRepository extends JpaRepository<Prix, Integer> {
     List<Prix> findByProduit(int produit);
     List<Prix> findByAchat(int achat);

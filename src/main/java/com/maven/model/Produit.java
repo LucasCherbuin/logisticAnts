@@ -107,8 +107,6 @@ public class Produit {
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
-<<<<<<< HEAD
-=======
 
     public int getId() { return id; }
     public String getNom() { return nom; }
@@ -129,5 +127,4 @@ public class Produit {
     public void setDatePeremption(Date datePeremption) { this.datePeremption = datePeremption; }
     public void setFournisseur(Fournisseur fournisseur) { this.fournisseur = fournisseur; }
     public void setImage(Image image) { this.image = image; }
->>>>>>> 5a82615 (correction back end)
 }
