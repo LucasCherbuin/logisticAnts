@@ -1,4 +1,28 @@
 services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: logisticants
+      MYSQL_ROOT_HOST: "%"
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "172.17.0.1", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    restart: unless-stopped
+
+    # docker exec -it mysql bash
+    # mysql -u root -p
+    # USE logisticants;
+    # SELECT * FROM "nom_table" LIMIT 10;
+
   java-app:
     build:
       context: ..
@@ -8,43 +32,28 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/logisticants?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://172.18.0.2:3306/logisticants?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
     ports:
       - "8080:8080"
     networks:
       - mynetwork
-
-  mysql:
-    image: mysql:8.0
-    container_name: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: logisticants
-    ports:
-      - "3306:3306"
-    networks:
-      - mynetwork
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+    restart: unless-stopped
 
   angular:
-      build:
-        context: ..
-        dockerfile: .devcontainer/angular/Dockerfile.angular
-      container_name: logisticants-angular
-      ports:
-        - "4200:4200"
-      networks:
-        - mynetwork
+    build:
+      context: ..
+      dockerfile: .devcontainer/angular/Dockerfile.angular
+    container_name: logisticants-angular
+    ports:
+      - "4200:4200"
+    networks:
+      - mynetwork
+    restart: unless-stopped
 
 networks:
   mynetwork:
     driver: bridge
-
-volumes:
-  angular_node_modules:
