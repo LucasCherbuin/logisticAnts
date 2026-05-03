@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
-import com.maven.authentification.JAASCallbackHandler;
 
 public class Driver {
 
@@ -13,10 +12,11 @@ public class Driver {
 
     public static void main(String[] args) {
         System.out.println("Authentication en cours...");
-        LoginContext lc;
-
         try {
-            lc = new LoginContext("SampleLoginModule", new CallbackHandler());
+            LoginRequest request = new LoginRequest();
+            request.pseudo = "test";
+            request.password = "test";
+            LoginContext lc = new LoginContext("SampleLoginModule", new JAASCallbackHandler(request));
             lc.login();
             System.out.println("Authentification réussie !");
         } catch (Exception e) {
@@ -29,7 +29,6 @@ public class Driver {
         System.out.println("Performing action with authenticated context.");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter action (Action1, Action2, logout): ");
-
         try {
             switch (Action.valueOf(br.readLine())) {
                 case Action1:
@@ -46,10 +45,9 @@ public class Driver {
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Commande invalide");
-        } catch (IOException e) {
-            System.out.println("Erreur de lecture");
+        } catch (IOException | LoginException e) {
+            System.out.println("Erreur : " + e.getMessage());
         }
-
         return flag;
     }
 }

@@ -15,14 +15,13 @@ public class MailController {
     }
 
     @PostMapping("/send")
-    public String sendMail(@RequestBody MailRequest request) {
-
+        public String sendMail(@RequestBody MailRequest request) {
+        System.out.println("📧 MailController atteint : " + request.getTo());
         mailService.sendEmail(
             request.getTo(),
             request.getSubject(),
             request.getBody()
         );
-
         return "mail send";
     }
 }

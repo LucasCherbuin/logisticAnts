@@ -1,6 +1,9 @@
 package com.maven.authentification;
 
-import org.mindrot.jbcrypt.BCrypt;
+import com.maven.service.ClientRegister;
+import com.maven.service.JwtService;
+import com.maven.model.User;
+import com.maven.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,11 +11,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/")
 public class AuthController {
 
+    private final UserRepository userRepository;
+    private final ClientRegister clientRegister;
+    private final JwtService jwtService;
+
+    public AuthController(UserRepository userRepository,
+                          ClientRegister clientRegister,
+                          JwtService jwtService) {
+        this.userRepository = userRepository;
+        this.clientRegister = clientRegister;
+        this.jwtService = jwtService;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        String storedHash = UserStore.getPassword(request.pseudo);
-        if (storedHash != null && BCrypt.checkpw(request.password, storedHash)) {
-            String token = java.util.UUID.randomUUID().toString();
+        User user = userRepository.findByPseudo(request.pseudo).orElse(null);
+
+        if (user != null && user.checkPassword(request.password)) {
+            String token = jwtService.generateToken(request.pseudo); // ← vrai JWT
             return ResponseEntity.ok(new LoginResponse(token, request.pseudo));
         }
         return ResponseEntity.status(401).body("Login failed");
@@ -20,11 +36,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        if (UserStore.exists(request.pseudo)) {
+        if (userRepository.findByPseudo(request.pseudo).isPresent()) {
             return ResponseEntity.badRequest().body("User already exists");
         }
-        String hashedPassword = BCrypt.hashpw(request.password, BCrypt.gensalt());
-        UserStore.addUser(request.pseudo, hashedPassword);
+
+        clientRegister.register(request.pseudo, request.email, request.password); 
+
         return ResponseEntity.ok("User registered successfully");
     }
 }

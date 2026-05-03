@@ -1,31 +1,28 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
-
+import { HttpErrorResponse } from '@angular/common/http';
 
 interface LoginResponse {
   token: string;
   username: string;
 }
 
-interface RegisterResponse {
-  message: string;
-}
-
-
-
 @Component({
   selector: 'app-login',
   templateUrl: '../pages/login/login.component.html',
   styleUrls: ['../../main.scss'],
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule, CommonModule], 
 })
 export class LoginComponent {
+  loginForm = this.fb.group({
+    pseudo: ['', [Validators.required, Validators.minLength(3)]],
+    password: ['', [Validators.required, Validators.minLength(4)]]
+  });
 
-  pseudo: string = '';
-  password: string = '';
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -33,29 +30,25 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  loginForm = this.fb.group({
-    pseudo: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(4)]]
-  });
-
   login() {
-
-    if (this.loginForm.invalid) {
-      return;
-    }
+    if (this.loginForm.invalid) return;
 
     const { pseudo, password } = this.loginForm.value;
 
-    this.registerService.login(pseudo!, password!)
-      .subscribe({
-        next: (res: LoginResponse) => {
-          this.registerService.saveToken(res.token);
-          this.router.navigate(['/dashboard']);
-        },
-        error: () => {
-          alert('Login incorrect');
+    this.registerService.login(pseudo!, password!).subscribe({
+      next: (res: string) => {
+        try {
+          const parsed: LoginResponse = JSON.parse(res);
+          this.registerService.saveToken(parsed.token);
+        } catch {
+          this.registerService.saveToken(res);
         }
-      });
+        this.router.navigate(['/app']);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.errorMessage = 'Login ou mot de passe incorrect.';
+        console.error('Erreur login', err);
+      }
+    });
   }
-
 }
