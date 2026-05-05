@@ -1,77 +1,85 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoginComponent } from './login.component';
-import { beforeEach, describe, expect, vi, it} from 'vitest';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { TestBed } from "@angular/core/testing";
+import { provideHttpClient } from "@angular/common/http";
+import {
+  provideHttpClientTesting,
+  HttpTestingController,
+} from "@angular/common/http/testing";
+import { beforeEach, describe, vi, expect, it, afterEach } from "vitest";
+import { RegisterService } from "../../services/register.service";
 
-describe('LoginComponent', () => {
+describe("RegisterService", () => {
+  let service: RegisterService;
+  let httpMock: HttpTestingController;
 
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-
-  let authSpy: any;
-  let routerSpy: any;
-
-  beforeEach(async () => {
-
-    authSpy = {
-        register: vi.fn(),
-        saveToken: vi.fn(),
-      };
-
-    routerSpy = {
-        navigate: vi.fn()
-      };
-
-
-    await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [LoginComponent],
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       providers: [
-        { provide: AuthService, useValue: authSpy },
-        { provide: Router, useValue: routerSpy }
-      ]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  //  REGISTER
-  it('should register user successfully', () => {
-
-    spyOn(window, 'alert');
-
-    authSpy.register.and.returnValue(of({
-      message: 'ok'
-    }));
-
-    component.loginForm.setValue({
-      pseudo: 'test',
-      email: 'test@mail.com',
-      password: '1234',
+        RegisterService,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     });
-
-        component.register();
-
-    expect(authSpy.register).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalled();
+    service = TestBed.inject(RegisterService);
+    httpMock = TestBed.inject(HttpTestingController);
+    localStorage.clear();
   });
 
-  it('should not call login if form invalid', () => {
+  afterEach(() => {
+    httpMock.verify();
+  });
 
-    component.loginForm.setValue({
-      pseudo: '',
-      email: '',
-      password: ''
+  it("should POST to /login and store parsed JSON token", () => {
+    const fakeResponse = JSON.stringify({
+      token: "jwt-abc",
+      username: "alice",
     });
-
-    component.register();
-
-    expect(authSpy.register).not.toHaveBeenCalled();
+    service.login("alice", "abcd").subscribe((res) => {
+      expect(res).toBe(fakeResponse);
+    });
+    const req = httpMock.expectOne("http://localhost:8080/login");
+    expect(req.request.method).toBe("POST");
+    expect(req.request.body).toEqual({ pseudo: "alice", password: "abcd" });
+    req.flush(fakeResponse);
+    expect(localStorage.getItem("token")).toBe("jwt-abc");
   });
 
+  it("should store raw token if response is not valid JSON", () => {
+    service.login("alice", "abcd").subscribe();
+    const req = httpMock.expectOne("http://localhost:8080/login");
+    req.flush("raw-token-string");
+    expect(localStorage.getItem("token")).toBe("raw-token-string");
+  });
+
+  it("should POST to /register with correct body", () => {
+    service
+      .register("alice", "alice@mail.com", "abcd", "CLIENT")
+      .subscribe((res) => {
+        expect(res).toBe("ok");
+      });
+    const req = httpMock.expectOne("http://localhost:8080/register");
+    expect(req.request.method).toBe("POST");
+    expect(req.request.body).toEqual({
+      pseudo: "alice",
+      email: "alice@mail.com",
+      password: "abcd",
+      role: "CLIENT",
+    });
+    req.flush("ok");
+  });
+
+  it("should save token in localStorage", () => {
+    service.saveToken("my-token");
+    expect(localStorage.getItem("token")).toBe("my-token");
+  });
+
+  it("should return token from localStorage", () => {
+    localStorage.setItem("token", "stored-token");
+    expect(service.getToken()).toBe("stored-token");
+  });
+
+  it("should remove token from localStorage on logout", () => {
+    localStorage.setItem("token", "stored-token");
+    service.logout();
+    expect(localStorage.getItem("token")).toBeNull();
+  });
 });
