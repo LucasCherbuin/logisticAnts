@@ -1,0 +1,7 @@
+2025-12-17T09:21:01.676Z [INFO] Initializing project configuration...
+2025-12-17T09:21:01.677Z [INFO] Project l:\Projet developpements\logisticAnts is a maven project, try to get java version from pom.xml
+2025-12-17T09:21:01.679Z [INFO] Project java version: 17
+2025-12-17T09:21:01.679Z [INFO] Maven project detected.
+2025-12-17T09:21:01.679Z [INFO] Build tool type: mvn
+2025-12-17T09:21:01.692Z [ERROR] JDK is not provided or detected for Java 17.
+2025-12-17T09:37:23.644Z [ERROR] Failed to prepare project configuration or init upgrade options: Canceled.

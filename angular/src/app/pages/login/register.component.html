@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <form [formGroup]="loginForm" (ngSubmit)="login()">
   <div>
     <label for="pseudo">Pseudo:</label>
@@ -30,3 +31,13 @@
 
   <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
 </form>
+=======
+
+<div [ngClass]="(role || 'DEFAULT') + '-theme'">
+    <input [(ngModel)]="pseudo" placeholder="Pseudo">
+    <input [(ngModel)]="email" placeholder="Email">
+    <input [(ngModel)]="password" type="password" placeholder="Password">
+
+    <button (click)="register()">S'inscrire</button>
+</div>
+>>>>>>> login

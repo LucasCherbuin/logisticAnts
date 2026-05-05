@@ -1,0 +1,37 @@
+2026-03-11T09:51:57.473Z [INFO] ----------------------invoke validate_cves_for_java----------------------
+2026-03-11T09:51:57.474Z [INFO] [Tool.invoke]({name: validate_cves_for_java, input: {
+  "dependencies": [
+    "com.squareup.okhttp3:okhttp:4.11.0",
+    "org.json:json:20230618",
+    "com.googlecode.json-simple:json-simple:1.1.1",
+    "com.sun.mail:javax.mail:1.6.2",
+    "org.mindrot:jbcrypt:0.4",
+    "org.junit.jupiter:junit-jupiter-api:5.9.1",
+    "org.mongodb:mongodb-driver-sync:5.6.3"
+  ],
+  "projectPath": "l:\\Projet developpements\\logisticAnts"
+}}).
+2026-03-11T09:51:57.474Z [INFO] [Tool.invoke] do invoke.
+2026-03-11T09:51:57.475Z [INFO] Project l:\Projet developpements\logisticAnts is a maven project, try to get java version from pom.xml
+2026-03-11T09:51:57.477Z [INFO] Project java version: 17
+2026-03-11T09:51:57.478Z [INFO] Maven project detected.
+2026-03-11T09:51:57.479Z [INFO] Build tool type: mvn
+2026-03-11T09:51:57.505Z [INFO] JDK: undefined
+2026-03-11T09:51:57.505Z [ERROR] Failed to detect or resolve JDK for the project at l:\Projet developpements\logisticAnts.
+2026-03-11T09:51:57.506Z [ERROR] Failed to create build tool for telemetry at l:\Projet developpements\logisticAnts: UserError: Failed to detect or resolve JDK for the project at l:\Projet developpements\logisticAnts. Please ensure JDK 17 is installed and properly configured on the machine.
+	at k3e (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.3\dist\extension.js:381:2262)
+	at async Tft (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.3\dist\extension.js:381:4211)
+	at async Rf.doInvoke (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.3\dist\extension.js:491:973)
+	at async Rf.invoke (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.3\dist\extension.js:336:6431)
+	at async XvI.invoke (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.3\dist\extension.js:499:172)
+	at async zQ.$invokeTool (file:///c:/Program%20Files/Microsoft%20VS%20Code/072586267e/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:195:3458)
+2026-03-11T09:51:57.506Z [INFO] Getting CVEs for dependencies: com.squareup.okhttp3:okhttp:4.11.0,org.json:json:20230618,com.googlecode.json-simple:json-simple:1.1.1,com.sun.mail:javax.mail:1.6.2,org.mindrot:jbcrypt:0.4,org.junit.jupiter:junit-jupiter-api:5.9.1,org.mongodb:mongodb-driver-sync:5.6.3
+2026-03-11T09:51:57.506Z [INFO] getting CVEs for dependencies:
+ - com.squareup.okhttp3:okhttp:4.11.0
+  - org.json:json:20230618
+  - com.googlecode.json-simple:json-simple:1.1.1
+  - com.sun.mail:javax.mail:1.6.2
+  - org.mindrot:jbcrypt:0.4
+  - org.junit.jupiter:junit-jupiter-api:5.9.1
+  - org.mongodb:mongodb-driver-sync:5.6.3...
+2026-03-11T09:51:57.506Z [INFO] getting gitHub access token...

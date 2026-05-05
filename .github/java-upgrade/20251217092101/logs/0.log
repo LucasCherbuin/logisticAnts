@@ -1,0 +1,42 @@
+2025-12-17T09:21:01.671Z [INFO] ----------------------invoke generate_upgrade_plan----------------------
+2025-12-17T09:21:01.672Z [INFO] [Tool.invoke]({name: generate_upgrade_plan, input: {
+  "projectPath": "l:\\Projet developpements\\logisticAnts",
+  "targetJavaVersion": "21"
+}}).
+2025-12-17T09:21:01.672Z [INFO] [Plan.tryStartTask]({tool:generate_upgrade_plan, nextTask:{type:undefined, tool:undefined}}
+2025-12-17T09:21:01.672Z [INFO] [Plan.tryStartTask]: no next task, create new one.
+2025-12-17T09:21:01.672Z [INFO] [Plan.createTaskAtStart]({tool: generate_upgrade_plan, input: {
+  "projectPath": "l:\\Projet developpements\\logisticAnts",
+  "targetJavaVersion": "21",
+  "sessionId": "20251217092101"
+}}).
+2025-12-17T09:21:01.673Z [INFO] [Plan.tryStartTask]: starting task generatePlan
+2025-12-17T09:21:01.673Z [INFO] [Task.start](): Starting task generatePlan
+2025-12-17T09:21:01.673Z [INFO] [Task.start](1): Started task generatePlan
+2025-12-17T09:21:01.676Z [INFO] [Tool.invoke] validate GitHub Copilot license.
+2025-12-17T09:21:01.676Z [INFO] [Tool.invoke] do pre-invoke.
+2025-12-17T09:21:01.676Z [INFO] [Tool.invoke] do invoke.
+2025-12-17T09:21:01.701Z [INFO] [Task.start](): Starting task generatePlan
+2025-12-17T09:21:01.701Z [INFO] [Task.start](1.1): Started task generatePlan
+2025-12-17T09:21:01.702Z [INFO] ---------------------prepare install_jdk----------------------
+2025-12-17T09:21:01.702Z [INFO] [Tool.prepareInvocation]({name: install_jdk, input: {
+  "sessionId": "20251217092101",
+  "version": "17",
+  "dest": "C:\\Users\\Administrateur\\.jdk",
+  "reason": "JDK 17 is required to build the project, but not found on the machine."
+}}).
+2025-12-17T09:21:01.702Z [INFO] [Tool.prepareInvocation] do prepare invocation.
+2025-12-17T09:21:02.204Z [INFO] [Tool.prepareInvocation]({result: {
+  "invocationMessage": "Download and install JDK",
+  "confirmationMessages": {
+    "title": "Download and install JDK",
+    "message": "\nJDK 17 is required to build the project, but not found on the machine.\nThis tool will download and install JDK 17 from Microsoft with below settings.\n- **Version**: 17\n- **Vendor**: Microsoft\n- **Url**: https://aka.ms/download-jdk/microsoft-jdk-17.0.16-windows-x64.zip\n- **Destination**: `C:\\Users\\Administrateur\\.jdk`\n- **Checksum**: SHA256: 53f0c9ec64811a9ab968747076653e5500115db7230d244e4ec53577ca5ec8fc\n- **Signature**: https://aka.ms/download-jdk/microsoft-jdk-17.0.16-windows-x64.zip.sig\n- **Public Key**: http://aka.ms/microsoft_jdk_public_key\n"
+  }
+}}).
+2025-12-17T09:21:02.204Z [INFO] ----------------------prepared install_jdk----------------------
+2025-12-17T09:37:23.632Z [INFO] [Task.complete](1.1): Completing task generatePlan
+2025-12-17T09:37:23.634Z [INFO] [Task.complete](1.1): Completed task generatePlan
+2025-12-17T09:37:23.645Z [ERROR] [Tool.invoke] error occurs when invoking tool generate_upgrade_plan: UserError: Failed to prepare project configuration or init upgrade options: Canceled. Please check the project configuration and try again..
+2025-12-17T09:37:23.645Z [INFO] [Task.complete](1): Completing task generatePlan
+2025-12-17T09:37:23.646Z [INFO] ----------------------invoked generate_upgrade_plan----------------------
+2025-12-17T09:37:23.646Z [INFO] [Task.complete](1): Completed task generatePlan
