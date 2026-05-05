@@ -17,8 +17,30 @@ COPY angular/ ./
 
 EXPOSE 4200
 
+<<<<<<< HEAD
 CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200", "--poll", "2000"]
 
 # docker build -f .devcontainer/angular/Dockerfile.angular -t logisticants-angular .
 
+<<<<<<< HEAD
 # docker run -it --rm logisticants-angular sh 
+=======
+# docker run -it --rm logisticants-angular sh 
+
+# docker run -it --rm -p 4200:4200 logisticants-angular
+
+=======
+CMD ["sh", "-c", "npm install && ng serve --host 0.0.0.0 --port 4200 --poll 2000"]
+
+# docker build -f .devcontainer/angular/Dockerfile.angular -t logisticants-angular .
+
+# docker stop logisticants-angular
+# docker run -it --rm -p 4200:4200 logisticants-angular ng serve --host 0.0.0.0 --port 4200
+
+# docker run -it --rm logisticants-angular sh 
+
+
+# docker compose -f .devcontainer/docker-compose.yml down
+# docker compose -f .devcontainer/docker-compose.yml up -d --build
+>>>>>>> login
+>>>>>>> 7b6f1f50 (merge login fix)

@@ -10,6 +10,7 @@
             "installGradle": true,
             "installMaven": true,
             "version": "latest",
+<<<<<<< HEAD
             "jdkDistro": "ms",
             "gradleVersion": "latest",
             "mavenVersion": "latest",
@@ -32,6 +33,18 @@
     "customizations": {
         "vscode": {
             "settings": {},
+=======
+            "jdkDistro": "ms"
+        },
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    },
+    "mounts": [
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "containerEnv": {},
+    "customizations": {
+        "vscode": {
+>>>>>>> login
             "extensions": [
                 "vscjava.vscode-java-pack"
             ]

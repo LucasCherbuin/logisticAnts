@@ -1,0 +1,56 @@
+2026-03-29T19:09:09.274Z [INFO] ----------------------invoke appmod-validate-cves-for-java----------------------
+2026-03-29T19:09:09.279Z [INFO] [Tool.invoke]({name: appmod-validate-cves-for-java, input: {
+  "projectPath": "l:\\Projet developpements\\logisticAnts",
+  "dependencies": [
+    "com.squareup.okhttp3:okhttp:4.11.0",
+    "org.json:json:20230618",
+    "com.googlecode.json-simple:json-simple:1.1.1",
+    "com.sun.mail:javax.mail:1.6.2",
+    "org.mindrot:jbcrypt:0.4",
+    "mysql:mysql-connector-java:8.0.33",
+    "org.junit.jupiter:junit-jupiter-api:5.9.1",
+    "org.mongodb:mongodb-driver-sync:5.6.3",
+    "com.zaxxer:HikariCP:5.0.1",
+    "com.mysql:mysql-connector-j:8.1.0"
+  ]
+}}).
+2026-03-29T19:09:09.280Z [INFO] [Tool.invoke] do invoke.
+2026-03-29T19:09:09.281Z [INFO] Project l:\Projet developpements\logisticAnts is a maven project, try to get java version from pom.xml
+2026-03-29T19:09:09.283Z [INFO] Project java version: 17
+2026-03-29T19:09:09.283Z [INFO] Maven project detected.
+2026-03-29T19:09:09.283Z [INFO] Build tool type: mvn
+2026-03-29T19:09:09.309Z [INFO] JDK: undefined
+2026-03-29T19:09:09.310Z [ERROR] Failed to detect or resolve JDK for the project at l:\Projet developpements\logisticAnts.
+2026-03-29T19:09:09.310Z [ERROR] Failed to create build tool for telemetry at l:\Projet developpements\logisticAnts: UserError: Failed to detect or resolve JDK for the project at l:\Projet developpements\logisticAnts. Please ensure JDK 17 is installed and properly configured on the machine.
+	at c:\Users\Administrateur\.vscode\extensions\vscjava.migrate-java-to-azure-1.14.1-win32-x64\out\extension.js:26910:2503
+	at Generator.next (<anonymous>)
+	at i (c:\Users\Administrateur\.vscode\extensions\vscjava.migrate-java-to-azure-1.14.1-win32-x64\out\extension.js:1:2170)
+2026-03-29T19:09:09.310Z [INFO] Getting CVEs for dependencies: com.squareup.okhttp3:okhttp:4.11.0,org.json:json:20230618,com.googlecode.json-simple:json-simple:1.1.1,com.sun.mail:javax.mail:1.6.2,org.mindrot:jbcrypt:0.4,mysql:mysql-connector-java:8.0.33,org.junit.jupiter:junit-jupiter-api:5.9.1,org.mongodb:mongodb-driver-sync:5.6.3,com.zaxxer:HikariCP:5.0.1,com.mysql:mysql-connector-j:8.1.0
+2026-03-29T19:09:09.310Z [INFO] getting CVEs for dependencies:
+ - com.squareup.okhttp3:okhttp:4.11.0
+  - org.json:json:20230618
+  - com.googlecode.json-simple:json-simple:1.1.1
+  - com.sun.mail:javax.mail:1.6.2
+  - org.mindrot:jbcrypt:0.4
+  - mysql:mysql-connector-java:8.0.33
+  - org.junit.jupiter:junit-jupiter-api:5.9.1
+  - org.mongodb:mongodb-driver-sync:5.6.3
+  - com.zaxxer:HikariCP:5.0.1
+  - com.mysql:mysql-connector-j:8.1.0...
+2026-03-29T19:09:09.310Z [INFO] getting gitHub access token...
+2026-03-29T19:27:42.645Z [ERROR] Failed to get GitHub access token to validate CVEs for the given dependencies.
+2026-03-29T19:27:42.645Z [INFO] Processing batch 1/1, size: 10
+2026-03-29T19:27:42.646Z [INFO] Proxy configuration: HTTPS_PROXY=(not set), HTTP_PROXY=(not set), NO_PROXY=(not set), NODE_EXTRA_CA_CERTS=(not set), vscode http.proxy=(not set), hasProxy=false
+2026-03-29T19:27:42.646Z [INFO] No proxy detected, using direct connection.
+2026-03-29T19:27:42.647Z [INFO] listing CVEs from GitHub for dependencies [
+  "com.squareup.okhttp3:okhttp:4.11.0",
+  "org.json:json:20230618",
+  "com.googlecode.json-simple:json-simple:1.1.1",
+  "com.sun.mail:javax.mail:1.6.2",
+  "org.mindrot:jbcrypt:0.4",
+  "mysql:mysql-connector-java:8.0.33",
+  "org.junit.jupiter:junit-jupiter-api:5.9.1",
+  "org.mongodb:mongodb-driver-sync:5.6.3",
+  "com.zaxxer:HikariCP:5.0.1",
+  "com.mysql:mysql-connector-j:8.1.0"
+]

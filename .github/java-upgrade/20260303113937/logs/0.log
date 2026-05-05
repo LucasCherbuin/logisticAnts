@@ -1,0 +1,63 @@
+2026-03-03T11:39:37.984Z [INFO] ----------------------invoke validate_cves_for_java----------------------
+2026-03-03T11:39:37.984Z [INFO] [Tool.invoke]({name: validate_cves_for_java, input: {
+  "projectPath": "l:\\Projet developpements\\logisticAnts",
+  "dependencies": [
+    "com.squareup.okhttp3:okhttp:4.11.0",
+    "org.json:json:20230618",
+    "com.googlecode.json-simple:json-simple:1.1.1",
+    "com.sun.mail:javax.mail:1.6.2",
+    "org.mindrot:jbcrypt:0.4",
+    "org.junit.jupiter:junit-jupiter-api:5.9.1",
+    "org.mongodb:mongodb-driver-sync:5.6.3",
+    "org.springframework.boot:spring-boot-starter-web:3.2.0",
+    "org.springframework.boot:spring-boot-starter-data-jpa:3.2.0",
+    "org.springframework.boot:spring-boot-starter-security:3.2.0",
+    "com.mysql:mysql-connector-j:8.0.32",
+    "com.fasterxml.jackson.core:jackson-databind:2.15.2"
+  ]
+}}).
+2026-03-03T11:39:37.985Z [INFO] [Tool.invoke] do invoke.
+2026-03-03T11:39:37.985Z [INFO] Project l:\Projet developpements\logisticAnts is a maven project, try to get java version from pom.xml
+2026-03-03T11:39:37.986Z [INFO] Project java version: 17
+2026-03-03T11:39:37.987Z [INFO] Maven project detected.
+2026-03-03T11:39:37.987Z [INFO] Build tool type: mvn
+2026-03-03T11:39:38.009Z [INFO] JDK: undefined
+2026-03-03T11:39:38.009Z [ERROR] Failed to detect or resolve JDK for the project at l:\Projet developpements\logisticAnts.
+2026-03-03T11:39:38.009Z [ERROR] Failed to create build tool for telemetry at l:\Projet developpements\logisticAnts: UserError: Failed to detect or resolve JDK for the project at l:\Projet developpements\logisticAnts. Please ensure JDK 17 is installed and properly configured on the machine.
+	at k3e (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.0\dist\extension.js:381:2262)
+	at async Tft (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.0\dist\extension.js:381:4211)
+	at async Rf.doInvoke (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.0\dist\extension.js:491:973)
+	at async Rf.invoke (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.0\dist\extension.js:336:6431)
+	at async XvI.invoke (c:\Users\Administrateur\.vscode\extensions\vscjava.vscode-java-upgrade-2.0.0\dist\extension.js:499:172)
+	at async zQ.$invokeTool (file:///c:/Program%20Files/Microsoft%20VS%20Code/c3a26841a8/resources/app/out/vs/workbench/api/node/extensionHostProcess.js:195:3458)
+2026-03-03T11:39:38.009Z [INFO] Getting CVEs for dependencies: com.squareup.okhttp3:okhttp:4.11.0,org.json:json:20230618,com.googlecode.json-simple:json-simple:1.1.1,com.sun.mail:javax.mail:1.6.2,org.mindrot:jbcrypt:0.4,org.junit.jupiter:junit-jupiter-api:5.9.1,org.mongodb:mongodb-driver-sync:5.6.3,org.springframework.boot:spring-boot-starter-web:3.2.0,org.springframework.boot:spring-boot-starter-data-jpa:3.2.0,org.springframework.boot:spring-boot-starter-security:3.2.0,com.mysql:mysql-connector-j:8.0.32,com.fasterxml.jackson.core:jackson-databind:2.15.2
+2026-03-03T11:39:38.009Z [INFO] getting CVEs for dependencies:
+ - com.squareup.okhttp3:okhttp:4.11.0
+  - org.json:json:20230618
+  - com.googlecode.json-simple:json-simple:1.1.1
+  - com.sun.mail:javax.mail:1.6.2
+  - org.mindrot:jbcrypt:0.4
+  - org.junit.jupiter:junit-jupiter-api:5.9.1
+  - org.mongodb:mongodb-driver-sync:5.6.3
+  - org.springframework.boot:spring-boot-starter-web:3.2.0
+  - org.springframework.boot:spring-boot-starter-data-jpa:3.2.0
+  - org.springframework.boot:spring-boot-starter-security:3.2.0
+  - com.mysql:mysql-connector-j:8.0.32
+  - com.fasterxml.jackson.core:jackson-databind:2.15.2...
+2026-03-03T11:39:38.010Z [INFO] getting gitHub access token...
+2026-03-03T11:58:54.262Z [ERROR] Failed to get GitHub access token to validate CVEs for the given dependencies.
+2026-03-03T11:58:54.262Z [INFO] Processing batch 1/1, size: 12
+2026-03-03T11:58:54.263Z [INFO] listing CVEs from GitHub for dependencies [
+  "com.squareup.okhttp3:okhttp:4.11.0",
+  "org.json:json:20230618",
+  "com.googlecode.json-simple:json-simple:1.1.1",
+  "com.sun.mail:javax.mail:1.6.2",
+  "org.mindrot:jbcrypt:0.4",
+  "org.junit.jupiter:junit-jupiter-api:5.9.1",
+  "org.mongodb:mongodb-driver-sync:5.6.3",
+  "org.springframework.boot:spring-boot-starter-web:3.2.0",
+  "org.springframework.boot:spring-boot-starter-data-jpa:3.2.0",
+  "org.springframework.boot:spring-boot-starter-security:3.2.0",
+  "com.mysql:mysql-connector-j:8.0.32",
+  "com.fasterxml.jackson.core:jackson-databind:2.15.2"
+]
