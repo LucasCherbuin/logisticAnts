@@ -10,30 +10,6 @@
             "installGradle": true,
             "installMaven": true,
             "version": "latest",
-<<<<<<< HEAD
-            "jdkDistro": "ms",
-            "gradleVersion": "latest",
-            "mavenVersion": "latest",
-            "antVersion": "latest",
-            "groovyVersion": "latest"
-        },
-        "ghcr.io/devcontainers-extra/features/maven-sdkman:2": {
-            "version": "latest",
-            "jdkVersion": "latest",
-            "jdkDistro": "ms"
-        },
-        "ghcr.io/devcontainers-extra/features/mvnd-sdkman:2": {
-            "version": "latest",
-            "jdkVersion": "latest",
-            "jdkDistro": "ms"
-        },
-        "ghcr.io/roul/devcontainer-features/mise-java:1": {}
-    },
-    "containerEnv": {},
-    "customizations": {
-        "vscode": {
-            "settings": {},
-=======
             "jdkDistro": "ms"
         },
         "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
@@ -44,7 +20,6 @@
     "containerEnv": {},
     "customizations": {
         "vscode": {
->>>>>>> login
             "extensions": [
                 "vscjava.vscode-java-pack"
             ]

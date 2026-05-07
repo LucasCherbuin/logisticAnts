@@ -50,6 +50,9 @@ services:
     container_name: logisticants-angular
     ports:
       - "4200:4200"
+    volumes:
+      - ./angular:/app/angular
+      - /app/angular/node_modules
     networks:
       - mynetwork
     restart: unless-stopped
