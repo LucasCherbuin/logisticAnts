@@ -17,18 +17,18 @@ import { OnInit } from '@angular/core';
 export class UserMenuComponent implements OnInit {
     roles: Role[] = [];
 
-  getDashboardRoute(roles: string): string {
+  getMenuRoute(roles: string): string {
     switch (roles) {
       case 'ADMIN':
-        return '/dashboard-admin';
+        return '/menu-admin';
       case 'CLIENT':
-        return '/dashboard-client';
+        return '/menu-client';
       case 'LOGISTICIEN':
-        return '/dashboard-logisticien';
+        return '/menulogisticien';
       case 'SECRETAIRE':
-        return '/dashboard-secretaire';
+        return '/menu-secretaire';
       default:
-        return '/dashboard-visiteur';
+        return '/menu-visiteur';
     }
   }
 
