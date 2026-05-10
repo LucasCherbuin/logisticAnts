@@ -59,8 +59,4 @@ services:
 
 networks:
   mynetwork:
-<<<<<<< HEAD
     driver: bridge
-=======
-    driver: bridge
->>>>>>> 7b6f1f50 (merge login fix)
