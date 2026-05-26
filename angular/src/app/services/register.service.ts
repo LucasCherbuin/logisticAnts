@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
+import { API_BASE_URL } from './api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-  private api = 'http://localhost:8080';
+  private apiUrl = `${API_BASE_URL}/register`;
 
   constructor(private http: HttpClient) {}
 
   login(pseudo: string, password: string) {
-    return this.http.post(`${this.api}/login`, {
+    return this.http.post(`${this.apiUrl}/login`, {
       pseudo,
       password
     }, { responseType: 'text' }).pipe(
@@ -34,7 +35,7 @@ export class RegisterService {
   }
 
   register(pseudo: string, email: string, password: string, role: string) {
-    return this.http.post(`${this.api}/register`, {
+    return this.http.post(`${this.apiUrl}/register`, {
       pseudo,
       email,
       password,

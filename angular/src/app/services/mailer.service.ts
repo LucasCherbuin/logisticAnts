@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './api.config';
 
 export interface MailRequest {
   to: string;
@@ -12,17 +13,17 @@ export interface MailRequest {
   providedIn: 'root'
 })
 export class MailService {
-  private apiUrl = 'http://localhost:8080/mail';
+  private apiUrl = `${API_BASE_URL}/mail`;
 
   constructor(private http: HttpClient) {}
 
-  // Ancien — garde pour compatibilité
+
   sendMail(data: MailRequest): Observable<any> {
     const token = localStorage.getItem('token');
     return this.sendMailWithToken(data, token ?? '');
   }
 
-  // Nouveau — token passé directement, sans dépendre du localStorage
+ 
   sendMailWithToken(data: MailRequest, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
