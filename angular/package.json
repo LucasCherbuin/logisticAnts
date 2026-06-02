@@ -1,41 +1,37 @@
 {
   "name": "logisticants",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "compile-sass": "sass src/styles.scss"
+    "test": "ng test"
   },
-  "private": true,
   "dependencies": {
-    "@angular/animations": "^21.2.6",
-    "@angular/common": "^21.2.6",
-    "@angular/compiler": "^21.2.6",
-    "@angular/core": "^21.2.6",
-    "@angular/forms": "^21.2.6",
-    "@angular/platform-browser": "^21.2.6",
-    "@angular/platform-browser-dynamic": "^21.2.6",
-    "@angular/router": "^21.2.6",
-    "rxjs": "~7.8.0",
+    "@angular/animations": "^21.2.10",
+    "@angular/common": "^21.2.10",
+    "@angular/compiler": "^21.2.10",
+    "@angular/core": "^21.2.10",
+    "@angular/forms": "^21.2.10",
+    "@angular/material": "^21.2.10",
+    "@angular/platform-browser": "^21.2.10",
+    "@angular/platform-browser-dynamic": "^21.2.10",
+    "@angular/router": "^21.2.10",
+    "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "^0.16.1"
+    "zone.js": "~0.15.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2"
+    
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^21.2.5",
-    "@angular/cli": "^21.2.5",
+    "@analogjs/vite-plugin-angular": "^2.5.0",
+    "@angular-devkit/build-angular": "^21.2.6",
+    "@angular/cli": "^21.2.6",
     "@angular/compiler-cli": "^21.2.6",
-    "@types/jasmine": "~5.1.0",
-    "jasmine-core": "~5.1.0",
-    "jsdom": "^29.0.1",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "sass": "^1.77.0",
-    "typescript": "~5.9.0"
+    "jsdom": "^29.1.1",
+    "typescript": "~5.9.0",
+    "vitest": "^4.1.5"
   }
 }

@@ -1,4 +1,4 @@
-package com.maven.Service;
+package com.maven.service;
 
 import javax.management.RuntimeErrorException;
 

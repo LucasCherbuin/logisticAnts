@@ -1,22 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './api.config';
 
 export interface MailRequest {
-    to: string;
-    subject: string;
-    body: string;
+  to: string;
+  subject: string;
+  body: string;
 }
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class MailService {
-    private apiUrl = 'http://localhost:8080/mail';
+  private apiUrl = `${API_BASE_URL}/mail`;
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    sendMail(data: MailRequest): Observable<any> {
-        return this.http.post(`${this.apiUrl}/send`, data);
-    }
+
+  sendMail(data: MailRequest): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.sendMailWithToken(data, token ?? '');
+  }
+
+ 
+  sendMailWithToken(data: MailRequest, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.post(`${this.apiUrl}/send`, data, { headers });
+  }
 }

@@ -1,7 +1,10 @@
 
-
-<card>
-    <image> {{ produit.imageId }}</image>
-    <prix> {{ produit.prix }} chf</prix>
-    <produit> {{ produit.nom }}</produit>
-</card>
+@for (produit of produits; track produit.id) {
+<div class="card" [routerLink]="['/article', produit.id]">
+    <img class="card-img" [src]="produit.image" [alt]="produit.nom">
+    <div class="card-body">
+        <h5 class="card-nom">{{ produit.nom }}</h5>
+        <p class="card-prix">{{ produit.prix | currency:'CHF' }}</p>
+    </div>
+</div>
+}

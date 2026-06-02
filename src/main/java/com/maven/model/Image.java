@@ -1,26 +1,34 @@
 package com.maven.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "image")
-
 public class Image {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String url;
 
-    public Image(int id, String url) {
-        this.id = id;
+    @OneToOne(mappedBy = "image")
+    @JsonIgnore
+    private Produit produit;
+
+    public Image() {}
+
+    public Image(String url) {
         this.url = url;
     }
 
-    //getters
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public String getUrl() { return url; }
+    public Produit getProduit() { return produit; }
 
-    public String getUrl() {
-        return url;
-    }
-    
+    public void setId(int id) { this.id = id; }
+    public void setUrl(String url) { this.url = url; }
+    public void setProduit(Produit produit) { this.produit = produit; }
 }

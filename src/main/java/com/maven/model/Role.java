@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "role")
+public class Role {
 
-public class Role { 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String label;
-    
-    public Role(int id, String label) { 
-    this.id = id;
-    this.label = label;
-}
 
     public Role() {}
 

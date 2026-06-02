@@ -1,0 +1,27 @@
+<div>
+    <p>Vos commandes</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro référence</th>
+                <th>Articles</th>
+                <th>Total</th>
+                <th>Moyen de paiement</th>
+                <th>Facture</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let commande of commandes">
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.articleCommande }}</td>
+                <td>{{ getTotalByCommande(commande.id) | currency:'CHF' }}</td>
+                <td>{{ commande.payement }}</td>
+                <td>{{ commande.facture }}</td>
+                <td>
+                    <app-delete-commande [commandeId]="commande.id"></app-delete-commande>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
