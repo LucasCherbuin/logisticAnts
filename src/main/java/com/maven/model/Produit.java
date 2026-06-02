@@ -1,111 +1,46 @@
 package com.maven.model;
 
+import jakarta.persistence.*;
 import java.sql.Date;
 
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "produit")
-
 public class Produit {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String nom;
     private int prix;
     private int quantiteStock;
     private Date derniereAjout;
     private boolean perissable;
     private Date datePeremption;
-    @ManyToMany
-    private int fournisseurId;
+
+    @ManyToOne
+    @JoinColumn(name = "fournisseur_id")
+    @JsonIgnore
+    private Fournisseur fournisseur;
+
     @OneToOne
-    private int imageId;
-    
-    public Produit(int id, String nom, int prix, int quantiteStock, Date derniereAjout, boolean perissable, Date datePeremption, int fournisseurId, int imageId) {  // ✅ Parenthèse ajoutée
-        this.id = id;
+    @JoinColumn(name = "image_id")
+    @JsonIgnore
+    private Image image;
+
+    public Produit() {}
+
+    public Produit(String nom, int prix, int quantiteStock, Date derniereAjout, boolean perissable, Date datePeremption, Fournisseur fournisseur, Image image) {
         this.nom = nom;
         this.prix = prix;
         this.quantiteStock = quantiteStock;
         this.derniereAjout = derniereAjout;
         this.perissable = perissable;
         this.datePeremption = datePeremption;
-        this.fournisseurId = fournisseurId;
-        this.imageId = imageId;
-    }
-    
-    // Getters
-    public int getId() {
-        return id;
-    }
-    
-    public String getNom() {
-        return nom;
-    }
-    
-    public int getPrix() {
-        return prix;
-    }
-    
-    public int getQuantiteStock() {
-        return quantiteStock;
-    }
-    
-    public Date getDerniereAjout() {
-        return derniereAjout;
-    }
-    
-    public boolean isPerissable() {
-        return perissable;
-    }
-    
-    public Date getDatePeremption() {
-        return datePeremption;
-    }
-    
-    public int getFournisseurId() {  
-        return fournisseurId;
-    }
-    
-    public int getImageId() {  
-        return imageId;
-    }
-    
-    // Setters
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-    
-    public void setPrix(int prix) {
-        this.prix = prix;
-    }
-    
-    public void setQuantiteStock(int quantiteStock) {
-        this.quantiteStock = quantiteStock;
-    }
-    
-    public void setDerniereAjout(Date derniereAjout) {
-        this.derniereAjout = derniereAjout;
-    }
-    
-    public void setPerissable(boolean perissable) {
-        this.perissable = perissable;
-    }
-    
-    public void setDatePeremption(Date datePeremption) {
-        this.datePeremption = datePeremption;
-    }
-    
-    public void setFournisseurId(int fournisseurId) {
-        this.fournisseurId = fournisseurId;
-    }
-    
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+        this.fournisseur = fournisseur;
+        this.image = image;
     }
 
     public int getId() { return id; }

@@ -1,19 +1,27 @@
 package com.maven.model;
 
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "article_commande")
 public class ArticleCommande {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToMany
-    private int produitId; 
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    @JsonIgnore
+    private Produit produit;
+
     private int quantite;
 
     @ManyToOne
     @JoinColumn(name = "commande_id")
+    @JsonIgnore
     private Commande commande;
 
     public ArticleCommande() {}

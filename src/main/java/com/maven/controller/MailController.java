@@ -4,7 +4,6 @@ import com.maven.service.mailer.MailService;
 import com.maven.dto.MailRequest;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/mail")
 public class MailController {
@@ -16,14 +15,13 @@ public class MailController {
     }
 
     @PostMapping("/send")
-    public String sendMail(@RequestBody MailRequest request) {
-
+        public String sendMail(@RequestBody MailRequest request) {
+        System.out.println(" MailController atteint : " + request.getTo());
         mailService.sendEmail(
             request.getTo(),
             request.getSubject(),
             request.getBody()
         );
-
         return "mail send";
     }
 }

@@ -20,8 +20,10 @@ public class ProduitPhare {
 
     public ProduitPhare(int id, int prixTotal, int remboursement, int achat, Date date) {
         this.id = id;
-        this.produit = produit;
+        this.prixTotal = prixTotal;
+        this.remboursement = remboursement;
         this.achat = achat;
+        this.date = date;
     }
 
     public int getId() { return id; }
