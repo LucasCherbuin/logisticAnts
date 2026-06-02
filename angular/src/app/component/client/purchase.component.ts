@@ -1,20 +1,20 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
-import { ArticleCommande } from "../../models/ArticleCommande.model";
+import { ArticleCommande } from "../../models/articleCommande.model";
 import { ArticleCommandeService } from "../../services/articleCommande.service";
 import { Commande } from "../../models/commande.model";
 import { CommandeService } from "../../services/commande.service";
-import { PaymentService } from "../../services/Payment.service";
+import { PaymentService } from "../../services/payment.service";
 import { MailService, MailRequest } from '../../services/mailer.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
-import { ConfirmationCommandeComponent } from "./confirmation-commande.component";
+import { ConfirmationCommandeComponent } from "./commandes/confirmationCommande.component";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
 @Component({
     selector: 'app-purchase',
-    templateUrl: './purchase.component.html',
+    templateUrl: '../../pages/client/purchase.component.html',
     standalone: true,
     imports: [
         ReactiveFormsModule,
@@ -22,7 +22,8 @@ import autoTable from "jspdf-autotable";
         HttpClientModule,
         FormsModule,
         ConfirmationCommandeComponent
-    ]
+    ],
+    styleUrls: ['../../../main.scss'],
 })
 export class PurchaseComponent implements OnInit {
     form: FormGroup;
@@ -69,7 +70,7 @@ export class PurchaseComponent implements OnInit {
     getTotalByCommande(commandeId: number): number {
         return this.articleCommandes
             .filter(ac => ac.id === commandeId)
-            .reduce((total, ac) => total + ac.quantiteId, 0);
+            .reduce((total, ac) => total + ac.quantite, 0);
     }
 
     onSubmit(): void {
@@ -120,8 +121,8 @@ export class PurchaseComponent implements OnInit {
         const headers = [['ID', 'Produit ID', 'Quantité']];
         const data = this.articleCommandes.map(ac => [
             ac.id,
-            ac.produitId,
-            ac.quantiteId
+            ac.produit.id,
+            ac.quantite
         ]);
 
         autoTable(doc, {

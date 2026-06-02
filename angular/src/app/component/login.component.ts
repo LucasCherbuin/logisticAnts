@@ -13,7 +13,8 @@ interface LoginResponse {
 @Component({
   selector: 'app-login',
   templateUrl: '../pages/login/login.component.html',
-  styleUrls: ['../../main.scss'],
+  standalone: true,
+  styleUrls: ["../../main.scss"],
   imports: [ReactiveFormsModule, CommonModule], 
 })
 export class LoginComponent {
@@ -51,4 +52,13 @@ export class LoginComponent {
       }
     });
   }
+
+    logout() {
+    this.registerService.logout();
+    this.router.navigate(['/']);
+  }
+
+
+
+  
 }

@@ -14,12 +14,16 @@
     "@angular/compiler": "^21.2.10",
     "@angular/core": "^21.2.10",
     "@angular/forms": "^21.2.10",
+    "@angular/material": "^21.2.10",
     "@angular/platform-browser": "^21.2.10",
     "@angular/platform-browser-dynamic": "^21.2.10",
     "@angular/router": "^21.2.10",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.15.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2"
+    
   },
   "devDependencies": {
     "@analogjs/vite-plugin-angular": "^2.5.0",

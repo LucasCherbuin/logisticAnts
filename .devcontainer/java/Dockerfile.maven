@@ -13,7 +13,7 @@ COPY --from=build /logisticiants/target/*.jar app.jar
 EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
 
-# sudo
+
 # docker build -f .devcontainer/java/Dockerfile.maven -t logisticants-maven .
 # docker run --rm logisticants-maven
 
@@ -29,7 +29,9 @@ CMD ["java", "-jar", "app.jar"]
 # docker exec -it mysql mysql -u root -p logistants
 # ranger src/main/java/com/maven/...    
 
-
+# docker compose -f .devcontainer/docker-compose.yml down
+# docker compose -f .devcontainer/docker-compose.yml build --no-cache java-app
+# docker compose -f .devcontainer/docker-compose.yml up -d
 
 # docker compose -f .devcontainer/docker-compose.yml down
 # docker builder prune -f

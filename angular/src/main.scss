@@ -79,6 +79,13 @@ $role-themes: (
     background-color: map.get($colors, "primary");
   }
 
+  :host {
+    c-card {
+      min-width: 9rem;
+    }
+  }
+
+
   .popup {
     background-color: map.get($colors, "secondary");
   }

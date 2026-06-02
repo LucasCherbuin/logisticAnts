@@ -10,7 +10,7 @@ import { API_BASE_URL } from './api.config';
   providedIn: 'root'
 })
 export class ArticleCommandeService {
-  private apiUrl = `${API_BASE_URL}/articleCommandes`;   
+    private apiUrl = `${API_BASE_URL}/ArticleCommandes`;
 
     constructor(private http: HttpClient) {}
 

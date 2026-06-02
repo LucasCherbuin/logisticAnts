@@ -1,27 +1,41 @@
 import { Injectable } from "@angular/core";
-import { RoleService } from "./role.service";
+import { RegisterService } from "./register.service";
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 
-
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class RoleGuardService implements CanActivate {
+  constructor(private authService: RegisterService, private router: Router) {}
 
-    private roles: string[] = [];
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    const token = this.authService.getToken();
+    console.log('TOKEN:', token);
 
-    constructor(private roleService: RoleService, private router: Router) {
-        this.roleService.getRoles().subscribe({
-            next: (r) => { this.roles = r.map(role => role.label); },
-            error: (err: any) => { console.error('Error fetching roles:', err); }
-        });
+    if (!token) {
+      console.log('PAS DE TOKEN → redirection');
+      this.router.navigate(['/']);
+      return false;
     }
 
-    canActivate(route: ActivatedRouteSnapshot): boolean {
-        const allowed = route.data['role'].some((r: string) => this.roles.includes(r));
-        if (!allowed) {
-            this.router.navigate(['/']);
-        }
-        return allowed;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      console.log('PAYLOAD JWT:', payload);
+      const userRole = payload.role ?? payload.Role ?? payload.roles ?? payload.sub;
+      console.log('ROLE DÉTECTÉ:', userRole);
+      console.log('ROLES REQUIS:', route.data['role']);
+
+      const allowed: string[] = route.data['role'];
+      const hasAccess = allowed.some(r =>
+        Array.isArray(userRole) ? userRole.includes(r) : userRole === r
+      );
+
+      console.log('ACCÈS:', hasAccess);
+      if (!hasAccess) this.router.navigate(['/']);
+      return hasAccess;
+
+    } catch(e) {
+      console.log('ERREUR DÉCODAGE JWT:', e);
+      this.router.navigate(['/']);
+      return false;
     }
+  }
 }

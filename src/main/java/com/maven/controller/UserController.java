@@ -1,14 +1,18 @@
 package com.maven.controller;
 
+
 import com.maven.model.User;
 import com.maven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
+@CrossOrigin(origins = "${frontend.url}")
 public class UserController {
 
     @Autowired
@@ -18,6 +22,11 @@ public class UserController {
 
     public List<User> getAllUsers() {
         return userRepository.findAll(); // Placeholder return
+    }
+
+    @GetMapping("/Users/search")
+    public List<User> searchUsers(@RequestParam String nom) {
+        return userRepository.findByNomContainingIgnoreCase(nom);
     }
 
     @GetMapping("/Users/{id}")

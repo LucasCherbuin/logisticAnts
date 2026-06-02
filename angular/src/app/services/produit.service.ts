@@ -8,7 +8,7 @@ import { API_BASE_URL } from './api.config';
     providedIn: 'root'
 })
 export class ProduitService {
-    private apiUrl = `${API_BASE_URL}/produits`;
+    private apiUrl = `${API_BASE_URL}/Produits`;
 
     constructor(private http: HttpClient) {}
 

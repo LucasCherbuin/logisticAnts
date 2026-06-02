@@ -7,12 +7,16 @@ import { API_BASE_URL } from './api.config';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class RoleService {  
-  private apiUrl = `${API_BASE_URL}/roles`;
+  private apiUrl = `${API_BASE_URL}/Role`;
+
 
   constructor(private http: HttpClient) { }
 
   getRoles(): Observable<Role[]> {  
     return this.http.get<Role[]>(this.apiUrl);
   }
+  
 }

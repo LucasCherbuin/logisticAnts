@@ -7,7 +7,7 @@ import { API_BASE_URL } from './api.config';
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl = `${API_BASE_URL}/register`;
+  private apiUrl = `${API_BASE_URL}`;
 
   constructor(private http: HttpClient) {}
 

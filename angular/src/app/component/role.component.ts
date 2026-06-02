@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RoleService } from '../services/role.service';
 import { Role } from '../models/role.model';
 
+@Component({
+    selector: 'app-role',
+    standalone: true,
+    imports: [CommonModule],
+    template: ``
+})
 
     export class RoleComponent implements OnInit {
     roles: Role[] = [];

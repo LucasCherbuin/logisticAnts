@@ -8,7 +8,7 @@ import { API_BASE_URL } from './api.config';
   providedIn: 'root'
 })
 export class CommandeService {
-  private apiUrl = `${API_BASE_URL}/commandes`;
+  private apiUrl = `${API_BASE_URL}/Commandes`;
 
     constructor(private http: HttpClient) {}
 

@@ -3,6 +3,8 @@ package com.maven.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "fournisseur")
 public class Fournisseur {
@@ -16,6 +18,7 @@ public class Fournisseur {
     private String email;
 
     @OneToMany(mappedBy = "fournisseur")
+    @JsonIgnore
     private List<Produit> produits;
 
     public Fournisseur() {}

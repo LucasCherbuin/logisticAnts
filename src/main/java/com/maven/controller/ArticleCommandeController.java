@@ -17,29 +17,29 @@ public class ArticleCommandeController {
     @Autowired
     private ArticleCommandeRepository articleCommandeRepository;
 
-    @GetMapping("/articleCommandes")
+    @GetMapping("/ArticleCommandes")
     public List<ArticleCommande> getAllArticleCommandes() {
         return articleCommandeRepository.findAll();
     }
 
-    @GetMapping("/articleCommandes/{id}")
+    @GetMapping("/ArticleCommandes/{id}")
     public ArticleCommande getArticleCommandeById(@PathVariable int id) {
         return articleCommandeRepository.findById(id).orElse(null);
     }
 
-    @PutMapping("/articleCommandes/create")
+    @PutMapping("/ArticleCommandes/create")
     public void createArticleCommande(@RequestBody ArticleCommande articleCommande) {
         articleCommandeRepository.save(articleCommande);
     }
 
-    @PutMapping("/articleCommandes/{id}/update")
+    @PutMapping("/ArticleCommandes/{id}/update")
     public void updateArticleCommande(
             @PathVariable int id,
             @RequestBody ArticleCommande articleCommande) {
         articleCommandeRepository.save(articleCommande);
     }
 
-    @PutMapping("/articleCommandes/{id}/delete")
+    @PutMapping("/ArticleCommandes/{id}/delete")
     public void deleteArticleCommande(@PathVariable int id) {
         articleCommandeRepository.deleteById(id);
     }

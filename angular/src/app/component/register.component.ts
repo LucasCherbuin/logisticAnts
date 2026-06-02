@@ -9,7 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: '../pages/login/register.component.html',
-  styleUrls: ['../../main.scss'],
+  standalone: true,
+  styleUrls: ["../../main.scss"],
   imports: [FormsModule, CommonModule],
 })
 export class RegisterComponent {
@@ -27,9 +28,9 @@ export class RegisterComponent {
   register() {
     this.registerService.register(this.pseudo, this.email, this.password, this.role)
       .pipe(
-        tap(() => console.log('✅ 1. Register OK')),
+        tap(() => console.log(' 1. Register OK')),
         switchMap(() => this.registerService.login(this.pseudo, this.password)),
-        tap((token: string) => console.log('✅ 2. Login token brut :', token)),
+        tap((token: string) => console.log(' 2. Login token brut :', token)),
         switchMap((token: string) => {
           let finalToken: string;
           try {
@@ -39,7 +40,7 @@ export class RegisterComponent {
             finalToken = token;
           }
 
-          console.log('✅ 3. Final token :', finalToken);
+          console.log(' 3. Final token :', finalToken);
           this.registerService.saveToken(finalToken);
 
           const mail: MailRequest = {
@@ -56,4 +57,5 @@ export class RegisterComponent {
         error: (err: HttpErrorResponse) => console.error('Erreur', err)
       });
   }
+  
 }

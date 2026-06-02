@@ -1,5 +1,7 @@
 package com.maven.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,6 +15,7 @@ public class Image {
     private String url;
 
     @OneToOne(mappedBy = "image")
+    @JsonIgnore
     private Produit produit;
 
     public Image() {}
