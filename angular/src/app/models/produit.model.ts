@@ -10,5 +10,5 @@ export interface Produit {
     perissable: boolean;
     DatePeremption: Date;
     fournisseur: Fournisseur;
-    image: number;
+    image?: { id: number; url: string };
 }

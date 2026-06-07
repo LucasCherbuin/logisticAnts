@@ -24,10 +24,10 @@ export class MailService {
   }
 
  
-  sendMailWithToken(data: MailRequest, token: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-    return this.http.post(`${this.apiUrl}/send`, data, { headers });
+  sendMailWithToken(data: MailRequest, token: string): Observable<string> {
+      const headers = new HttpHeaders({
+          Authorization: `Bearer ${token}`
+      });
+      return this.http.post(`${this.apiUrl}/send`, data, { headers, responseType: 'text' });
   }
 }

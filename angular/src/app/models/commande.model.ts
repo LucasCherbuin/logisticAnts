@@ -1,9 +1,9 @@
 import { User } from "./user.model";
 import { ArticleCommande } from "./articleCommande.model";
 
-export interface Commande { 
+export interface Commande {
     id: number;
-    articleCommande: ArticleCommande;
+    articleCommandes: ArticleCommande[];
     user: User;
     payement: string;
     facture: Blob;
