@@ -13,7 +13,12 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.config.Customizer;
 import org.springframework.http.HttpMethod;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+import jakarta.servlet.SessionTrackingMode;
 import java.util.List;
+import java.util.Set;
 import com.maven.service.Jwtfilter;
 
 @Configuration
@@ -34,23 +39,26 @@ public class SecurityConfig {
         http
             .cors(Customizer.withDefaults())
             .csrf(csrf -> csrf.disable())
+            .formLogin(form -> form.disable())
+            .httpBasic(basic -> basic.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
                 .requestMatchers(
                     "/Produits/**",
                     "/ArticleCommandes/**",
                     "/Commandes/**",
-                    "/Fournisseur/**"
+                    "/Fournisseurs/**",
+                    "/login",
+                    "/mail/**",
+                    "/register",
+                    "/Users/**"
                 ).permitAll()
-
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class)
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
-
         return http.build();
     }
 
@@ -61,9 +69,22 @@ public class SecurityConfig {
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
+    }
+
+    @Bean
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomFactoryCustomizer() {
+        return factory -> factory.addContextCustomizers(
+            context -> context.setUseHttpOnly(true)
+        );
+    }
+
+    @Bean
+    public ServletContextInitializer servletContextInitializer() {
+        return servletContext -> servletContext.setSessionTrackingModes(
+            Set.of(SessionTrackingMode.COOKIE)
+        );
     }
 }
