@@ -14,7 +14,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 @Service
-public class PaiementService {
+public class PayementService {
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final String SUCCESS_MESSAGE = "Payment request processed";

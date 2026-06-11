@@ -1,26 +1,12 @@
 <div>
     <div>
         <h3>Moyen de paiement</h3>
+        @for (option of paymentOptions; track option) {
         <div>
-            <input type="radio" id="facture" name="payement" value="Facture" [(ngModel)]="selectedPayement" />
-            <label for="facture">Facture</label>
+            <input type="radio" [id]="option" name="payement" [value]="option" [(ngModel)]="selectedPayement" />
+            <label [for]="option">{{ option }}</label>
         </div>
-        <div>
-            <input type="radio" id="twint" name="payement" value="Twint" [(ngModel)]="selectedPayement" />
-            <label for="twint">Twint</label>
-        </div>
-        <div>
-            <input type="radio" id="mastercard" name="payement" value="Mastercard" [(ngModel)]="selectedPayement" />
-            <label for="mastercard">Mastercard</label>
-        </div>
-        <div>
-            <input type="radio" id="visa" name="payement" value="Visa" [(ngModel)]="selectedPayement" />
-            <label for="visa">Visa</label>
-        </div>
-        <div>
-            <input type="radio" id="amex" name="payement" value="Americain_express" [(ngModel)]="selectedPayement" />
-            <label for="amex">American Express</label>
-        </div>
+}
     </div>
 
     <div>
@@ -79,7 +65,6 @@
             </div>
 
             <button type="submit" [disabled]="form.invalid">Commander</button>
-            <button type="button" (click)="generateBillPDF()">Télécharger la facture</button>
         </form>
     </div>
 

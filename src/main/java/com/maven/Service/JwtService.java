@@ -11,8 +11,12 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private static final Key SECRET_KEY = Keys.hmacShaKeyFor(
+        "logisticants-secret-key-must-be-at-least-32-chars!!".getBytes()
+    );
+
     private static final long EXPIRATION_TIME = 86400000L;
+    
 
     public String generateToken(String pseudo) { 
         return Jwts.builder()

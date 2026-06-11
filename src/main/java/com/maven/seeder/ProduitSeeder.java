@@ -16,9 +16,9 @@ public class ProduitSeeder {
     public void seedProduits() {
         if (produitRepository.count() == 0) {
             Produit produit = new Produit();
-            produit.setNom(null);
-            produit.setPrix(0);
-            produit.setQuantiteStock(0);
+            produit.setNom("set de fourchette x20");
+            produit.setPrix(20);
+            produit.setQuantiteStock(10);
             produit.setDerniereAjout(null);
             produit.setPerissable(false);
             produit.setDatePeremption(null);

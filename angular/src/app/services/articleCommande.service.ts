@@ -82,4 +82,8 @@ export class ArticleCommandeService {
     deleteArticleCommande(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
+    
+    assignCommande(articleCommandeId: number, commandeId: number): Observable<void> {
+        return this.http.post<void>(`${this.apiUrl}/${articleCommandeId}/commande/${commandeId}`, {});
+    }
 }

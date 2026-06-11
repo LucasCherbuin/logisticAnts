@@ -15,17 +15,14 @@ public class Commande {
     private int id;
 
     private String payement;
-    @JsonIgnore
     private Blob facture;
 
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.MERGE)
     private List<ArticleCommande> articleCommandes;
 
 
@@ -37,7 +34,7 @@ public class Commande {
     }
 
     public int getId() { return id; }
-    public String getPayment() { return payement; }
+    public String getPayement() { return payement; }
     public Blob getfacture() { return facture; }
     public User getUser() { return user; }
     public List<ArticleCommande> getArticleCommandes() { return articleCommandes; }

@@ -8,7 +8,7 @@ import { API_BASE_URL } from './api.config';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${API_BASE_URL}/user`;
+  private apiUrl = `${API_BASE_URL}/Users`;
 
   constructor(private http: HttpClient) {}
 
@@ -16,12 +16,12 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl);
   }
 
-  getCurrentUser(): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/me`);
-  }
-
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
+
+  getUserByPseudo(pseudo: string): Observable<User> {
+      return this.http.get<User>(`${this.apiUrl}/pseudo/${pseudo}`);
   }
 
   createUser(user: User): Observable<User> {

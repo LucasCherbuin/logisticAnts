@@ -9,7 +9,7 @@ import {  timer } from 'rxjs';
     template: `
         <div class="overlay" *ngIf="isVisible">
             <div class="popup">
-                <p>Redirection sur votre moyen de payment</p>
+                <p>Redirection sur votre moyen de payement</p>
             </div>
         </div>
     `,

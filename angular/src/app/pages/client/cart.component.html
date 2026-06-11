@@ -1,17 +1,18 @@
-<div> 
-
+<div>
     <p>votre panier</p>
     <hr>
-        {{ articleCommande.produitId.image }} 
-        {{ articleCommande.produitId.nom }}
-        <option>{{ articleCommande.quantite }}</option>
-        {{ articleCommande.produitId.prix }}
-        <button(click="deletCommande(commande.id)")><i class="ph ph-trash"></i> Supprimer </button>
+    <div *ngFor="let item of items$ | async; let i = index">
+        {{ item.produit.nom }}
+        <select (change)="changeSubtotal(item, i)" #subTotalWrap>
+            <option [value]="item.quantite">{{ item.quantite }}</option>
+        </select>
+        {{ item.produit.prix | currency:'CHF' }}
+        <button (click)="deleteFromCart(item.produit)"><i class="ph ph-trash"></i> Supprimer</button>
+    </div>
     <hr>
-    frais d'expédition 
+    <p>frais d'expédition</p><p>10 chf</p>
     <hr>
-        <button cart="purchase" >Passez en caisse</button>
+    <p>Total : {{ total | currency:'CHF' }}</p>
+    <button routerLink="/purchase">Passez en caisse</button>
     <hr>
-
-     <app-confirmation-commande></app-confirmation-commande>
 </div>
