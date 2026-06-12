@@ -18,7 +18,9 @@
                     <td>{{ commande.articleCommandes }}</td>
                     <td>{{ getTotalByCommande(commande.id) | currency:'CHF' }}</td>
                     <td>{{ commande.payement }}</td>
-                    <td>{{ commande.facture }}</td>
+                    <td>
+                        <button *ngIf="commande.facture" (click)="downloadFacture(commande)">Télécharger</button>
+                    </td>
                     <td>
                         <app-delete-commande [commandeId]="commande.id"></app-delete-commande>
                     </td>
