@@ -6,5 +6,5 @@ export interface Commande {
     articleCommandes: ArticleCommande[];
     user: User;
     payement: string;
-    facture: Blob;
+    facture: string | null;
 }

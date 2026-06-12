@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.*;
 import com.maven.model.Commande;
 import com.maven.repository.CommandeRepository;
 import java.util.List;
+import java.sql.Blob;
+
 @RestController
 public class CommandeController {
     @Autowired
@@ -26,6 +28,16 @@ public class CommandeController {
             @RequestBody Commande commande) {
         commandeRepository.save(commande);
     }
+
+    @PutMapping("/Commandes/{id}/facture")
+        public void updateFacture(@PathVariable int id, @RequestBody byte[] pdfBytes) {
+            Commande commande = commandeRepository.findById(id).orElse(null);
+                if (commande == null) return;
+                commande.setFacture(pdfBytes);
+                commandeRepository.save(commande);
+     
+        }
+
     @DeleteMapping("/Commandes/{id}")
     public void deleteCommande(@PathVariable int id) {
         commandeRepository.deleteById(id);

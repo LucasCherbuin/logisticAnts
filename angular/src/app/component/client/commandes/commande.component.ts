@@ -60,6 +60,18 @@ export class CommandeComponent implements OnInit {
         });
     }
 
+    downloadFacture(commande: Commande): void {
+        if (!commande.facture) return;
+        const byteArray = Uint8Array.from(atob(commande.facture), c => c.charCodeAt(0));
+        const blob = new Blob([byteArray], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `facture-${commande.id}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
     getTotalByCommande(commandeId: number): number {
         return this.articleCommandes
             .filter(ac => ac.id === commandeId)

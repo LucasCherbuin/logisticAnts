@@ -9,6 +9,7 @@ import { MailService, MailRequest } from '../../services/mailer.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
 import { ConfirmationCommandeComponent } from "./commandes/confirmationCommande.component";
+import { DeleteCommandeComponent } from "./deleteCommande.component";
 import { UserService } from "../../services/user.service";
 import { jwtDecode } from "jwt-decode";
 import { forkJoin, switchMap } from 'rxjs';
@@ -27,7 +28,9 @@ import { RouterModule } from "@angular/router";
         HttpClientModule,
         FormsModule,
         ConfirmationCommandeComponent,
-        RouterModule
+        DeleteCommandeComponent,
+        RouterModule,
+        
     ],
     styleUrls: ['../../../main.scss'],
 })
@@ -35,7 +38,7 @@ export class PurchaseComponent implements OnInit {
     form: FormGroup;
     commandes: Commande[] = [];
     articleCommandes: ArticleCommande[] = [];
-    paymentOptions: string[] = ['Facture', 'carte', 'paypal', 'visa'];
+    paymentOptions: string[] = ['Facture', 'carte', 'paypal', 'twint'];
     selectedPayement: string = 'Facture';
     cartItems: { produit: any; quantite: number}[] = [];
 
@@ -77,63 +80,65 @@ export class PurchaseComponent implements OnInit {
     }
 
     getTotalByCommande(commandeId: number): number {
-        return this.articleCommandes
-            .filter(ac => ac.id === commandeId)
-            .reduce((total, ac) => total + ac.quantite, 0);
-    }
+    return this.articleCommandes
+        .filter(ac => ac.commande?.id === commandeId)
+        .reduce((total, ac) => total + ac.quantite, 0);
+}
 
     onSubmit(): void {
-    if (this.form.valid) {
-        const token = localStorage.getItem('token');
-        if (!token) return;
-        const payload: any = jwtDecode(token);
-        const pseudo = payload.sub;
+        if (this.form.valid) {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+            const payload: any = jwtDecode(token);
+            const pseudo = payload.sub;
 
-        this.userService.getUserByPseudo(pseudo).subscribe({
-            next: (user: User) => {
-                const commande: Partial<Commande> = {
-                    user: user,
-                    payement: this.selectedPayement
-                };
-                this.commandeService.createCommande(commande as Commande).subscribe({
-                    next: (created: Commande) => {
-                        const saves = this.cartItems.map(item => {
-                            const ac: Partial<ArticleCommande> = {
-                                produit: item.produit,
-                                quantite: item.quantite
-                            };
-                            return this.articleCommandeService.createArticleCommande(ac as ArticleCommande).pipe(
-                                switchMap(savedAc =>
-                                    this.articleCommandeService.assignCommande(savedAc.id, created.id)
-                                )
-                            );
-                        });
-                        forkJoin(saves).subscribe({
-                            next: () => {
-                                this.articleCommandeService.clearCart();
-                                this.sendConfirmationMail(created, user.email);
-                                this.loadCommandes();
-                            }
-                        });
-                    },
-                    error: (err: HttpErrorResponse) => { console.error('Erreur', err); }
-                });
-            },
-            error: (err: HttpErrorResponse) => { console.error('Erreur user', err); }
-        });
+            this.userService.getUserByPseudo(pseudo).subscribe({
+                next: (user: User) => {
+                    const commande: Partial<Commande> = {
+                        user: user,
+                        payement: this.selectedPayement
+                    };
+                    this.commandeService.createCommande(commande as Commande).subscribe({
+                        next: (created: Commande) => {
+                            const saves = this.cartItems.map(item => {
+                                const ac: Partial<ArticleCommande> = {
+                                    produit: item.produit,
+                                    quantite: item.quantite
+                                };
+                                return this.articleCommandeService.createArticleCommande(ac as ArticleCommande).pipe(
+                                    switchMap(savedAc =>
+                                        this.articleCommandeService.assignCommande(savedAc.id, created.id)
+                                    )
+                                );
+                            });
+                            forkJoin(saves).subscribe({
+                                next: () => {
+                                    this.articleCommandeService.clearCart();
+                                    this.sendConfirmationMail(created, user.email);
+                                    this.loadCommandes();
+                                    this.redirectionPayement(created);
+                                    this.generateBillPDF(created.id);
+                                }
+                            });
+                        },
+                        error: (err: HttpErrorResponse) => { console.error('Erreur', err); }
+                    });
+                },
+                error: (err: HttpErrorResponse) => { console.error('Erreur user', err); }
+            });
+        }
     }
-}
 
     redirectionPayement(commande: Commande): void {
         const total = this.getTotalByCommande(commande.id);
         this.confirmationPopup.open(commande.id, total, () => {
-            this.paymentService.getPay(total).subscribe({
+            this.paymentService.getPay(total, this.selectedPayement).subscribe({
                 next: () => { this.loadCommandes(); },
                 error: (err: any) => { console.error("Erreur paiement:", err); }
             });
         });
     }
-
+    
     sendConfirmationMail(commande: Commande, email: string): void {
         const mail: MailRequest = {
             to: email,
@@ -148,7 +153,7 @@ export class PurchaseComponent implements OnInit {
 
     
 
-    generateBillPDF(): void {
+    generateBillPDF(commandeId: number): void {
         const doc = new jsPDF();
 
         doc.setFontSize(16);
@@ -160,19 +165,20 @@ export class PurchaseComponent implements OnInit {
         doc.text(`Ville : ${this.form.value.ville}`, 14, 39);
         doc.text(`NPA : ${this.form.value.NPA}`, 14, 46);
 
-        const headers = [['ID', 'Produit ID', 'Quantité']];
-        const data = this.articleCommandes.map(ac => [
-            ac.id,
-            ac.produit.id,
-            ac.quantite
+        const headers = [['Article', 'Quantité', 'Prix']];
+        const data = this.cartItems.map(item => [
+            item.produit.nom,
+            item.quantite,
+            item.produit.prix + '.-'
         ]);
 
-        autoTable(doc, {
-            head: headers,
-            body: data,
-            startY: 55,
-        });
+        autoTable(doc, { head: headers, body: data, startY: 55 });
 
         doc.save('facture.pdf');
+
+        const pdfBytes = doc.output('arraybuffer');
+        this.commandeService.updatedFacture(commandeId, pdfBytes).subscribe({
+            error: err => { console.error('Erreur upload facture', err); }
+        });
     }
 }
