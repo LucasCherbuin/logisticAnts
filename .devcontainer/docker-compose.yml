@@ -31,6 +31,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    env_file:
+      - ../.env
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/logisticants?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
@@ -66,3 +68,5 @@ services:
 networks:
   mynetwork:
     driver: bridge
+
+  # docker compose -f .devcontainer/docker-compose.yml logs -f 
