@@ -3,10 +3,19 @@
         <h3>Moyen de paiement</h3>
         @for (option of paymentOptions; track option) {
         <div>
-            <input type="radio" [id]="option" name="payement" [value]="option" [(ngModel)]="selectedPayement" />
+            <input type="radio" [id]="option" name="payement" [value]="option" [(ngModel)]="selectedPayement" (change)="showCarteOptions = option === 'carte'" />
             <label [for]="option">{{ option }}</label>
         </div>
-}
+        }
+        <div *ngIf="showCarteOptions">
+            <h4>Choisissez votre carte</h4>
+            @for (carte of carteOptions; track carte) {
+            <div>
+                <input type="radio" [id]="carte" name="carte" [value]="carte" [(ngModel)]="selectedCarte" />
+                <label [for]="carte">{{ carte }}</label>
+            </div>
+            }
+        </div>
     </div>
 
     <div>

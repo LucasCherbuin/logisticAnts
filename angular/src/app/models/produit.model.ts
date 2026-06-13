@@ -5,10 +5,10 @@ export interface Produit {
     id: number;
     nom: string;
     prix: number;
-    QuantiteStock: number;
+    quantiteStock: number;
     dernierAjout: Date;
     perissable: boolean;
-    DatePeremption: Date;
+    datePeremption: Date;
     fournisseur: Fournisseur;
     image?: { id: number; url: string };
 }

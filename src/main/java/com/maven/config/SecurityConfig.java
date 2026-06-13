@@ -51,7 +51,8 @@ public class SecurityConfig {
                     "/login",
                     "/mail/**",
                     "/register",
-                    "/Users/**"
+                    "/Users/**",
+                    "/pay"
                 ).permitAll()
                 .anyRequest().authenticated()
             )

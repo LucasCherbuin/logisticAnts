@@ -20,6 +20,8 @@ export class ConfirmationCommandeComponent {
 
     open(commandeId: number, total: number, callback: () => void): void {
         this.isVisible = true;
+        callback();
+        this.close();
     }
 
     close(): void {

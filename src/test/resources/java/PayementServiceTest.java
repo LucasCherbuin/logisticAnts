@@ -3,7 +3,7 @@ package com.maven.controller;
 import com.maven.dto.PaymentRequest;
 import com.maven.dto.PaymentResponse;
 import com.maven.service.payment.PayPalService;
-import com.maven.service.payment.TwintService;
+import com.maven.service.payment.DataTransService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +26,7 @@ class CustomPayControllerTest {
     private PayPalService payPalService;
 
     @MockBean
-    private TwintService twintService;
+    private DataTransService dataTransService;
 
     @Test
     void testPayWithPayPal() throws Exception {
@@ -42,7 +42,7 @@ class CustomPayControllerTest {
                 "amount": 49.90,
                 "currency": "CHF",
                 "commandeId": "CMD-001",
-                "returnUrl": "https://yoursite.com/success",
+                "returnUrl": ${},
                 "cancelUrl": "https://yoursite.com/cancel"
             }
             """;
@@ -57,11 +57,11 @@ class CustomPayControllerTest {
     }
 
     @Test
-    void testPayWithTwint() throws Exception {
+    void testPayWithDataTrans() throws Exception {
         PaymentResponse mockResponse = new PaymentResponse(
             "TWI-456", "PENDING", "https://datatrans.com/pay/TWI-456"
         );
-        when(twintService.initiatePayment(any(PaymentRequest.class)))
+        when(dataTransService.initiatePayment(any(PaymentRequest.class)))
             .thenReturn(mockResponse);
 
         String requestBody = """

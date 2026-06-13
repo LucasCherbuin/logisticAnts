@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Base64;
 
 @Service
-public class TwintService {
+public class DataTransService {
 
     @Value("${datatrans.merchant-id}")
     private String merchantId;
@@ -27,12 +27,19 @@ public class TwintService {
 
     private final WebClient webClient = WebClient.create();
 
-    public PaymentResponse initiatePayment(PaymentRequest req) {
+        public PaymentResponse initiatePayment(PaymentRequest req) {
+        String datatransMethod = switch (req.getPaymentMethod().toUpperCase()) {
+            case "MASTERCARD" -> "ECA";
+            case "VISA" -> "VIS";
+            case "AMERICAN EXPRESS" -> "AMX";
+            default -> "TWI";
+        };
+
         Map<String, Object> body = new HashMap<>();
         body.put("currency", req.getCurrency());
         body.put("refno", req.getCommandeId());
-        body.put("amount", (int)(req.getAmount() * 100)); 
-        body.put("paymentMethods", List.of("TWI"));
+        body.put("amount", (int)(req.getAmount() * 100));
+        body.put("paymentMethods", List.of(datatransMethod));
         body.put("redirect", Map.of(
             "successUrl", req.getReturnUrl(),
             "cancelUrl",  req.getCancelUrl(),
@@ -52,8 +59,7 @@ public class TwintService {
             .block();
 
         String transactionId = (String) response.get("transactionId");
-        String paymentUrl = baseUrl + "/transactions/" + transactionId + "/payment-page";
-
+        String paymentUrl = "https://pay.sandbox.datatrans.com/v1/start/" + transactionId;
         return new PaymentResponse(transactionId, "PENDING", paymentUrl);
     }
 }

@@ -3,13 +3,14 @@ package com.maven.controller;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;  
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.maven.service.payment.PayPalService;
-import com.maven.service.payment.TwintService;
+import com.maven.service.payment.DataTransService ;
 import com.maven.dto.PaymentRequest;
 import com.maven.dto.PaymentResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,14 @@ public class CustomPayController {
     private static final String CARD_GATEWAY_URL = "https://api.examplepaymentgateway.com/payments";
     private static final String CARD_API_KEY = "CARD_API_KEY";
 
+    @Value("${transaction.success-url}")
+    private String successUrl;
+
+    @Value("${transaction.cancel-url}")
+    private String cancelUrl;
+
     private final PayPalService payPalService;
-    private final TwintService twintService;
+    private final DataTransService  dataTransService;
 
     @CrossOrigin
     @PostMapping(path = "/pay")
@@ -48,7 +55,13 @@ public class CustomPayController {
 
                 case "TWINT" -> {
                     PaymentRequest req = buildPaymentRequest(amount, currency, paymentMethod, inputBody);
-                    PaymentResponse resp = twintService.initiatePayment(req);
+                    PaymentResponse resp = dataTransService.initiatePayment(req);
+                    yield resp.toJson();
+                }
+
+                case "MASTERCARD", "VISA", "AMERICAN EXPRESS" -> {
+                    PaymentRequest req = buildPaymentRequest(amount, currency, paymentMethod, inputBody);
+                    PaymentResponse resp = dataTransService.initiatePayment(req);
                     yield resp.toJson();
                 }
 
@@ -58,7 +71,6 @@ public class CustomPayController {
                     payload.put("currency", currency);
                     payload.put("paymentMethod", paymentMethod);
 
-                    // ✅ OkHttp 4.x : MediaType en premier
                     RequestBody body = RequestBody.create(
                         MediaType.parse("application/json"),
                         payload.toJSONString()
@@ -90,13 +102,11 @@ public class CustomPayController {
         PaymentRequest req = new PaymentRequest();
         req.setAmount(Double.parseDouble(amount));
         req.setCurrency(currency);
-        req.setPaymentMethod(method);     
+        req.setPaymentMethod(method);
         req.setCommandeId(body.getOrDefault("commandeId",
-            "CMD-" + System.currentTimeMillis()).toString()); 
-        req.setReturnUrl(body.getOrDefault("returnUrl",
-            "https://yoursite.com/success").toString());
-        req.setCancelUrl(body.getOrDefault("cancelUrl",
-            "https://yoursite.com/cancel").toString());
+            "CMD-" + System.currentTimeMillis()).toString());
+        req.setReturnUrl(body.getOrDefault("returnUrl", successUrl).toString());
+        req.setCancelUrl(body.getOrDefault("cancelUrl", cancelUrl).toString());
         return req;
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild, AfterViewInit } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
 import { ArticleCommande } from "../../models/articleCommande.model";
 import { ArticleCommandeService } from "../../services/articleCommande.service";
@@ -30,17 +30,19 @@ import { RouterModule } from "@angular/router";
         ConfirmationCommandeComponent,
         DeleteCommandeComponent,
         RouterModule,
-        
     ],
     styleUrls: ['../../../main.scss'],
 })
-export class PurchaseComponent implements OnInit {
+export class PurchaseComponent implements OnInit, AfterViewInit {
     form: FormGroup;
     commandes: Commande[] = [];
     articleCommandes: ArticleCommande[] = [];
     paymentOptions: string[] = ['Facture', 'carte', 'paypal', 'twint'];
     selectedPayement: string = 'Facture';
-    cartItems: { produit: any; quantite: number}[] = [];
+    showCarteOptions: boolean = false;
+    selectedCarte: string = '';
+    carteOptions: string[] = ['Mastercard', 'Visa', 'American Express'];
+    cartItems: { produit: any; quantite: number }[] = [];
 
     @ViewChild(ConfirmationCommandeComponent) confirmationPopup!: ConfirmationCommandeComponent;
 
@@ -65,6 +67,10 @@ export class PurchaseComponent implements OnInit {
         this.cartItems = this.articleCommandeService.getItems();
     }
 
+    ngAfterViewInit(): void {
+        console.log('confirmationPopup:', this.confirmationPopup);
+    }
+
     loadCommandes(): void {
         this.commandeService.getCommandes().subscribe({
             next: (data: Commande[]) => { this.commandes = data; },
@@ -79,11 +85,10 @@ export class PurchaseComponent implements OnInit {
         });
     }
 
-    getTotalByCommande(commandeId: number): number {
-    return this.articleCommandes
-        .filter(ac => ac.commande?.id === commandeId)
-        .reduce((total, ac) => total + ac.quantite, 0);
-}
+    getTotalByCommande(commande: Commande): number {
+        if (!commande.articleCommandes) return 0;
+        return commande.articleCommandes.reduce((total, ac) => total + (ac.produit.prix * ac.quantite), 0);
+    }
 
     onSubmit(): void {
         if (this.form.valid) {
@@ -94,9 +99,10 @@ export class PurchaseComponent implements OnInit {
 
             this.userService.getUserByPseudo(pseudo).subscribe({
                 next: (user: User) => {
+                    const payement = this.selectedPayement === 'carte' ? this.selectedCarte : this.selectedPayement;
                     const commande: Partial<Commande> = {
                         user: user,
-                        payement: this.selectedPayement
+                        payement: payement
                     };
                     this.commandeService.createCommande(commande as Commande).subscribe({
                         next: (created: Commande) => {
@@ -130,15 +136,32 @@ export class PurchaseComponent implements OnInit {
     }
 
     redirectionPayement(commande: Commande): void {
-        const total = this.getTotalByCommande(commande.id);
-        this.confirmationPopup.open(commande.id, total, () => {
-            this.paymentService.getPay(total, this.selectedPayement).subscribe({
-                next: () => { this.loadCommandes(); },
-                error: (err: any) => { console.error("Erreur paiement:", err); }
-            });
-        });
+        const total = this.cartItems.reduce((sum, item) => sum + (item.produit.prix * item.quantite), 0);
+        const paymentMethod = this.selectedPayement === 'carte' ? this.selectedCarte : this.selectedPayement;
+        setTimeout(() => {
+            if (this.confirmationPopup) {
+                this.confirmationPopup.open(commande.id, total, () => {
+                    this.paymentService.getPay(total, paymentMethod).subscribe({
+                        next: (res: any) => {
+                            console.log('réponse paiement', res);
+                            try {
+                                const parsed = typeof res === 'string' ? JSON.parse(res) : res;
+                                if (parsed.redirectUrl) {
+                                    window.location.href = parsed.redirectUrl;
+                                } else {
+                                    this.loadCommandes();
+                                }
+                            } catch {
+                                this.loadCommandes();
+                            }
+                        },
+                        error: (err: any) => { console.error("Erreur paiement:", err); }
+                    });
+                });
+            }
+        }, 0);
     }
-    
+
     sendConfirmationMail(commande: Commande, email: string): void {
         const mail: MailRequest = {
             to: email,
@@ -150,8 +173,6 @@ export class PurchaseComponent implements OnInit {
             error: (err: HttpErrorResponse) => { console.error('Erreur mail', err); }
         });
     }
-
-    
 
     generateBillPDF(commandeId: number): void {
         const doc = new jsPDF();
@@ -180,5 +201,5 @@ export class PurchaseComponent implements OnInit {
         this.commandeService.updatedFacture(commandeId, pdfBytes).subscribe({
             error: err => { console.error('Erreur upload facture', err); }
         });
-    }
+    } 
 }

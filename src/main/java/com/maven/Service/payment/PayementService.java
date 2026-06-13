@@ -35,7 +35,7 @@ public class PayementService {
 
         String epild = "XXXX-XXXXXX-X-X";
         String epiKey = "XXXXXXXXXXXXXXXXXX"; 
-        String baseUrl = "https://api.europeanpaymentsinitiative.eu/v1/payments";
+        String baseUrl = "datatrans.base-url";
         String endpoint = "/payement";
 
         JSONObject jsonBody = new JSONObject();
