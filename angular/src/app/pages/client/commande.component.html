@@ -1,0 +1,31 @@
+<div>
+    <p>Vos commandes</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro référence</th>
+                <th>Articles</th>
+                <th>Total</th>
+                <th>Moyen de paiement</th>
+                <th>Facture</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+            <tbody>
+                @for (commande of commandes; track commande.id) {
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.articleCommandes }}</td>
+                    <td>{{ getTotalByCommande(commande.id) | currency:'CHF' }}</td>
+                    <td>{{ commande.payement }}</td>
+                    <td>
+                        <button *ngIf="commande.facture" (click)="downloadFacture(commande)">Télécharger</button>
+                    </td>
+                    <td>
+                        <app-delete-commande [commandeId]="commande.id"></app-delete-commande>
+                    </td>
+                </tr>
+                }
+            </tbody>
+    </table>
+</div>

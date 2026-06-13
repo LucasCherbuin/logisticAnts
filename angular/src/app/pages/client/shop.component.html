@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="search-bar">
     <input
         type="text"
@@ -13,3 +14,14 @@
         [produit]="produit">
     </card>
 </div>
+=======
+<article>
+    <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        placeholder="Rechercher un produit..."
+    />
+    <app-card></app-card>
+</article>
+>>>>>>> PageClient

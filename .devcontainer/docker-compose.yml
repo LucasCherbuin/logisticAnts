@@ -31,12 +31,15 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    env_file:
+      - ../.env
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://172.18.0.2:3306/logisticants?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/logisticants?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
+      FRONTEND_URL: http://localhost:4200
     ports:
       - "8080:8080"
     networks:
@@ -48,11 +51,16 @@ services:
       context: ..
       dockerfile: .devcontainer/angular/Dockerfile.angular
     container_name: logisticants-angular
+    env_file:
+      - ../.env
+    environment:
+      - API_BACKEND_URL=${API_BACKEND_URL}
+      - API_FRONTEND_URL=${API_FRONTEND_URL}
     ports:
       - "4200:4200"
     volumes:
-      - ./angular:/app/angular
-      - /app/angular/node_modules
+      - ../angular:/logisticants/angular
+      - /logisticants/angular/node_modules
     networks:
       - mynetwork
     restart: unless-stopped
@@ -60,3 +68,5 @@ services:
 networks:
   mynetwork:
     driver: bridge
+
+  # docker compose -f .devcontainer/docker-compose.yml logs -f 

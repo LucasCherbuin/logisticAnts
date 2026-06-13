@@ -5,8 +5,16 @@ import com.maven.repository.FournisseurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.web.bind.annotation.PutMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 
+=======
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+>>>>>>> PageClient
 public class FournisseurController {
     @Autowired
 

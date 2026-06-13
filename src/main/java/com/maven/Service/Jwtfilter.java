@@ -30,7 +30,15 @@ public class Jwtfilter extends OncePerRequestFilter {
         // Routes publiques — pas de vérification
         if (path.contains("/register") ||
             path.contains("/login") ||
+<<<<<<< HEAD
             path.contains("/mail/send")) {
+=======
+            path.contains("/mail") ||
+            path.contains("/Users") ||
+            path.contains("/Produits") ||
+            path.contains("/Commandes") ||
+            path.contains("/ArticleCommandes")) {
+>>>>>>> PageClient
             chain.doFilter(req, res);
             return;
         }
@@ -46,4 +54,9 @@ public class Jwtfilter extends OncePerRequestFilter {
 
         res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     }
+<<<<<<< HEAD
+=======
+
+    
+>>>>>>> PageClient
 }

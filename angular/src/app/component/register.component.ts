@@ -9,7 +9,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-register',
   templateUrl: '../pages/login/register.component.html',
+<<<<<<< HEAD
   styleUrls: ['../../main.scss'],
+=======
+  standalone: true,
+  styleUrls: ["../../main.scss"],
+>>>>>>> PageClient
   imports: [FormsModule, CommonModule],
 })
 export class RegisterComponent {
@@ -27,9 +32,15 @@ export class RegisterComponent {
   register() {
     this.registerService.register(this.pseudo, this.email, this.password, this.role)
       .pipe(
+<<<<<<< HEAD
         tap(() => console.log('✅ 1. Register OK')),
         switchMap(() => this.registerService.login(this.pseudo, this.password)),
         tap((token: string) => console.log('✅ 2. Login token brut :', token)),
+=======
+        tap(() => console.log(' 1. Register OK')),
+        switchMap(() => this.registerService.login(this.pseudo, this.password)),
+        tap((token: string) => console.log(' 2. Login token brut :', token)),
+>>>>>>> PageClient
         switchMap((token: string) => {
           let finalToken: string;
           try {
@@ -39,7 +50,11 @@ export class RegisterComponent {
             finalToken = token;
           }
 
+<<<<<<< HEAD
           console.log('✅ 3. Final token :', finalToken);
+=======
+          console.log(' 3. Final token :', finalToken);
+>>>>>>> PageClient
           this.registerService.saveToken(finalToken);
 
           const mail: MailRequest = {
@@ -56,4 +71,8 @@ export class RegisterComponent {
         error: (err: HttpErrorResponse) => console.error('Erreur', err)
       });
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> PageClient
 }

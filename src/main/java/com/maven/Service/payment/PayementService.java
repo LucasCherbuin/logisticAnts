@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/maven/Service/PaiementService.java
 package com.maven.service;
+=======
+package com.maven.service.payment;
+>>>>>>> PageClient:src/main/java/com/maven/Service/payment/PayementService.java
 
 import okhttp3.*;
 import okhttp3.MediaType;
@@ -14,7 +18,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 @Service
-public class PaiementService {
+public class PayementService {
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final String SUCCESS_MESSAGE = "Payment request processed";
@@ -35,7 +39,7 @@ public class PaiementService {
 
         String epild = "XXXX-XXXXXX-X-X";
         String epiKey = "XXXXXXXXXXXXXXXXXX"; 
-        String baseUrl = "https://api.europeanpaymentsinitiative.eu/v1/payments";
+        String baseUrl = "datatrans.base-url";
         String endpoint = "/payement";
 
         JSONObject jsonBody = new JSONObject();

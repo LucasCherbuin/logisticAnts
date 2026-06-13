@@ -29,6 +29,7 @@ $role-themes: (
     background-color: map.get($colors, "secondary");
     min-height: 100vh;
     @include center;
+<<<<<<< HEAD
   }
 
 
@@ -83,6 +84,69 @@ $role-themes: (
     background-color: map.get($colors, "secondary");
   }
 
+=======
+  }
+
+
+  .#{$role}-theme .formulaire {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    width: 320px;
+
+    border: 3px solid map.get($colors, "primary");
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+
+  .#{$role}-theme input {
+    border-radius: 999px;
+    border: 1px solid map.get($colors, "primary");
+    padding: 10px 15px;
+    outline: none;
+    background: #fff;
+  }
+
+  .#{$role}-theme input:focus {
+    border: 2px solid map.get($colors, "primary");
+  }
+
+  .#{$role}-theme button {
+    border-radius: 999px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+
+    background: map.get($colors, "primary");
+    color: white;
+    transition: 0.2s;
+  }
+
+  .#{$role}-theme button:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+
+  .dashboard {
+    background-color: map.get($colors, "primary");
+  }
+
+  :host {
+    c-card {
+      min-width: 9rem;
+    }
+  }
+
+
+  .popup {
+    background-color: map.get($colors, "secondary");
+  }
+
+>>>>>>> PageClient
   .table {
     background-color: map.get($colors, "secondary");
   }
@@ -90,4 +154,9 @@ $role-themes: (
   .column-table-filter {
     background-color: #D9D9D9;
   }
+<<<<<<< HEAD
+=======
+
+  
+>>>>>>> PageClient
 }

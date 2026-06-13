@@ -1,6 +1,9 @@
 package com.maven.model;
 
 import org.mindrot.jbcrypt.BCrypt;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +20,10 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
+<<<<<<< HEAD
+=======
+    @JsonIgnore
+>>>>>>> PageClient
     private Role role;
 
     public User() {}
