@@ -1,7 +1,10 @@
-export interface Commande { 
+import { User } from "./user.model";
+import { ArticleCommande } from "./articleCommande.model";
+
+export interface Commande {
     id: number;
-    articleCommandeId: number;
-    userId: number;
+    articleCommandes: ArticleCommande[];
+    user: User;
     payement: string;
-    facture: Blob;
+    facture: string | null;
 }

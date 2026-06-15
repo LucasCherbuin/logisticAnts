@@ -12,7 +12,7 @@ travailler sur le projet
 
 ```bash
   1. cloner le github
-  2. executer le fichier dockerfile pour les dépendences
+  2. executer les fichiers dockerfiles pour les dépendences
   3. executer le fichier dockercompose pour utiliser les services
 ```
     
@@ -32,4 +32,13 @@ travailler sur le projet
 
 **container** 
 docker
+
+### FrontEnd
+
+wireframe, maquettage et prototype de l'interface de l'application. lien : https://www.figma.com/community/file/1610297131830775342
+
+### Backend
+
+Diagrammes de classes et cas d'utilisation dans le dossier public
+
 

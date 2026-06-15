@@ -1,56 +1,64 @@
 package com.maven.controller;
-
-
-
-import com.maven.modelNosql.*;
-import com.maven.repositoryNosql.*;
-import com.maven.dto.AdminDashboardResponse;
-
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import com.maven.modelNosql.Prix;
+import org.springframework.web.bind.annotation.GetMapping;
+import com.maven.repositoryNosql.PrixRepository;
+import com.maven.modelNosql.ProduitPhare;
+import com.maven.repositoryNosql.ProduitPhareRepository;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/dashboard")
-@CrossOrigin(origins = "http://localhost:4200")
 
 public class AdminDashboardController {
+    
+    @RestController
 
-    private final PrixRepository prixRepository;
-    private final ProduitPhareRepository produitPhareRepository;
+    public class DashboardPrixController {
 
-    public AdminDashboardController(PrixRepository prixRepository, ProduitPhareRepository produitPhareRepository) {
-        this.prixRepository = prixRepository;
-        this.produitPhareRepository = produitPhareRepository;
+        private final PrixRepository prixRepository;
+
+        public DashboardPrixController(PrixRepository prixRepository) {
+            this.prixRepository = prixRepository;
+        }
+
+        //DashBoard pour les prix total des produits, on affiche la liste des prix avec le total des achats et des produits
+        @GetMapping("/dashboard/prix")
+        public List<Prix> getAllPrix() {
+            return prixRepository.findAll();
+        }
     }
+    @RestController
+    public class DashboardProduitPhareController {
 
+        private final ProduitPhareRepository produitPhareRepository;
 
-    @GetMapping
-    public AdminDashboardResponse getAdminDashboard() {
+        public DashboardProduitPhareController(ProduitPhareRepository produitPhareRepository) {
+            this.produitPhareRepository = produitPhareRepository;
+        }
 
-        List<Prix> prixs = prixRepository.findAll();
-        List<ProduitPhare> produitPhares = produitPhareRepository.findAll();
+        //DashBoard pour les produits phares, on affiche la liste des produits phares avec le total des remboursements et des achats
+        @GetMapping("/dashboard/produits-phare")
+        public Map<String, Object> getAllProduitsPhare(){
 
-        int remboursement = prixs.stream()
-                .mapToInt(Prix::getRemboursement)
+            List<ProduitPhare> produits = produitPhareRepository.findAll();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("produits", produits);
+
+            int remboursement = produits.stream()
+                .mapToInt(ProduitPhare::getRemboursement)
                 .sum();
 
-        int Achat = prixs.stream()
-                .mapToInt(Prix::getAachat)
-                .sum();
-
-        int totalProduits = prixs.size();
-
-        int produit = produitPhares.stream()
-                .mapToInt(ProduitPhare::getProduit)
-                .sum();
-        
-        int achat = produitPhares.stream()
+            int achat = produits.stream()
                 .mapToInt(ProduitPhare::getAchat)
                 .sum();
 
-        return new AdminDashboardResponse(prixs, remboursement, Achat, totalProduits, produitPhares, produit, achat);
+            response.put("remboursement", remboursement);
+            response.put("achat", achat);
+
+            return response;
+        }
     }
-
-
 }

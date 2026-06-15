@@ -1,0 +1,41 @@
+2025-12-28T20:59:59.718Z [INFO] ----------------------invoke validate_cves_for_java----------------------
+2025-12-28T20:59:59.718Z [INFO] [Tool.invoke]({name: validate_cves_for_java, input: {
+  "dependencies": [
+    "com.googlecode.json-simple:json-simple:1.1.1",
+    "com.squareup.okhttp3:okhttp:4.12.0",
+    "at.favre.lib:bcrypt:0.10.2"
+  ],
+  "projectPath": "l:\\Projet developpements\\logisticAnts"
+}}).
+2025-12-28T20:59:59.718Z [INFO] [Task.start](): Starting task toolCall
+2025-12-28T20:59:59.719Z [INFO] [Task.start](): Started task toolCall
+2025-12-28T20:59:59.719Z [INFO] [Tool.invoke] validate GitHub Copilot license.
+2025-12-28T20:59:59.719Z [INFO] [Tool.invoke] do pre-invoke.
+2025-12-28T20:59:59.719Z [INFO] [Tool.invoke] do invoke.
+2025-12-28T20:59:59.724Z [INFO] Getting CVEs for dependencies: com.googlecode.json-simple:json-simple:1.1.1,com.squareup.okhttp3:okhttp:4.12.0,at.favre.lib:bcrypt:0.10.2
+2025-12-28T20:59:59.724Z [INFO] getting CVEs for dependencies:
+ - com.googlecode.json-simple:json-simple:1.1.1
+  - com.squareup.okhttp3:okhttp:4.12.0
+  - at.favre.lib:bcrypt:0.10.2...
+2025-12-28T20:59:59.724Z [INFO] getting gitHub access token...
+2025-12-28T21:00:01.752Z [ERROR] Failed to get GitHub access token to validate CVEs for the given dependencies.
+2025-12-28T21:00:01.752Z [INFO] Processing batch 1/1, size: 3
+2025-12-28T21:00:01.754Z [INFO] listing CVEs from GitHub for dependencies [
+  "com.googlecode.json-simple:json-simple:1.1.1",
+  "com.squareup.okhttp3:okhttp:4.12.0",
+  "at.favre.lib:bcrypt:0.10.2"
+]
+2025-12-28T21:00:02.017Z [INFO] Fetched 0 total advisories across all pages
+2025-12-28T21:00:02.018Z [INFO] grouping CVEs and finding max patched version by dep...
+2025-12-28T21:00:02.018Z [INFO] done getting 0 CVEs for 3 dependencies
+2025-12-28T21:00:02.018Z [INFO] calculating patched version by dep...
+2025-12-28T21:00:02.018Z [INFO] finished getting CVEs for dependencies.
+2025-12-28T21:00:02.018Z [INFO] Found 0 dependencies with known CVEs
+2025-12-28T21:00:02.019Z [INFO] No known CVEs found for dependencies: com.googlecode.json-simple:json-simple:1.1.1,com.squareup.okhttp3:okhttp:4.12.0,at.favre.lib:bcrypt:0.10.2
+2025-12-28T21:00:02.019Z [INFO] [Tool.invoke]({result: {
+  "message": "No known CVEs found for the given dependencies."
+}}).
+2025-12-28T21:00:02.019Z [INFO] [Task.complete](): Completing task toolCall
+2025-12-28T21:00:02.019Z [INFO] [Task.complete](): Completed task toolCall
+2025-12-28T21:00:02.020Z [INFO] [Tool.invoke]({message: No known CVEs found for the given dependencies.}).
+2025-12-28T21:00:02.020Z [INFO] ----------------------invoked validate_cves_for_java----------------------

@@ -1,45 +1,44 @@
 package com.maven.controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.maven.model.Commande;
 import com.maven.repository.CommandeRepository;
-
 import java.util.List;
+import java.sql.Blob;
 
 @RestController
 public class CommandeController {
-
     @Autowired
     private CommandeRepository commandeRepository;
-
-    @GetMapping("/commandes")
+    @GetMapping("/Commandes")
     public List<Commande> getAllCommandes() {
         return commandeRepository.findAll();
     }
-
-    @GetMapping("/commandes/{id}")
+    @GetMapping("/Commandes/{id}")
     public Commande getCommandeById(@PathVariable int id) {
         return commandeRepository.findById(id).orElse(null);
     }
-
-    @PutMapping("/commandes/create")
-    public void createCommande(@RequestBody Commande commande) {
-        commandeRepository.save(commande);
+    @PostMapping("/Commandes")
+    public Commande createCommande(@RequestBody Commande commande) {
+        return commandeRepository.save(commande);
     }
-
-    @PutMapping("/commandes/{id}/update")
+    @PutMapping("/Commandes/{id}/update")
     public void updateCommande(
             @PathVariable int id,
             @RequestBody Commande commande) {
         commandeRepository.save(commande);
     }
 
-    @PutMapping("/commandes/{id}/delete")
+    @PutMapping("/Commandes/{id}/facture")
+        public void updateFacture(@PathVariable int id, @RequestBody byte[] pdfBytes) {
+            Commande commande = commandeRepository.findById(id).orElse(null);
+                if (commande == null) return;
+                commande.setFacture(pdfBytes);
+                commandeRepository.save(commande);
+     
+        }
+
+    @DeleteMapping("/Commandes/{id}")
     public void deleteCommande(@PathVariable int id) {
         commandeRepository.deleteById(id);
     }

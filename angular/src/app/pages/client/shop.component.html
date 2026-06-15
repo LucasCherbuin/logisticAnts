@@ -1,15 +1,9 @@
-<div class="search-bar">
+<article>
     <input
         type="text"
-        placeholder="Rechercher un produit"
         [(ngModel)]="searchTerm"
         (input)="onSearch()"
-    >
-</div>
-
-<div class="card-container">
-    <card
-        *ngFor="let produit of filteredAnimals"
-        [produit]="produit">
-    </card>
-</div>
+        placeholder="Rechercher un produit..."
+    />
+    <app-card></app-card>
+</article>

@@ -2,17 +2,17 @@
 
 class prix {
   int id
-  int prixTotal
-  int remboursement
+  int produit
   int achat
-  date date
 }
 
 
 class produitPhare {
   int id
-  int produit
+  int prixTotal
+  int remboursement
   int achat
+  date date
 }
 
 

@@ -1,14 +1,14 @@
-$font-stack: Helvetica, sans-serif;
-$padding-base: 10px;
+@use 'sass:map';
 
-$role-themes: ( 
+$padding-base: 12px;
+
+$role-themes: (
+  'DEFAULT': ("primary": #FAE4FA, "secondary": #F087DD),
   'ADMIN': ("primary": #207DE6, "secondary": #4D91DF),
   'LOGISTICIEN': ("primary": #FD3131, "secondary": #EA8888),
   'VISITEUR': ("primary": #F087DD, "secondary": #FAE4FA),
   'CLIENT': ("primary": #E0E82E, "secondary": #EEF378)
 );
-
-@use 'sass:map';
 
 @mixin center {
   display: flex;
@@ -16,34 +16,87 @@ $role-themes: (
   align-items: center;
 }
 
-@each $role, $colors in $role-themes {
-  .#{$role}-theme {
-    background-color: map.get($colors, "secondary");
-    color: white;
-    
-    .formulaire {
-      border: 50px solid map.get($colors, "primary");
-    }
-    .dashboard {
-      background-color: map.get($colors, "primary");
-    }
-    .popup {
-      background-color: map.get($colors, "secondary");
-    }
-    .table {
-      background-color: map.get($colors, "secondary");
-    }
-    .colomn-table-filter {
-      background-color: #D9D9D9; 
-    }
-  }
+
+.page {
+  height: 100vh;
+  @include center;
+  font-family: Helvetica, sans-serif;
 }
 
-@import url("../node_modules/ace-builds/css/ace.css");  
-@import url("../node_modules/ace-builds/css/theme/dreamweaver.css");  
-@import url("../node_modules/ace-builds/css/theme/ambiance.css");  
-@import url("../node_modules/devextreme/dist/css/dx.light.css");
-@import url("../node_modules/@devexpress/analytics-core/dist/css/dx-analytics.common.css");
-@import url("../node_modules/@devexpress/analytics-core/dist/css/dx-analytics.light.css");
-@import url("../node_modules/@devexpress/analytics-core/dist/css/dx-querybuilder.css");
-@import url("../node_modules/devexpress-dashboard/dist/css/dx-dashboard.light.css");
+@each $role, $colors in $role-themes {
+
+  .#{$role}-theme {
+    background-color: map.get($colors, "secondary");
+    min-height: 100vh;
+    @include center;
+  }
+
+
+  .#{$role}-theme .formulaire {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    width: 320px;
+
+    border: 3px solid map.get($colors, "primary");
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+
+  .#{$role}-theme input {
+    border-radius: 999px;
+    border: 1px solid map.get($colors, "primary");
+    padding: 10px 15px;
+    outline: none;
+    background: #fff;
+  }
+
+  .#{$role}-theme input:focus {
+    border: 2px solid map.get($colors, "primary");
+  }
+
+  .#{$role}-theme button {
+    border-radius: 999px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+
+    background: map.get($colors, "primary");
+    color: white;
+    transition: 0.2s;
+  }
+
+  .#{$role}-theme button:hover {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+
+  .dashboard {
+    background-color: map.get($colors, "primary");
+  }
+
+  :host {
+    c-card {
+      min-width: 9rem;
+    }
+  }
+
+
+  .popup {
+    background-color: map.get($colors, "secondary");
+  }
+
+  .table {
+    background-color: map.get($colors, "secondary");
+  }
+
+  .column-table-filter {
+    background-color: #D9D9D9;
+  }
+
+  
+}

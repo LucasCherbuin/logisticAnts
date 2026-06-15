@@ -1,50 +1,37 @@
 package com.maven.model;
-
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 @Entity
 @Table(name = "commande")
-
 public class Commande {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String payement;
+    @Lob
+    @Column(name = "facture", columnDefinition = "LONGBLOB")
+    private byte[] facture;
     @ManyToOne
-    private int articleCommandeId;
-    @OneToMany
-    private int userId;
-    
-    public Commande(int id, int articleCommandeId, int userId) {
-        this.id = id;
-        this.articleCommandeId = articleCommandeId;
-        this.userId = userId;
-    }
-
-<<<<<<< HEAD
-    //getters
-    public int getId() {
-        return id;
-    }
-    public int getArticleCommandeId() {
-        return articleCommandeId;
-    }
-    public int getUserId() {
-        return userId;
-    }
-}
-=======
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<ArticleCommande> articleCommandes;
 
     public Commande() {}
-
+    public Commande(String payement, byte[] facture) {
+        this.payement = payement;
+        this.facture = facture;
+    }
     public int getId() { return id; }
+    public String getPayement() { return payement; }
+    public byte[] getFacture() { return facture; }
     public User getUser() { return user; }
     public List<ArticleCommande> getArticleCommandes() { return articleCommandes; }
-
     public void setId(int id) { this.id = id; }
+    public void setPayement(String payement) { this.payement = payement; }
+    public void setFacture(byte[] facture) { this.facture = facture; }
     public void setUser(User user) { this.user = user; }
     public void setArticleCommandes(List<ArticleCommande> articleCommandes) { this.articleCommandes = articleCommandes; }
 }
->>>>>>> 5a82615 (correction back end)

@@ -30,19 +30,26 @@ class ArticleCommandeControllerTest {
     @WithMockUser(username = "jean", roles = {"CLIENT"})
     void testGetAllArticleCommandes() throws Exception {
 
-        ArticleCommande a1 = new ArticleCommande(1, 1, 10);
-        ArticleCommande a2 = new ArticleCommande(2, 2, 20);
+            ArticleCommande a1 = new ArticleCommande();
+                a1.setId(1);
+                a1.setProduit(new Produit()); // créer un produit fictif si nécessaire
+                a1.setQuantite(10);
 
-        List<ArticleCommande> mockList = Arrays.asList(a1, a2);
+            ArticleCommande a2 = new ArticleCommande();
+                a2.setId(2);
+                a2.setProduit(new Produit());
+                a2.setQuantite(20);
 
-        when(articleCommandeRepository.findAll()).thenReturn(Arrays.asList(a1, a2));
+            List<ArticleCommande> mockList = Arrays.asList(a1, a2);
 
-        mockMvc.perform(get("/articleCommandes"))
-               .andExpect(status().isOk())
-               .andExpect(jsonPath("$.length()").value(2))
-               .andExpect(jsonPath("$[0].produitId").value(1))
-               .andExpect(jsonPath("$[0].quantite").value(10))
-               .andExpect(jsonPath("$[1].produitId").value(2))
-               .andExpect(jsonPath("$[1].quantite").value(20));
+            when(articleCommandeRepository.findAll()).thenReturn(mockList);
+
+            mockMvc.perform(get("/articleCommandes"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[0].produit.id").value(1))
+                .andExpect(jsonPath("$[0].quantite").value(10))
+                .andExpect(jsonPath("$[1].produit.id").value(2))
+                .andExpect(jsonPath("$[1].quantite").value(20));
     }
 }

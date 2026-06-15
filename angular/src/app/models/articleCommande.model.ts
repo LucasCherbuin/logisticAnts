@@ -1,5 +1,9 @@
+import { Produit } from './produit.model';
+import { Commande } from './commande.model';
+
 export interface ArticleCommande {
-  id: number;
-  produitId: string;
-  quantite: number;
+    id: number;
+    produit: Produit;
+    quantite: number;
+    commande: Commande;
 }
