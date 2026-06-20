@@ -48,6 +48,8 @@ public class SecurityConfig {
                     "/ArticleCommandes/**",
                     "/Commandes/**",
                     "/Fournisseurs/**",
+                    "/dashboard/produitPhare",
+                    "/dashboard/prix",
                     "/login",
                     "/mail/**",
                     "/register",
