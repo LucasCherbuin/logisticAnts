@@ -5,16 +5,16 @@ import java.util.List;
 
 public class AdminDashboardResponse {
 
-    private List<Prix> prixs;
+    private List<ProduitPhare> prixs;
     private int remboursement;
     private int Achat;
     private int totalProduits;
 
-    private List<ProduitPhare> produitPhares;
+    private List<Prix> produitPhares;
     private int produit;
     private int achat;
 
-    public AdminDashboardResponse(List<Prix> prixs, int remboursement, int Achat, int totalProduits, List<ProduitPhare> produitPhares, int produit, int achat) {
+    public AdminDashboardResponse(List<ProduitPhare> prixs, int remboursement, int Achat, int totalProduits, List<Prix> produitPhares, int produit, int achat) {
         
         this.remboursement = remboursement;
         this.Achat = Achat;

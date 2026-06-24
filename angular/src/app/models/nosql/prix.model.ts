@@ -1,5 +1,5 @@
 export interface Prix {
-    id: number;
+    id?: number;
     prixTotal: number;
     remboursement: number;
     achat: number;

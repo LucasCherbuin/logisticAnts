@@ -1,19 +1,38 @@
-import {OnInit, Component} from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { AdminDashboardService } from '../../services/adminDashboard.service';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-dashboard-global',
-  templateUrl: './dashboard-global.component.html'
+  selector: 'app-produit-phare',
+  standalone: true,
+  imports: [ReactiveFormsModule, AsyncPipe, CommonModule],
+  templateUrl: '../../pages/admin/produitPhare.component.html',
+  styleUrls: ['../../../main.scss'],
 })
-export class DashboardGlobalComponent implements OnInit {
-
-  dashboard: any;
+export class ProduitPhareComponent implements OnInit {
+  produit: any[] = [];
+  achats: number = 0;
+  filterfcvar = new FormControl('');
+  filteredProduitPhare$!: Observable<any[]>;
 
   constructor(private adminDashboardService: AdminDashboardService) {}
 
   ngOnInit(): void {
-    this.adminDashboardService.getDashboard().subscribe(data => {
-      this.dashboard = data;
+    this.adminDashboardService.getAllProduitPhareDashboard().subscribe(data => {
+      this.produit = data.produits;
+      this.achats = data.achats;
+      this.filteredProduitPhare$ = this.filterfcvar.valueChanges.pipe(
+        startWith(''),
+        map(critere => this.sortProduits(critere))
+      );
     });
+  }
+
+  private sortProduits(critere: string | null): any[] {
+    const champ = critere === 'achat' ? 'achat' : 'produit';
+    return [...this.produit].sort((a, b) => a[champ] - b[champ]);
   }
 }

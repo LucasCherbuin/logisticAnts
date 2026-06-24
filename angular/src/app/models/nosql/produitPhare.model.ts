@@ -1,5 +1,6 @@
 export interface ProduitPhare {
-    id: number;
+    id?: number;
     produit: number;
     achat: number;
+    
 }

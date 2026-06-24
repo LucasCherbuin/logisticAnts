@@ -5,6 +5,9 @@ import { ArticleCommandeService } from "../../services/articleCommande.service";
 import { Commande } from "../../models/commande.model";
 import { CommandeService } from "../../services/commande.service";
 import { PaymentService } from "../../services/payment.service";
+import { Prix } from '../../models/nosql/prix.model';
+import { ProduitPhare } from "../../models/nosql/produitPhare.model";
+import { AdminDashboardService } from "../../services/adminDashboard.service";
 import { MailService, MailRequest } from '../../services/mailer.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
@@ -41,7 +44,7 @@ export class PurchaseComponent implements OnInit, AfterViewInit {
     selectedPayement: string = 'Facture';
     showCarteOptions: boolean = false;
     selectedCarte: string = '';
-    carteOptions: string[] = ['Mastercard', 'Visa', 'American Express'];
+    carteOptions: string[] = [  'Mastercard', 'Visa', 'American Express'];
     cartItems: { produit: any; quantite: number }[] = [];
 
     @ViewChild(ConfirmationCommandeComponent) confirmationPopup!: ConfirmationCommandeComponent;
@@ -52,7 +55,8 @@ export class PurchaseComponent implements OnInit, AfterViewInit {
         private commandeService: CommandeService,
         private mailService: MailService,
         private paymentService: PaymentService,
-        private userService: UserService
+        private userService: UserService,
+        private adminDashboardService: AdminDashboardService,
     ) {
         this.form = this.fb.group({
             entreprise: ['', [Validators.required]],
@@ -90,7 +94,7 @@ export class PurchaseComponent implements OnInit, AfterViewInit {
         return commande.articleCommandes.reduce((total, ac) => total + (ac.produit.prix * ac.quantite), 0);
     }
 
-    onSubmit(): void {
+   onSubmit(): void {
         if (this.form.valid) {
             const token = localStorage.getItem('token');
             if (!token) return;
@@ -117,6 +121,28 @@ export class PurchaseComponent implements OnInit, AfterViewInit {
                                     )
                                 );
                             });
+
+                            const prixEntry: Omit<Prix, 'id'> = {
+                                prixTotal: 0,
+                                remboursement: 0,
+                                achat: 1,
+                                date: new Date()
+                            };
+                            this.adminDashboardService.createPrix(prixEntry).subscribe({
+                                next: () => console.log('achat dashboard "prix" incrémenté'),
+                                error: (err: any) => console.error('erreur incrémentation "achat"', err)
+                            });
+                        this.cartItems.forEach(item => {
+                            const produitPhareEntry: Omit<ProduitPhare, 'id'> = {
+                                produit: item.produit.nom,
+                                achat: 0
+                            }; 
+                            this.adminDashboardService.createProduitPhare(produitPhareEntry).subscribe({
+                                next: () => console.log('produit phare incrémenté', item.produit.nom),
+                                error: (err: any) => console.error('erreur incrémentation "produitphare"', err)
+                            });
+                        });
+
                             forkJoin(saves).subscribe({
                                 next: () => {
                                     this.articleCommandeService.clearCart();

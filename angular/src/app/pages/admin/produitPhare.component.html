@@ -1,26 +1,24 @@
-
-<div >
+<div>
     <input 
         type="text" 
         [formControl]="filterfcvar" 
-        placeholder="Rechercher un utilisateur..."
+        placeholder="Rechercher un produit..."
         class="form-control mb-3"
         />
     <table>
         <thead>
-            <tr></tr>
+            <tr>
+                <th scope="col">Produit</th>
                 <th scope="col">Achat</th>
-                <th scope="col">Prdouit</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="filtre"
-            *ngFor="let produitPhare of filteredProduitPhare$ | async; let i = index"
-            class="list-group-item"
-            (click)="setCurrentAntrag(produitPhare, i)"
-            >
-                <td> {{ ProduitPhare.produit }} </td>
-                <td> {{ ProduitPhare.achat }}</td>
+            <tr
+                *ngFor="let produitPhare of filteredProduitPhare$ | async"
+                class="list-group-item"
+                >
+                <td>{{ produitPhare.produit }}</td>
+                <td>{{ produitPhare.achat }}</td>
             </tr>
         </tbody>
     </table>

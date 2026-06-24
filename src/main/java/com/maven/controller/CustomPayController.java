@@ -1,16 +1,11 @@
 package com.maven.controller;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.maven.service.payment.PayPalService;
-import com.maven.service.payment.DataTransService ;
+import com.maven.service.payment.DataTransService;
 import com.maven.dto.PaymentRequest;
 import com.maven.dto.PaymentResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +18,6 @@ import java.security.NoSuchAlgorithmException;
 @RequiredArgsConstructor
 public class CustomPayController {
 
-    private static final OkHttpClient httpClient = new OkHttpClient();
-    private static final String CARD_GATEWAY_URL = "https://api.examplepaymentgateway.com/payments";
-    private static final String CARD_API_KEY = "CARD_API_KEY";
-
     @Value("${transaction.success-url}")
     private String successUrl;
 
@@ -34,7 +25,7 @@ public class CustomPayController {
     private String cancelUrl;
 
     private final PayPalService payPalService;
-    private final DataTransService  dataTransService;
+    private final DataTransService dataTransService;
 
     @CrossOrigin
     @PostMapping(path = "/pay")
@@ -64,31 +55,12 @@ public class CustomPayController {
                     PaymentResponse resp = dataTransService.initiatePayment(req);
                     yield resp.toJson();
                 }
-
-                default -> {
-                    JSONObject payload = new JSONObject();
-                    payload.put("amount", amount);
-                    payload.put("currency", currency);
-                    payload.put("paymentMethod", paymentMethod);
-
-                    RequestBody body = RequestBody.create(
-                        MediaType.parse("application/json"),
-                        payload.toJSONString()
-                    );
-
-                    Request httpRequest = new Request.Builder()
-                        .url(CARD_GATEWAY_URL)
-                        .post(body)
-                        .addHeader("Authorization", "Bearer " + CARD_API_KEY)
-                        .build();
-
-                    try (Response httpResponse = httpClient.newCall(httpRequest).execute()) {
-                        if (!httpResponse.isSuccessful()) {
-                            throw new RuntimeException("Gateway error: " + httpResponse.code());
-                        }
-                        yield httpResponse.body().string();
-                    }
+                case "FACTURE" -> {
+                    PaymentRequest req = buildPaymentRequest(amount, currency, paymentMethod, inputBody);
+                    yield "{\"status\":\"success\",\"paymentMethod\":\"FACTURE\",\"commandeId\":\"" + req.getCommandeId() + "\"}";
                 }
+
+                default -> throw new IllegalArgumentException("Méthode de paiement non supportée : " + paymentMethod);
             };
 
         } catch (Exception e) {

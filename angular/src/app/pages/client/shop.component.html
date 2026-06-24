@@ -1,8 +1,7 @@
 <article>
     <input
         type="text"
-        [(ngModel)]="searchTerm"
-        (input)="onSearch()"
+        [formControl]="filterfcvar"
         placeholder="Rechercher un produit..."
     />
     <app-card></app-card>

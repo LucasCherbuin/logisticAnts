@@ -4,10 +4,14 @@ import org.springframework.web.bind.annotation.*;
 import com.maven.model.ArticleCommande;
 import com.maven.model.Commande;
 import com.maven.repository.ArticleCommandeRepository;
+import com.maven.repository.CommandeRepository;
+
 import java.util.List;
 
 @RestController
 public class ArticleCommandeController {
+    @Autowired
+    private CommandeRepository commandeRepository;
     @Autowired
     private ArticleCommandeRepository articleCommandeRepository;
 
