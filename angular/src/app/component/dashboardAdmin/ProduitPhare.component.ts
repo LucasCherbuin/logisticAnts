@@ -32,7 +32,9 @@ export class ProduitPhareComponent implements OnInit {
   }
 
   private sortProduits(critere: string | null): any[] {
-    const champ = critere === 'achat' ? 'achat' : 'produit';
-    return [...this.produit].sort((a, b) => a[champ] - b[champ]);
+      if (critere === 'achat') {
+          return [...this.produit].sort((a, b) => a.achat - b.achat);
+      }
+      return [...this.produit].sort((a, b) => String(a.produit).localeCompare(String(b.produit)));
   }
 }
