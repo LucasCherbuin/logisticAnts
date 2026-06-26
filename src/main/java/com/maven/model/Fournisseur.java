@@ -22,9 +22,12 @@ public class Fournisseur {
 
     @OneToMany(mappedBy = "fournisseur")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> PageClient
+=======
+>>>>>>> PageAdmin
     private List<Produit> produits;
 
     public Fournisseur() {}

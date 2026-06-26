@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/main/java/com/maven/Service/PaiementService.java
-package com.maven.service;
-=======
 package com.maven.service.payment;
->>>>>>> PageClient:src/main/java/com/maven/Service/payment/PayementService.java
 
 import okhttp3.*;
 import okhttp3.MediaType;

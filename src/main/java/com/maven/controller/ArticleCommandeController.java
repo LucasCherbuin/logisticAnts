@@ -16,7 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import com.maven.model.ArticleCommande;
 import com.maven.model.Commande;
 import com.maven.repository.ArticleCommandeRepository;
+<<<<<<< HEAD
 >>>>>>> PageClient
+=======
+import com.maven.repository.CommandeRepository;
+
+>>>>>>> PageAdmin
 import java.util.List;
 
 @RestController
@@ -28,6 +33,8 @@ public class ArticleCommandeController {
 
     @GetMapping("/articleCommandes")
 =======
+    @Autowired
+    private CommandeRepository commandeRepository;
     @Autowired
     private ArticleCommandeRepository articleCommandeRepository;
 
@@ -89,5 +96,9 @@ public class ArticleCommandeController {
         ac.setCommande(commande);
         articleCommandeRepository.save(ac);
     }
+<<<<<<< HEAD
 }
 >>>>>>> PageClient
+=======
+}
+>>>>>>> PageAdmin

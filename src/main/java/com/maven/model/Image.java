@@ -14,9 +14,12 @@ public class Image {
 
     @OneToOne(mappedBy = "image")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> PageClient
+=======
+>>>>>>> PageAdmin
     private Produit produit;
 
     public Image() {}

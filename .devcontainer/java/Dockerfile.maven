@@ -7,7 +7,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2 : Run Spring Boot JAR
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=build /logisticiants/target/*.jar app.jar
 EXPOSE 8080
@@ -23,16 +23,22 @@ CMD ["java", "-jar", "app.jar"]
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean compile
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean package
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn spring-boot:run
+# docker compose -f .devcontainer/docker-compose.yml --env-file .env build --no-cache java-app
+# docker compose -f .devcontainer/docker-compose.yml --env-file .env up -d
+
 
 # docker exec -it mysql mysql -u root -p logistants
 # ranger src/main/java/com/maven/...    
 
 # docker compose -f .devcontainer/docker-compose.yml down
-# docker compose -f .devcontainer/docker-compose.yml build
-# docker compose -f .devcontainer/docker-compose.yml up -d
+# docker compose -f .devcontainer/docker compose run --rm angular rm -rf .angular/cache
+# docker compose -f .devcontainer/docker-compose.yml build --no-cache
+# docker compose -f .devcontainer/docker-compose.yml up 
 # docker builder prune -f
 
+# docker compose build --no-cache java-app
+# docker compose up java-app
 
-# docker logs logisticants-java --tail 20
+# docker logs logisticants-java --tail 200
 
  

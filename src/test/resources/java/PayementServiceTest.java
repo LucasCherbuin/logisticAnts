@@ -148,5 +148,9 @@ class CustomPayControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().string(org.hamcrest.Matchers.containsString("error")));
     }
+<<<<<<< HEAD
 }
 >>>>>>> PageClient
+=======
+}
+>>>>>>> PageAdmin

@@ -1,9 +1,12 @@
 package com.maven.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> PageClient
+=======
+>>>>>>> PageAdmin
 import com.maven.model.User;
 import com.maven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +69,12 @@ public class UserController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> PageClient
+=======
+>>>>>>> PageAdmin
     @PutMapping("/Users/{id}/update")
     public void updateUser(User user) {
         // Implementation to update an existing User

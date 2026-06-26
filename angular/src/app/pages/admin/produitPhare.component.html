@@ -1,0 +1,25 @@
+<div>
+    <input 
+        type="text" 
+        [formControl]="filterfcvar" 
+        placeholder="Rechercher un produit..."
+        class="form-control mb-3"
+        />
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Produit</th>
+                <th scope="col">Achat</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr
+                *ngFor="let produitPhare of filteredProduitPhare$ | async"
+                class="list-group-item"
+                >
+                <td>{{ produitPhare.produit }}</td>
+                <td>{{ produitPhare.achat }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

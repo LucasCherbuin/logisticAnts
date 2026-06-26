@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export interface User {
     id: number;
     pseudo: string;
@@ -8,4 +9,12 @@ export interface User {
 >>>>>>> PageClient
     password: string;
     role: string;
+=======
+export interface User {
+    id: number;
+    pseudo: string;
+    email: string;
+    password: string;
+    role: string;
+>>>>>>> PageAdmin
 }

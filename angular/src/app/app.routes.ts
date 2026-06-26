@@ -16,6 +16,8 @@ import { CommandeComponent } from './component/client/commandes/commande.compone
 import { PurchaseComponent } from './component/client/purchase.component';
 import { CardComponent } from './component/client/card.component';
 import { CartComponent } from './component/client/cart.component';
+import { PrixComponent } from './component/dashboardAdmin/Prix.component';
+import { ProduitPhareComponent } from './component/dashboardAdmin/ProduitPhare.component';
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./component/login.component').then(m => m.LoginComponent) },
@@ -27,6 +29,9 @@ export const routes: Routes = [
     { path: 'purchase', component: PurchaseComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
     { path: 'card', component: CardComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
     { path: 'cart', component: CartComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
+    // Admin
+    { path: 'prix', component: PrixComponent, canActivate: [RoleGuardService], data: { role: ['admin'] } },
+    { path: 'produit-phare', component: ProduitPhareComponent, canActivate: [RoleGuardService], data: { role: ['admin']} },
     // menus par role
     { path: 'menu-admin', loadComponent: () => import('./component/usersMenu/menu-admin.component').then(m => m.MenuAdminComponent) },
     { path: 'menu-client', loadComponent: () => import('./component/usersMenu/menu-client.component').then(m => m.MenuClientComponent) },
@@ -34,4 +39,7 @@ export const routes: Routes = [
     { path: 'menu-secretaire', loadComponent: () => import('./component/usersMenu/menu-secretaire.component').then(m => m.MenuSecretaireComponent) },
     { path: '**', redirectTo: '' }
 ];
+<<<<<<< HEAD
 >>>>>>> PageClient
+=======
+>>>>>>> PageAdmin
