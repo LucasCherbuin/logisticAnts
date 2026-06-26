@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * Database utility class for Hibernate session management.
  * Reads configuration from hibernate.cfg.xml (must be on the classpath).
  */
-public class database {
+public class Database {
 
     private static final SessionFactory SESSION_FACTORY = buildSessionFactory();
 
