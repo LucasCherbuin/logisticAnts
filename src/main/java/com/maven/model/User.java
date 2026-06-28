@@ -1,6 +1,9 @@
 package com.maven.model;
 
 import org.mindrot.jbcrypt.BCrypt;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,8 +18,9 @@ public class User {
     private String email;
     private String password;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "role_id")
+    @JsonIgnore
     private Role role;
 
     public User() {}
@@ -32,11 +36,7 @@ public class User {
     public String getPseudo() { return pseudo; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
-<<<<<<< HEAD
-    public Role getRole() { return role; }  // 🔹 Retourne un objet Role
-=======
     public Role getRole() { return role; }
->>>>>>> 5a82615 (correction back end)
 
     public void setId(int id) { this.id = id; }
     public void setPseudo(String pseudo) { this.pseudo = pseudo; }

@@ -3,6 +3,7 @@ package com.maven.model;
 import jakarta.persistence.*;
 import java.sql.Date;
 
+
 @Entity
 @Table(name = "produit")
 public class Produit {

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 
@@ -11,4 +9,3 @@ import { RouterOutlet } from "@angular/router";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {}
->>>>>>> d429531 (correction fichier pour builds)

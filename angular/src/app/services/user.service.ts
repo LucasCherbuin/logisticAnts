@@ -1,33 +1,38 @@
-import { injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { API_BASE_URL } from './api.config';
 
-@injectable({
+@Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/api/users';
+  private apiUrl = `${API_BASE_URL}/Users`;
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getUsers(): Observable<User[]> {
-        return this.http.get<User[]>(this.apiUrl);
-    }
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
+  }
 
-    getUserById(id: number): Observable<User> {
-        return this.http.get<User>(`${this.apiUrl}/${id}`);
-    }
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
 
-    createUser(user: User): Observable<User> {
-        return this.http.post<User>(this.apiUrl, user);
-    }
+  getUserByPseudo(pseudo: string): Observable<User> {
+      return this.http.get<User>(`${this.apiUrl}/pseudo/${pseudo}`);
+  }
 
-    updateUser(id: number, user: User): Observable<User> {
-        return this.http.put<User>(`${this.apiUrl}/${id}`, user);
-    }   
+  createUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user);
+  }
 
-    deleteUser(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
-    }  
+  updateUser(id: number, user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${id}`, user);
+  }
+
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

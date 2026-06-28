@@ -13,6 +13,7 @@ public class Image {
     private String url;
 
     @OneToOne(mappedBy = "image")
+
     private Produit produit;
 
     public Image() {}

@@ -24,6 +24,8 @@ class commande {
   int id
   id articleCommandeid
   int userId
+  String payement
+  Blob facture
 }
 
 class articleCommande {
@@ -49,7 +51,7 @@ class fournisseur {
     string email
     string adresse
 }
-' Relations
+
 
 
 

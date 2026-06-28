@@ -1,0 +1,81 @@
+<div>
+    <div>
+        <h3>Moyen de paiement</h3>
+        @for (option of paymentOptions; track option) {
+        <div>
+            <input type="radio" [id]="option" name="payement" [value]="option" [(ngModel)]="selectedPayement" (change)="showCarteOptions = option === 'carte'" />
+            <label [for]="option">{{ option }}</label>
+        </div>
+        }
+        <div *ngIf="showCarteOptions">
+            <h4>Choisissez votre carte</h4>
+            @for (carte of carteOptions; track carte) {
+            <div>
+                <input type="radio" [id]="carte" name="carte" [value]="carte" [(ngModel)]="selectedCarte" />
+                <label [for]="carte">{{ carte }}</label>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div>
+        <h3>Adresse de livraison</h3>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div>
+                <label for="entreprise">Entreprise</label>
+                <input
+                    id="entreprise"
+                    type="text"
+                    formControlName="entreprise"
+                    autocomplete="organization"
+                />
+                <span *ngIf="form.get('entreprise')?.hasError('required') && form.get('entreprise')?.touched">
+                    Indiquez le nom de l'entreprise
+                </span>
+            </div>
+            <div>
+                <label for="adresse">Adresse</label>
+                <input
+                    id="adresse"
+                    type="text"
+                    formControlName="adresse"
+                    autocomplete="street-address"
+                />
+                <span *ngIf="form.get('adresse')?.hasError('required') && form.get('adresse')?.touched">
+                    Indiquez l'adresse
+                </span>
+            </div>
+            <div>
+                <label for="ville">Ville</label>
+                <input
+                    id="ville"
+                    type="text"
+                    formControlName="ville"
+                    autocomplete="address-level2"
+                />
+                <span *ngIf="form.get('ville')?.hasError('required') && form.get('ville')?.touched">
+                    Indiquez la ville
+                </span>
+            </div>
+            <div>
+                <label for="NPA">NPA</label>
+                <input
+                    id="NPA"
+                    type="text"
+                    formControlName="NPA"
+                    autocomplete="postal-code"
+                />
+                <span *ngIf="form.get('NPA')?.hasError('required') && form.get('NPA')?.touched">
+                    Indiquez le code postal
+                </span>
+                <span *ngIf="form.get('NPA')?.hasError('pattern') && form.get('NPA')?.touched">
+                    Le NPA doit contenir 4 chiffres
+                </span>
+            </div>
+
+            <button type="submit" [disabled]="form.invalid">Commander</button>
+        </form>
+    </div>
+
+    <app-confirmation-commande></app-confirmation-commande>
+</div>

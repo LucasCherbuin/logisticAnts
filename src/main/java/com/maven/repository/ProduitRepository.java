@@ -14,4 +14,5 @@ public interface ProduitRepository extends JpaRepository<Produit, Integer> {
     List<Produit> findByPerissable(boolean perissable);
     List<Produit> findByFournisseurId(int fournisseurId);
     List<Produit> findByImageId(int imageId);
+    List<Produit> findByNomContainingIgnoreCase(String nom);
 }

@@ -1,31 +1,37 @@
 package com.maven.modelNosql;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Date;
 
-@Entity
-@Table(name = "Prix")
+@Document(collection = "Prix")
 public class Prix {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private int produit;
+    private String id;
+    private int prixTotal;
+    private int remboursement;
     private int achat;
+    private Date date;
 
     public Prix() {}
 
-    public Prix(int id, int produit, int achat) {
+    public Prix(String id, int prixTotal, int remboursement, int achat, Date date) {
         this.id = id;
-        this.produit = produit;
+        this.prixTotal = prixTotal;
+        this.remboursement = remboursement;
         this.achat = achat;
+        this.date = date;
     }
 
-    public int getId() { return id; }
-    public int getProduit() { return produit; }
+    public String getId() { return id; }
+    public int getPrixTotal() { return prixTotal; }
+    public int getRemboursement() { return remboursement; }
     public int getAchat() { return achat; }
-
-    public void setId(int id) { this.id = id; }
-    public void setProduit(int produit) { this.produit = produit; }
+    public Date getDate() { return date; }
+    public void setId(String id) { this.id = id; }
+    public void setPrixTotal(int prixTotal) { this.prixTotal = prixTotal; }
+    public void setRemboursement(int remboursement) { this.remboursement = remboursement; }
     public void setAchat(int achat) { this.achat = achat; }
+    public void setDate(Date date) { this.date = date; }
 }

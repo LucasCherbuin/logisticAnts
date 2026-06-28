@@ -17,22 +17,22 @@ public class MailService implements MailServiceInterface {
         Properties smtpProperties = new Properties();
         smtpProperties.put("mail.smtp.auth", "true");
         smtpProperties.put("mail.smtp.starttls.enable", "true");
-        smtpProperties.put("mail.smtp.host", System.getenv("MAILER_HOST"));
-        smtpProperties.put("mail.smtp.port", System.getenv("MAILER_PORT"));
+        smtpProperties.put("mail.smtp.host", System.getenv("SPRING_MAILER_HOST"));
+        smtpProperties.put("mail.smtp.port", System.getenv("SPRING_MAILER_PORT"));
 
         try {
             Session session = Session.getInstance(smtpProperties,
                 new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(
-                            System.getenv("MAILER_USERNAME"),
-                            System.getenv("MAILER_PASSWORD")
+                            System.getenv("SPRING_MAILER_USERNAME"),
+                            System.getenv("SPRING_MAILER_PASSWORD")
                         );
                     }
                 }
             );
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(System.getenv("MAILER_USERNAME")));
+            message.setFrom(new InternetAddress(System.getenv("SPRING_MAILER_USERNAME")));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(subject);
             message.setText(body);
