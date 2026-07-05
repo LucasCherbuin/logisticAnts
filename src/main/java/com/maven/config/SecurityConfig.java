@@ -49,6 +49,8 @@ public class SecurityConfig {
                     "/ArticleCommandes/**",
                     "/Commandes/**",
                     "/Fournisseurs/**",
+                    "/picking/articleCommande/**",
+                    "/picking/produits/**",
                     "/dashboard/produitPhare",
                     "/dashboard/prix",
                     "/login",

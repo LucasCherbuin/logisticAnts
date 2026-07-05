@@ -1,16 +1,20 @@
-import {injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Produit } from '../models/produit.model';
+import { API_BASE_URL } from './api.config';
 
 @Injectable({ providedIn: 'root' })
 export class PickingService {
+    private apiUrl = API_BASE_URL;
+
     constructor(private http: HttpClient) {}
 
-    decrementStock(quantite: number) {
-        return this.http.put(`/produit/{id}/${quantite}/update`);
+    decrementStock(produitId: number, quantite: number): Observable<Produit> {
+        return this.http.put<Produit>(`${this.apiUrl}/picking/produits/${produitId}`, quantite);
     }
 
-    decrementArticleCommande(articleCommandeId: number) {
-        return this.http.put(`/commandes/{id}/${articleCommandeId}/delete`);     
-
+    deleteArticleCommande(articleCommandeId: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/picking/articleCommande/${articleCommandeId}`);
     }
 }

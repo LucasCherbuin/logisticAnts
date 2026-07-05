@@ -1,5 +1,5 @@
-
 import { Fournisseur } from "./fournisseur.model";
+import { Image } from "./image.model";
 
 export interface Produit {
     id: number;
@@ -9,6 +9,6 @@ export interface Produit {
     dernierAjout: Date;
     perissable: boolean;
     datePeremption: Date;
-    fournisseur: Fournisseur;
-    image?: { id: number; url: string };
+    fournisseur?: Fournisseur;
+    image?: Image;
 }
