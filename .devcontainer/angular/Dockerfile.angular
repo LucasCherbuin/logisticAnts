@@ -23,8 +23,8 @@ CMD ["sh", "-c", "npm install && ng serve --host 0.0.0.0 --port 4200 --poll 2000
 
 # docker stop logisticants-angular
 
-# docker run -it --rm logisticants-angular sh 
-# ng serve 
+# docker run -it --rm logisticants-angular sh
+# npm run build
 # npx ng test --no-watch
 
 

@@ -33,6 +33,8 @@ export class ProduitService {
     }
 
     searchProduits(nom: string): Observable<Produit[]> {
-        return this.http.get<Produit[]>(`${this.apiUrl}/search?nom=${nom}`);
-    }
+        return this.http.get<Produit[]>(`${this.apiUrl}/search`, {
+            params: { nom }
+    });
+}
 }
