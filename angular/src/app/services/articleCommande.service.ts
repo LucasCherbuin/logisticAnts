@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import { ArticleCommande  } from '../models/articleCommande.model';
-=======
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,7 +6,6 @@ import { Commande } from '../models/commande.model';
 import { Produit } from '../models/produit.model';
 import { API_BASE_URL } from './api.config';
 import { BehaviorSubject } from 'rxjs';
->>>>>>> PageClient
 
 @Injectable({
     providedIn: 'root'

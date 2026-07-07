@@ -18,14 +18,7 @@
     "module": "ES2022",
     "skipLibCheck": true,
     "useDefineForClassFields": false,
-<<<<<<< HEAD
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
-=======
     "lib": ["ES2022", "dom"]
->>>>>>> PageClient
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

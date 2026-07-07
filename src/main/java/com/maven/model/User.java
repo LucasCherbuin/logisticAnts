@@ -20,10 +20,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "role_id")
-<<<<<<< HEAD
-=======
     @JsonIgnore
->>>>>>> PageClient
     private Role role;
 
     public User() {}

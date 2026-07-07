@@ -32,23 +32,17 @@ public class Jwtfilter extends OncePerRequestFilter {
 
         if (path.contains("/register") ||
             path.contains("/login") ||
-<<<<<<< HEAD
-            path.contains("/mail/send")) {
-=======
+            path.contains("/mail/send") ||
             path.contains("/mail") ||
             path.contains("/Users") ||
             path.contains("/Produits") ||
             path.contains("/Commandes") ||
-<<<<<<< HEAD
-            path.contains("/ArticleCommandes")) {
->>>>>>> PageClient
-=======
             path.contains("/ArticleCommandes") ||
             path.contains("/produitPhare") ||
             path.contains("/prix") ||
             path.contains("/dashboard") ||
             path.contains("/pay")) {
->>>>>>> PageAdmin
+
             chain.doFilter(req, res);
             return;
         }
@@ -66,12 +60,4 @@ public class Jwtfilter extends OncePerRequestFilter {
         }
         chain.doFilter(req, res);
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-    
->>>>>>> PageClient
-=======
->>>>>>> PageAdmin
 }

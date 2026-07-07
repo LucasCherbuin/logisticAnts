@@ -1,0 +1,11 @@
+<table class="table">
+  <tbody>
+    @for (produit of produits; track produit.id) {
+      <tr>
+        <td>{{ produit.id }}</td>
+        <td>{{ produit.nom }}</td>
+        <td>{{ produit.quantiteStock }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

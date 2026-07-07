@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { filter, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Produit } from '../models/produit.model';
 import { API_BASE_URL } from './api.config';
 
@@ -32,13 +32,7 @@ export class ProduitService {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
 
-<<<<<<< HEAD
-    searchProduits(term: string): Observable<Produit[]> {
-        return this.http.get<Produit[]>(`${this.apiUrl}?search=${term}`);
-
-=======
     searchProduits(nom: string): Observable<Produit[]> {
         return this.http.get<Produit[]>(`${this.apiUrl}/search?nom=${nom}`);
->>>>>>> PageClient
     }
 }

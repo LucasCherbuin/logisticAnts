@@ -16,11 +16,7 @@ public class MailController {
 
     @PostMapping("/send")
         public String sendMail(@RequestBody MailRequest request) {
-<<<<<<< HEAD
-        System.out.println("📧 MailController atteint : " + request.getTo());
-=======
         System.out.println(" MailController atteint : " + request.getTo());
->>>>>>> PageClient
         mailService.sendEmail(
             request.getTo(),
             request.getSubject(),

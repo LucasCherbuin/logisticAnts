@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-<dashboard-client >
-  <a href="/angular/src/app/pages/accueil"></a>
-  <a href="/angular/src/app/pages/client/articles"></a>
-  <a href="/angular/src/app/pages/client/mescommandes"></a>
 
-</dashboard-client>
-=======
-<dx-dashboard-control 
-  style="display: block;width:100%;height:800px;" 
-  endpoint='https://demos.devexpress.com/services/dashboard/api'>
-</dx-dashboard-control>
 
-<dashboard-admin *ngIf="Role === ADMIN ">
+<div *ngIf= "Role === CLIENT">
 
-</dashboard-admin>
->>>>>>> PageAdmin
+<a href="/angular/src/app/pages/app"></a>
+  <a href="/angular/src/app/pages/client/page-articles"></a>
+  <a href="/angular/src/app/pages/client/my-commandes"></a>
+  <button (click)="logout()">Se déconnecter</button>
+  <button (click)="goToCart()">Voir le panier ({{ articleCommandeService.cartItems$.value.length }})</button>
+</div>

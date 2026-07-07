@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-
-
-<card>
-    <image> {{ produit.imageId }}</image>
-    <prix> {{ produit.prix }} chf</prix>
-    <produit> {{ produit.nom }}</produit>
-</card>
-=======
 <div *ngFor="let produit of produits" class="card">
-    <img class="card-img" [src]="produit.image?.url" [alt]="produit.nom" [routerLink]="['/article', produit.id]">
+    <img class="card-img" [src]="produit.image" [alt]="produit.nom" [routerLink]="['/article', produit.id]">
     <div class="card-body" [routerLink]="['/article', produit.id]">
         <h5 class="card-nom">{{ produit.nom }}</h5>
         <p class="card-prix">{{ produit.prix | currency:'CHF' }}</p>
@@ -18,4 +9,3 @@
     </button>
 </div>
 
->>>>>>> PageClient

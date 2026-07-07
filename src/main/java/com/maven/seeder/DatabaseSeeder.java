@@ -18,27 +18,23 @@ public class DatabaseSeeder implements CommandLineRunner {
     private final ArticleCommandeSeeder articleCommandeSeeder;
     private final CommandeSeeder commandeSeeder;
     private final ProduitSeeder produitSeeder;
-
-    private final PrixSeeder prixSeeder;
-
-
+    private final FournisseurSeeder fournisseurSeeder;
 
     public DatabaseSeeder
         (RoleSeeder roleSeeder, 
          UserSeeder userSeeder,  
          ArticleCommandeSeeder articleCommandeSeeder,
          CommandeSeeder commandeSeeder, 
-         ProduitSeeder produitSeeder, 
-         ProduitPhareSeeder produitPhareSeeder,
-         PrixSeeder prixSeeder
-) 
+         ProduitSeeder produitSeeder,
+         FournisseurSeeder fournisseurSeeder
+    ) 
         {
             this.roleSeeder = roleSeeder;
             this.userSeeder = userSeeder;
             this.articleCommandeSeeder = articleCommandeSeeder;
             this.commandeSeeder = commandeSeeder;
             this.produitSeeder = produitSeeder;
-            this.prixSeeder = prixSeeder;
+            this.fournisseurSeeder = fournisseurSeeder;
     }
 
     @Override
@@ -48,7 +44,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         articleCommandeSeeder.seedArticleCommandes();
         commandeSeeder.seedCommandes();
         produitSeeder.seedProduits();
-        prixSeeder.seedprix();
+        fournisseurSeeder.seedFournisseur();
         System.out.println("Seeding done");
     }
 }

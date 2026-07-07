@@ -1,9 +1,6 @@
 package com.maven.config;
 
-<<<<<<< HEAD
-=======
 import org.springframework.beans.factory.annotation.Value;
->>>>>>> PageClient
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,9 +12,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.config.Customizer;
-<<<<<<< HEAD
-
-=======
 import org.springframework.http.HttpMethod;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
@@ -25,7 +19,6 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import jakarta.servlet.SessionTrackingMode;
 import java.util.List;
 import java.util.Set;
->>>>>>> PageClient
 import com.maven.service.Jwtfilter;
 
 @Configuration
@@ -34,34 +27,15 @@ public class SecurityConfig {
 
     private final Jwtfilter jwtfilter;
 
-<<<<<<< HEAD
-=======
     @Value("${frontend.url}")
     private String frontendUrl;
 
->>>>>>> PageClient
     public SecurityConfig(Jwtfilter jwtfilter) {
         this.jwtfilter = jwtfilter;
     }
 
     @Bean
-<<<<<<< HEAD
-        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-            System.out.println("✅ SecurityConfig chargée"); // ← ajoutez
-            http
-                .cors(Customizer.withDefaults())
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/**").permitAll()
-                )
-                .addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                );
-            return http.build();
-}
-}
-=======
+
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .cors(Customizer.withDefaults())
@@ -75,6 +49,8 @@ public class SecurityConfig {
                     "/ArticleCommandes/**",
                     "/Commandes/**",
                     "/Fournisseurs/**",
+                    "/picking/articleCommande/**",
+                    "/picking/produits/**",
                     "/dashboard/produitPhare",
                     "/dashboard/prix",
                     "/login",
@@ -117,9 +93,4 @@ public class SecurityConfig {
             Set.of(SessionTrackingMode.COOKIE)
         );
     }
-<<<<<<< HEAD
 }
->>>>>>> PageClient
-=======
-}
->>>>>>> PageAdmin

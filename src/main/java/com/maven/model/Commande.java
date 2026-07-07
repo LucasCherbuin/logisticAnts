@@ -19,12 +19,6 @@ public class Commande {
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArticleCommande> articleCommandes;
 
-<<<<<<< HEAD
-    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
-    private List<ArticleCommande> articleCommandes;
-
-=======
->>>>>>> PageClient
     public Commande() {}
     public Commande(String payement, byte[] facture) {
         this.payement = payement;
@@ -35,10 +29,6 @@ public class Commande {
     public byte[] getFacture() { return facture; }
     public User getUser() { return user; }
     public List<ArticleCommande> getArticleCommandes() { return articleCommandes; }
-<<<<<<< HEAD
-
-=======
->>>>>>> PageClient
     public void setId(int id) { this.id = id; }
     public void setPayement(String payement) { this.payement = payement; }
     public void setFacture(byte[] facture) { this.facture = facture; }

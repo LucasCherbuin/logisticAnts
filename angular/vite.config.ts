@@ -3,8 +3,6 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     environment: 'jsdom'
-<<<<<<< HEAD
-=======
   },
   server: {
     proxy: {
@@ -13,6 +11,5 @@ export default defineConfig({
         changeOrigin: true,
       }
     }
->>>>>>> PageClient
   }
 });

@@ -1,35 +1,13 @@
-<<<<<<< HEAD
-import java.util.Arrays;
-import java.util.List;
-
-=======
 package com.maven.controller;
 
 import com.maven.dto.PaymentRequest;
 import com.maven.dto.PaymentResponse;
 import com.maven.service.payment.PayPalService;
 import com.maven.service.payment.DataTransService;
->>>>>>> PageClient
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-<<<<<<< HEAD
-import org.json.simple.JSONObject;
-
-
-import org.springframework.test.web.servlet.MockMvc;
-
-import com.maven.Service.PaiementService;
-
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
-@WebMvcTest(PaiementService.class)
-class PayementServiceTest {
-=======
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -40,35 +18,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(CustomPayController.class)
 class CustomPayControllerTest {
->>>>>>> PageClient
 
     @Autowired
     private MockMvc mockMvc;
 
-<<<<<<< HEAD
 
-    @MockBean
-    private PaiementService paiementService;
-
-   
-    @Test
-    void testCreatePaymentIntent() throws Exception {
-        String mockResponse = "{ \"status\": \"success\", \"paymentId\": \"12345\" }";
-
-        JSONObject requestJson = new JSONObject(); // create an empty JSON object
-        // optionally fill with data if your method needs it
-        requestJson.put("amount", 1000); // example
-
-        when(paiementService.createPaymentIntent(requestJson)).thenReturn(mockResponse);
-
-        mockMvc.perform(get("/create-payment-intent"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.status").value("success"))
-            .andExpect(jsonPath("$.paymentId").value("12345"));
-    }
-}
-
-=======
     @MockBean
     private PayPalService payPalService;
 
@@ -148,9 +102,7 @@ class CustomPayControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().string(org.hamcrest.Matchers.containsString("error")));
     }
-<<<<<<< HEAD
+
 }
->>>>>>> PageClient
-=======
-}
->>>>>>> PageAdmin
+
+

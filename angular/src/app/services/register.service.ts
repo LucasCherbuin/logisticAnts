@@ -1,29 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
-<<<<<<< HEAD
-=======
 import { API_BASE_URL } from './api.config';
->>>>>>> PageClient
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
-<<<<<<< HEAD
-  private api = 'http://localhost:8080';
-=======
   private apiUrl = `${API_BASE_URL}`;
->>>>>>> PageClient
 
   constructor(private http: HttpClient) {}
 
   login(pseudo: string, password: string) {
-<<<<<<< HEAD
-    return this.http.post(`${this.api}/login`, {
-=======
     return this.http.post(`${this.apiUrl}/login`, {
->>>>>>> PageClient
       pseudo,
       password
     }, { responseType: 'text' }).pipe(
@@ -46,11 +35,7 @@ export class RegisterService {
   }
 
   register(pseudo: string, email: string, password: string, role: string) {
-<<<<<<< HEAD
-    return this.http.post(`${this.api}/register`, {
-=======
     return this.http.post(`${this.apiUrl}/register`, {
->>>>>>> PageClient
       pseudo,
       email,
       password,

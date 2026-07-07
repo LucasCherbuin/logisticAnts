@@ -20,10 +20,7 @@ public class ArticleCommande {
 
     @ManyToOne
     @JoinColumn(name = "commande_id")
-<<<<<<< HEAD
-=======
     @JsonIgnore
->>>>>>> PageClient
     private Commande commande;
 
     public ArticleCommande() {}

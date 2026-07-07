@@ -1,0 +1,43 @@
+<div>
+  <h2>Picking</h2>
+
+  <!-- Vue liste : uniquement si aucune commande sélectionnée -->
+  <ng-container *ngIf="!commandeSelectionnee">
+    <div *ngFor="let commande of commandes">
+      <h3>
+        Commande #{{ commande.id }} — {{ commande.user?.email }}
+        <button type="button" class="btn btn-primary" (click)="commencerCommande(commande)">
+          commencer la commande
+        </button>
+      </h3>
+    </div>
+    <p *ngIf="commandes.length === 0">Aucune commande en attente.</p>
+  </ng-container>
+
+  <!-- Vue détail : uniquement la commande sélectionnée -->
+  <ng-container *ngIf="commandeSelectionnee">
+    <h3>Commande n°{{ commandeSelectionnee.id }}</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Quantité</th>
+          <th>Valider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let articleCommandes of commandeSelectionnee.articleCommandes">
+          <td>{{ articleCommandes.produit.nom }}</td>
+          <td>{{ articleCommandes.quantite }}</td>
+          <td>
+            <button type="button" (click)="pickerArticle(articleCommandes)">✓</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p *ngIf="commandeSelectionnee.articleCommandes.length === 0">Commande terminée</p>
+  </ng-container>
+
+  <app-confirmation-picking [commande]="commandeSelectionnee"></app-confirmation-picking>
+</div>

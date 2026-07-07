@@ -13,12 +13,8 @@ interface LoginResponse {
 @Component({
   selector: 'app-login',
   templateUrl: '../pages/login/login.component.html',
-<<<<<<< HEAD
-  styleUrls: ['../../main.scss'],
-=======
   standalone: true,
   styleUrls: ["../../main.scss"],
->>>>>>> PageClient
   imports: [ReactiveFormsModule, CommonModule], 
 })
 export class LoginComponent {
@@ -56,8 +52,6 @@ export class LoginComponent {
       }
     });
   }
-<<<<<<< HEAD
-=======
 
     logout() {
     this.registerService.logout();
@@ -67,5 +61,4 @@ export class LoginComponent {
 
 
   
->>>>>>> PageClient
 }
