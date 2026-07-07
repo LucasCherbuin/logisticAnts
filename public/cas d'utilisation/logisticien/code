@@ -1,0 +1,31 @@
+@startuml
+
+actor logisticien
+participant connexion
+participant menuLogisticien
+participant entréeMarchandise
+participant stock
+participant preparation
+participant commandes
+participant database
+
+
+logisticien -> connexion : connexion en tant que Logisiticien
+connexion -> menuLogisticien : accès au menu Logisticien
+menuLogisticien -> entréeMarchandise : controle et rentrée des marchandises / refus de marchandise avec email au fournisseur
+entréeMarchandise -> database : modification dans la base de donées
+database -> entréeMarchandise : validation des modification
+entréeMarchandise  -> menuLogisticien : Sortie de la page des entrées marchandises
+menuLogisticien -> stock : consultation des produits en stock
+stock -> database : modification d'information d'un produit
+database -> stock : validation des modification
+stock -> menuLogisticien : Sortie de la page des entrées marchandises
+menuLogisticien -> preparation : pages avec les commandes clients
+preparation -> commandes : travail de préparation
+commandes -> database : soustraction de d'unités d'articles
+database  -> commandes : validation du changement des informations lorsque la commande terminée
+commandes -> preparation  : Sortit de la page de la commande pour en recommencer une autre
+preparation -> menuLogisticien : sortie de la page préparation
+menuLogisticien -> connexion : deconnexion du logisticien
+connexion -> logisticien : sortit de l'application
+@enduml

@@ -1,5 +1,6 @@
 export interface Fournisseur {
-    nom: string
-    email: string
-    adresse: string
+    id: number;
+    nom: string;
+    email: string;
+    adresse: string;
 }

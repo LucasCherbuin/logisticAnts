@@ -1,64 +1,58 @@
 package com.maven.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.maven.modelNosql.Prix;
-import org.springframework.web.bind.annotation.GetMapping;
-import com.maven.repositoryNosql.PrixRepository;
 import com.maven.modelNosql.ProduitPhare;
+import com.maven.repositoryNosql.PrixRepository;
 import com.maven.repositoryNosql.ProduitPhareRepository;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import java.util.List;
-
-
+@RestController
 public class AdminDashboardController {
-    
-    @RestController
 
-    public class DashboardPrixController {
+    private final ProduitPhareRepository produitPhareRepository;
+    private final PrixRepository prixRepository;
 
-        private final PrixRepository prixRepository;
-
-        public DashboardPrixController(PrixRepository prixRepository) {
-            this.prixRepository = prixRepository;
-        }
-
-        //DashBoard pour les prix total des produits, on affiche la liste des prix avec le total des achats et des produits
-        @GetMapping("/dashboard/prix")
-        public List<Prix> getAllPrix() {
-            return prixRepository.findAll();
-        }
+    public AdminDashboardController(ProduitPhareRepository produitPhareRepository, PrixRepository prixRepository) {
+        this.produitPhareRepository = produitPhareRepository;
+        this.prixRepository = prixRepository;
     }
-    @RestController
-    public class DashboardProduitPhareController {
 
-        private final ProduitPhareRepository produitPhareRepository;
-
-        public DashboardProduitPhareController(ProduitPhareRepository produitPhareRepository) {
-            this.produitPhareRepository = produitPhareRepository;
-        }
-
-        //DashBoard pour les produits phares, on affiche la liste des produits phares avec le total des remboursements et des achats
-        @GetMapping("/dashboard/produits-phare")
-        public Map<String, Object> getAllProduitsPhare(){
-
-            List<ProduitPhare> produits = produitPhareRepository.findAll();
-
-            Map<String, Object> response = new HashMap<>();
-            response.put("produits", produits);
-
-            int remboursement = produits.stream()
-                .mapToInt(ProduitPhare::getRemboursement)
-                .sum();
-
-            int achat = produits.stream()
-                .mapToInt(ProduitPhare::getAchat)
-                .sum();
-
-            response.put("remboursement", remboursement);
-            response.put("achat", achat);
-
-            return response;
-        }
+    @GetMapping("/dashboard/produitPhare")
+    public Map<String, Object> getAllProduitPhare() {
+        List<ProduitPhare> produits = produitPhareRepository.findAll();
+        int totalAchats = produits.stream().mapToInt(ProduitPhare::getAchat).sum();
+        Map<String, Object> response = new HashMap<>();
+        response.put("produits", produits);
+        response.put("achats", totalAchats);
+        return response;
     }
-}
+
+     @PostMapping("/dashboard/produitPhare")
+    public ProduitPhare createProduitPhare(@RequestBody ProduitPhare produitPhare) {
+        return produitPhareRepository.save(produitPhare);
+    }
+
+    @GetMapping("/dashboard/prix")
+    public Map<String, Object> getAllPrix() {
+        List<Prix> prixs = prixRepository.findAll();
+        Map<String, Object> response = new HashMap<>();
+        response.put("prixTotal", prixs.stream().mapToInt(Prix::getPrixTotal).sum());
+        response.put("remboursement", prixs.stream().mapToInt(Prix::getRemboursement).sum());
+        response.put("achat", prixs.stream().mapToInt(Prix::getAchat).sum());
+        response.put("date", new java.util.Date());
+        return response;
+    }
+
+    @PostMapping("/dashboard/prix")
+    public Prix createPrix(@RequestBody Prix prix) {
+        return prixRepository.save(prix);
+    }
+
+
+    }

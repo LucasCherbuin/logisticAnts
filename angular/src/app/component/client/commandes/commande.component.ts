@@ -8,6 +8,7 @@ import { Produit } from "../../../models/produit.model";
 import { ProduitService } from "../../../services/produit.service";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeleteCommandeComponent } from "../deleteCommande.component";
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'app-commande',
@@ -24,7 +25,8 @@ export class CommandeComponent implements OnInit {
     constructor(
         private commandeService: CommandeService,
         private articleCommandeService: ArticleCommandeService,
-        private produitService: ProduitService
+        private produitService: ProduitService,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
@@ -35,7 +37,11 @@ export class CommandeComponent implements OnInit {
 
     loadCommandes(): void {
         this.commandeService.getCommandes().subscribe({
-            next: (data: Commande[]) => { this.commandes = data; },
+            next: (data: Commande[]) => {
+                console.log('COMMANDES:', data);
+                this.commandes = data;
+                this.cdr.detectChanges();
+            },
             error: (error: any) => { console.error("Error fetching commandes:", error); }
         });
     }
@@ -54,10 +60,23 @@ export class CommandeComponent implements OnInit {
         });
     }
 
+    downloadFacture(commande: Commande): void {
+        if (!commande.facture) return;
+        const byteArray = Uint8Array.from(atob(commande.facture), c => c.charCodeAt(0));
+        const blob = new Blob([byteArray], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `facture-${commande.id}.pdf`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
     getTotalByCommande(commandeId: number): number {
         return this.articleCommandes
             .filter(ac => ac.id === commandeId)
             .reduce((total, ac) => {
+                if (!ac.produit) return total;
                 const produit = this.produits.find(p => p.id === ac.produit.id);
                 return total + (produit ? produit.prix * ac.quantite : 0);
             }, 0);

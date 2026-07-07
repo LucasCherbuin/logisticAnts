@@ -31,4 +31,10 @@ export class CommandeService {
     deleteCommande(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
+    
+    updatedFacture(id: number, pdfBytes: ArrayBuffer): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${id}/facture`, pdfBytes, {
+            headers: { 'Content-Type': 'application/octet-stream' }
+        });
+    }
 }

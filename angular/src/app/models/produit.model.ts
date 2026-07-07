@@ -1,14 +1,14 @@
-
 import { Fournisseur } from "./fournisseur.model";
+import { Image } from "./image.model";
 
 export interface Produit {
     id: number;
     nom: string;
     prix: number;
-    QuantiteStock: number;
+    quantiteStock: number;
     dernierAjout: Date;
     perissable: boolean;
-    DatePeremption: Date;
-    fournisseur: Fournisseur;
-    image: number;
+    datePeremption: Date;
+    fournisseur?: Fournisseur;
+    image?: Image;
 }

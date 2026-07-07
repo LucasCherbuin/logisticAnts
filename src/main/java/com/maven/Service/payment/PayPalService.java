@@ -3,16 +3,15 @@ package com.maven.service.payment;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
 
-// PayPal SDK
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 
-// Vos modèles
+
 import com.maven.dto.PaymentRequest;
 import com.maven.dto.PaymentResponse;
 
-// Java
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

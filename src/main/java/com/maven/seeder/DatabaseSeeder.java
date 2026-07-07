@@ -8,28 +8,37 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     private final RoleSeeder roleSeeder;
     private final UserSeeder userSeeder;
-    private final PaymentMethodSeeder payementMethodSeeder;
+
     private final ArticleCommandeSeeder articleCommandeSeeder;
     private final CommandeSeeder commandeSeeder;
     private final ProduitSeeder produitSeeder;
+    private final FournisseurSeeder fournisseurSeeder;
 
-    public DatabaseSeeder(RoleSeeder roleSeeder, UserSeeder userSeeder, PaymentMethodSeeder payementMethodSeeder, ArticleCommandeSeeder articleCommandeSeeder, CommandeSeeder commandeSeeder, ProduitSeeder produitSeeder) {
-        this.roleSeeder = roleSeeder;
-        this.userSeeder = userSeeder;
-        this.payementMethodSeeder = payementMethodSeeder;
-        this.articleCommandeSeeder = articleCommandeSeeder;
-        this.commandeSeeder = commandeSeeder;
-        this.produitSeeder = produitSeeder;
+    public DatabaseSeeder
+        (RoleSeeder roleSeeder, 
+         UserSeeder userSeeder,  
+         ArticleCommandeSeeder articleCommandeSeeder,
+         CommandeSeeder commandeSeeder, 
+         ProduitSeeder produitSeeder,
+         FournisseurSeeder fournisseurSeeder
+    ) 
+        {
+            this.roleSeeder = roleSeeder;
+            this.userSeeder = userSeeder;
+            this.articleCommandeSeeder = articleCommandeSeeder;
+            this.commandeSeeder = commandeSeeder;
+            this.produitSeeder = produitSeeder;
+            this.fournisseurSeeder = fournisseurSeeder;
     }
 
     @Override
     public void run(String... args) throws Exception {
         roleSeeder.seedRoles();
         userSeeder.seedUsers();
-        payementMethodSeeder.seedPayementMethod();
         articleCommandeSeeder.seedArticleCommandes();
         commandeSeeder.seedCommandes();
         produitSeeder.seedProduits();
+        fournisseurSeeder.seedFournisseur();
         System.out.println("Seeding done");
     }
 }

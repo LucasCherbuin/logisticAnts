@@ -1,0 +1,104 @@
+<div>
+  <!-- Formulaire nouveau produit -->
+  <form #newForm="ngForm" (ngSubmit)="onSubmitNew(newForm)">
+    <h3>Ajouter un nouveau produit</h3>
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" class="form-control" id="nom" name="nom"
+             [(ngModel)]="newProduit.nom" required>
+    </div>
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" class="form-control" id="prix" name="prix"
+             [(ngModel)]="newProduit.prix" required>
+    </div>
+    <div class="form-group">
+      <label for="quantiteStock">Quantité</label>
+      <input type="number" class="form-control" id="quantiteStock" name="quantiteStock"
+             [(ngModel)]="newProduit.quantiteStock" required>
+    </div>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="perissable" [(ngModel)]="newProduit.perissable">
+        Périssable ?
+      </label>
+    </div>
+    <div class="form-group" *ngIf="newProduit.perissable">
+      <label for="datePeremption">Date de péremption</label>
+      <input type="date" class="form-control" id="datePeremption" name="datePeremption"
+             [(ngModel)]="newProduit.datePeremption">
+    </div>
+    <div class="form-group">
+      <label for="photo">Image</label>
+      <input type="file" class="form-control-file" id="photo" name="photo"
+             (change)="onFileSelected($event)" accept="image/png, image/jpeg">
+    </div>
+
+    <!-- Sélection fournisseur -->
+    <div class="form-group">
+      <label for="fournisseur">Fournisseur</label>
+      <select name="fournisseur" id="fournisseur"
+              [(ngModel)]="selectedFournisseurId"
+              (ngModelChange)="onFournisseurSelectionChange($event)">
+        <option *ngFor="let f of fournisseurs" [value]="f.id">{{ f.nom }}</option>
+        <option value="addFournisseur">-- Ajouter un nouveau fournisseur --</option>
+      </select>
+    </div>
+
+    <!-- Formulaire nouveau fournisseur (affiché seulement si sélectionné) -->
+    <div *ngIf="showNewFournisseurForm">
+      <div class="form-group">
+        <label for="f-nom">Nom fournisseur</label>
+        <input type="text" class="form-control" id="f-nom" name="f-nom"
+               [(ngModel)]="newFournisseur.nom">
+      </div>
+      <div class="form-group">
+        <label for="f-email">Email fournisseur</label>
+        <input type="email" class="form-control" id="f-email" name="f-email"
+               [(ngModel)]="newFournisseur.email">
+      </div>
+      <div class="form-group">
+        <label for="f-adresse">Adresse fournisseur</label>
+        <input type="text" class="form-control" id="f-adresse" name="f-adresse"
+               [(ngModel)]="newFournisseur.adresse">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Valider</button>
+  </form>
+
+  <h3>Sélectionner un produit existant</h3>
+  <div class="panel-fournisseur">
+    @for (produit of produits; track produit.id) {
+      <div>
+        <span>{{ produit.id }} - {{ produit.nom }}</span>
+        <button type="button" (click)="selectProduit(produit)">Modifier</button>
+      </div>
+    }
+  </div>
+
+  <!-- Formulaire modification produit existant -->
+  <form #updateForm="ngForm" (ngSubmit)="onSubmitUpdate(updateForm)" *ngIf="selectedProduit">
+    <h3>Modifier {{ selectedProduit!.nom }}</h3>
+    <div class="form-group">
+      <label for="u-quantiteStock">Quantité</label>
+      <input type="number" class="form-control" id="u-quantiteStock" name="quantiteStock"
+             [(ngModel)]="selectedProduit!.quantiteStock" required>
+    </div>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="perissable" [(ngModel)]="selectedProduit!.perissable">
+        Périssable ?
+      </label>
+    </div>
+    <div class="form-group" *ngIf="selectedProduit!.perissable">
+      <label for="u-datePeremption">Date de péremption</label>
+      <input type="date" class="form-control" id="u-datePeremption" name="datePeremption"
+             [(ngModel)]="selectedProduit!.datePeremption">
+    </div>
+    <button type="submit" class="btn btn-primary">Valider</button>
+  </form>
+
+  <confirmation-produit-add-commande #confirmationAdd></confirmation-produit-add-commande>
+  <confirmation-produit-update-commande #confirmationUpdate></confirmation-produit-update-commande>
+</div>

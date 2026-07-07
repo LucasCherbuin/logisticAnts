@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { UserMenuComponent } from './userMenu.component';
 import { RoleService } from '../../services/role.service';
 import { RegisterService } from '../../services/register.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 
 @Component({
     selector: 'app-menu-logisticien',
     standalone: true,
-    imports: [CommonModule, UserMenuComponent],
+    imports: [CommonModule, UserMenuComponent, RouterModule, RouterLink],
     templateUrl: '../../pages/userMenu/menu-logisticien.component.html',
     styleUrls: ["../../../main.scss"],
 })

@@ -35,23 +35,41 @@ class UserControllerTest {
     @WithMockUser(username = "jean", roles = {"CLIENT"})
     void testGetAllUsers() throws Exception {
 
-        User u1 = new User(1, "John", "john@example.com", passwordEncoder.encode("password123"), 1);
-        User u2 = new User(2, "Jane", "jane@example.com", passwordEncoder.encode("password456"), 2);
+        Role role1 = new Role();
+            role1.setId(1);
+            role1.setLabel("CLIENT");
 
-        List<User> mockList = Arrays.asList(u1, u2);
+        Role role2 = new Role();
+            role2.setId(2);
+            role2.setLabel("ADMIN");
 
-        when(userRepository.findAll()).thenReturn(Arrays.asList(u1, u2));
+        User u1 = new User();
+            u1.setId(1);
+            u1.setPseudo("John");
+            u1.setEmail("john@example.com");
+            u1.setPassword(passwordEncoder.encode("password123"));
+            u1.setRole(role1);
+
+        User u2 = new User();
+            u2.setId(2);
+            u2.setPseudo("Jane");
+            u2.setEmail("jane@example.com");
+            u2.setPassword(passwordEncoder.encode("password456"));
+            u2.setRole(role2);
+
+            when(userRepository.findAll()).thenReturn(Arrays.asList(u1, u2));
 
         String response = mockMvc.perform(get("/users"))
-                                 .andExpect(status().isOk())
-                                 .andReturn()
-                                 .getResponse()
-                                 .getContentAsString();
+                                    .andExpect(status().isOk())
+                                    .andReturn()
+                                    .getResponse()
+                                    .getContentAsString();
 
-        ObjectMapper mapper = new ObjectMapper();
         User[] users = mapper.readValue(response, User[].class);
 
-        assertTrue(passwordEncoder.matches("password123", users[0].getPassword()));
-        assertTrue(passwordEncoder.matches("password456", users[1].getPassword()));
+            assertTrue(passwordEncoder.matches("password123", users[0].getPassword()));
+            assertTrue(passwordEncoder.matches("password456", users[1].getPassword()));
+            assertTrue(users[0].getRole().getLabel().equals("CLIENT"));
+            assertTrue(users[1].getRole().getLabel().equals("ADMIN"));
     }
 }

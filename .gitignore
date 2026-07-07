@@ -1,11 +1,12 @@
 /vendor
-/node_modules
+angular/node_modules
 /public/hot
 /public/storage
 /storage/*.key
-/.env
+.env
 /.idea
 /.vscode
+node_modules/
 Homestead.yaml
 Homestead.json
 /.phpunit.result.cache
@@ -14,3 +15,5 @@ npm-debug.log
 yarn-error.log
 .env.local
 .env.*.local
+target/
+*.class

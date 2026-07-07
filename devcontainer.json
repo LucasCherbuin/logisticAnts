@@ -1,0 +1,26 @@
+{
+  "name": "Logisticants Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile.maven"
+  },
+
+  "workspaceFolder": "/logisticiants",
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/logisticiants,type=bind",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "redhat.java",
+        "vscjava.vscode-maven"
+      ]
+    }
+  },
+
+  "forwardPorts": [8080],
+
+  "postCreateCommand": "mvn clean install -DskipTests",
+
+  "remoteUser": "root"
+}

@@ -6,5 +6,5 @@
   <a href="/angular/src/app/pages/client/page-articles"></a>
   <a href="/angular/src/app/pages/client/my-commandes"></a>
   <button (click)="logout()">Se déconnecter</button>
-
+  <button (click)="goToCart()">Voir le panier ({{ articleCommandeService.cartItems$.value.length }})</button>
 </div>

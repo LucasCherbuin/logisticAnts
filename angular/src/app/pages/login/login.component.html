@@ -1,4 +1,5 @@
 
+
 <div>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <input formControlName="pseudo" placeholder="Pseudo" />
@@ -7,4 +8,5 @@
     <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
     
   </form>
+
 </div>

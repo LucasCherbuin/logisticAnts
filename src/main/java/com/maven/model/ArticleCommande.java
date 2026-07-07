@@ -14,7 +14,6 @@ public class ArticleCommande {
 
     @ManyToOne
     @JoinColumn(name = "produit_id")
-    @JsonIgnore
     private Produit produit;
 
     private int quantite;

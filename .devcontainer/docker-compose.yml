@@ -17,12 +17,10 @@ services:
       retries: 20
       start_period: 20s
     restart: unless-stopped
-
     # docker exec -it mysql bash
     # mysql -u root -p
     # USE logisticants;
     # SELECT * FROM "nom_table" LIMIT 10;
-
   java-app:
     build:
       context: ..
@@ -31,6 +29,8 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
+    env_file:
+      - ../.env
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/logisticants?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
@@ -38,12 +38,12 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQLDialect
       FRONTEND_URL: http://localhost:4200
+      JAVA_TOOL_OPTIONS: "-Djdk.tls.client.protocols=TLSv1.2"
     ports:
       - "8080:8080"
     networks:
       - mynetwork
     restart: unless-stopped
-
   angular:
     build:
       context: ..
@@ -62,7 +62,9 @@ services:
     networks:
       - mynetwork
     restart: unless-stopped
-
 networks:
   mynetwork:
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+  # docker compose -f .devcontainer/docker-compose.yml logs -f

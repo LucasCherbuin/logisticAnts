@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import { Produit } from '../models/produit.model';
 import { API_BASE_URL } from './api.config';
 
@@ -33,6 +33,8 @@ export class ProduitService {
     }
 
     searchProduits(nom: string): Observable<Produit[]> {
-        return this.http.get<Produit[]>(`${this.apiUrl}/search?nom=${nom}`);
-    }
+        return this.http.get<Produit[]>(`${this.apiUrl}/search`, {
+            params: { nom }
+    });
+}
 }

@@ -11,17 +11,21 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
-            <tr *ngFor="let commande of commandes">
-                <td>{{ commande.id }}</td>
-                <td>{{ commande.articleCommande }}</td>
-                <td>{{ getTotalByCommande(commande.id) | currency:'CHF' }}</td>
-                <td>{{ commande.payement }}</td>
-                <td>{{ commande.facture }}</td>
-                <td>
-                    <app-delete-commande [commandeId]="commande.id"></app-delete-commande>
-                </td>
-            </tr>
-        </tbody>
+            <tbody>
+                @for (commande of commandes; track commande.id) {
+                <tr>
+                    <td>{{ commande.id }}</td>
+                    <td>{{ commande.articleCommandes }}</td>
+                    <td>{{ getTotalByCommande(commande.id) | currency:'CHF' }}</td>
+                    <td>{{ commande.payement }}</td>
+                    <td>
+                        <button *ngIf="commande.facture" (click)="downloadFacture(commande)">Télécharger</button>
+                    </td>
+                    <td>
+                        <app-delete-commande [commandeId]="commande.id"></app-delete-commande>
+                    </td>
+                </tr>
+                }
+            </tbody>
     </table>
 </div>

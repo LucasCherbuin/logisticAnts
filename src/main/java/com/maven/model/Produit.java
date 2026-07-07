@@ -3,7 +3,6 @@ package com.maven.model;
 import jakarta.persistence.*;
 import java.sql.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "produit")
@@ -22,12 +21,10 @@ public class Produit {
 
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
-    @JsonIgnore
     private Fournisseur fournisseur;
 
     @OneToOne
     @JoinColumn(name = "image_id")
-    @JsonIgnore
     private Image image;
 
     public Produit() {}
