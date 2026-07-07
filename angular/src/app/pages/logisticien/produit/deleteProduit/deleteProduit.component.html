@@ -1,0 +1,7 @@
+@for (produit of produits; track produit.id) {
+  <div>
+    {{ produit.id }} - {{ produit.nom }}
+    <button (click)="deleteProduit(produit)"><i class="ph ph-x"></i></button>
+  </div>
+}
+<app-confirmation-delete-produit #confirmationDelete></app-confirmation-delete-produit>

@@ -10,6 +10,11 @@ import { CardComponent } from './component/client/card.component';
 import { CartComponent } from './component/client/cart.component';
 import { PrixComponent } from './component/dashboardAdmin/Prix.component';
 import { ProduitPhareComponent } from './component/dashboardAdmin/ProduitPhare.component';
+import { PickingComponent } from './component/logisiticien/picking/picking.component';
+import { AddProduitComponent } from './component/logisiticien/produit/add-update/addProduit.component';
+import { UpdateProduitComponent } from './component/logisiticien/produit/add-update/updateProduit.component';
+import { DeleteProduitComponent } from './component/logisiticien/produit/delete/deleteProduit.component';
+import { ProduitComponent } from './component/logisiticien/produit/produit.component';
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./component/login.component').then(m => m.LoginComponent) },
@@ -24,6 +29,12 @@ export const routes: Routes = [
     // Admin
     { path: 'prix', component: PrixComponent, canActivate: [RoleGuardService], data: { role: ['admin'] } },
     { path: 'produit-phare', component: ProduitPhareComponent, canActivate: [RoleGuardService], data: { role: ['admin']} },
+    // LOGISTICIEN
+    { path: 'picking', component: PickingComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
+    { path: 'produit', component: ProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
+    { path: 'add-produit', component: AddProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
+    { path: 'update-produit', component: UpdateProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
+    { path: 'delete-produit', component: DeleteProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
     // menus par role
     { path: 'menu-admin', loadComponent: () => import('./component/usersMenu/menu-admin.component').then(m => m.MenuAdminComponent) },
     { path: 'menu-client', loadComponent: () => import('./component/usersMenu/menu-client.component').then(m => m.MenuClientComponent) },
@@ -32,3 +43,4 @@ export const routes: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
+ 

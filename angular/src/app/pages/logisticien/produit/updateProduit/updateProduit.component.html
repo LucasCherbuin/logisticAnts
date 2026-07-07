@@ -1,0 +1,39 @@
+<div>
+  <h3>Sélectionner un article</h3>
+  <p>DEBUG: {{ produits.length }} produits</p>
+  <div class="panel-fournisseur">
+    @for (produit of produits; track produit.id) {
+      <button type="button" (click)="selectProduit(produit)">{{ produit.id }} - {{ produit.nom }}</button>
+    }
+  </div>
+  <form #produitForm="ngForm" (ngSubmit)="onSubmitUpdate(produitForm)" *ngIf="selectedProduit">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input type="text" class="form-control" id="nom" name="nom"
+             [(ngModel)]="selectedProduit!.nom" required>
+    </div>
+    <div class="form-group">
+      <label for="prix">Prix</label>
+      <input type="number" class="form-control" id="prix" name="prix"
+             [(ngModel)]="selectedProduit!.prix" required>
+    </div>
+    <div class="form-group">
+      <label for="quantiteStock">Quantité</label>
+      <input type="number" class="form-control" id="quantiteStock" name="quantiteStock"
+             [(ngModel)]="selectedProduit!.quantiteStock" required>
+    </div>
+    <div class="form-group">
+      <label>
+        <input type="checkbox" name="perissable" [(ngModel)]="selectedProduit!.perissable">
+        Périssable ?
+      </label>
+    </div>
+    <div class="form-group" *ngIf="selectedProduit!.perissable">
+      <label for="datePeremption">Date de péremption</label>
+      <input type="date" class="form-control" id="datePeremption" name="datePeremption"
+             [(ngModel)]="selectedProduit!.datePeremption">
+    </div>
+    <button type="submit" class="btn btn-primary">Valider</button>
+    <confirmation-produit-update-commande #confirmationUpdate></confirmation-produit-update-commande>
+  </form>
+</div>

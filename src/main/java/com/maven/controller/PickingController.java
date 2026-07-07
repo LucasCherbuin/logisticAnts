@@ -16,7 +16,7 @@ public class PickingController {
     @Autowired
     private ArticleCommandeRepository articleCommandeRepository;
 
-    @PutMapping("/Picking/produits/{id}")
+    @PutMapping("/picking/produits/{id}")
     public Produit decrementStock(@PathVariable int id, @RequestBody int quantite) {
         Produit produit = produitRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Produit introuvable"));
@@ -24,7 +24,7 @@ public class PickingController {
         return produitRepository.save(produit);
     }
 
-    @DeleteMapping("/Picking/articleCommande/{id}")
+    @DeleteMapping("/picking/articleCommande/{id}")
     public void deleteArticleCommande(@PathVariable int id) {
         articleCommandeRepository.deleteById(id);
     }
