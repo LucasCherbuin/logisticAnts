@@ -44,8 +44,8 @@ export class SecretaireRegisterComponent {
             subject: 'Bienvenue chez Logisitants',
             body: `Cher ${pseudo},
 
-Bienvenue dans votre boîte mail professionnelle.
-Nous vous souhaitons le meilleur pour votre expérience dans l'entreprise.`
+            Bienvenue dans votre boîte mail professionnelle.
+            Nous vous souhaitons le meilleur pour votre expérience dans l'entreprise.`
           };
           return this.mailService.sendMail(mail);
         })
