@@ -1,0 +1,14 @@
+{
+  "name": "Angular DevContainer",
+  "dockerFile": "Dockerfile.angular",
+  "context": "..",
+  "workspaceFolder": "/app/angular",
+  "forwardPorts": [4200],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Angular.ng-template"
+      ]
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
 import { API_BASE_URL } from './api.config';
@@ -21,7 +21,7 @@ export class UserService {
   }
 
   getUserByPseudo(pseudo: string): Observable<User> {
-      return this.http.get<User>(`${this.apiUrl}/pseudo/${pseudo}`);
+    return this.http.get<User>(`${this.apiUrl}/pseudo/${pseudo}`);
   }
 
   createUser(user: User): Observable<User> {
@@ -34,5 +34,13 @@ export class UserService {
 
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  searchUsers(pseudo: string, role?: 'LOGISTICIEN' | 'SECRETAIRE'): Observable<User[]> {
+    let params = new HttpParams().set('pseudo', pseudo);
+    if (role) {
+      params = params.set('role', role);
+    }
+    return this.http.get<User[]>(`${this.apiUrl}/search`, { params });
   }
 }

@@ -12,6 +12,10 @@ import { AddProduitComponent } from './component/logisiticien/produit/add-update
 import { UpdateProduitComponent } from './component/logisiticien/produit/add-update/updateProduit.component';
 import { DeleteProduitComponent } from './component/logisiticien/produit/delete/deleteProduit.component';
 import { ProduitComponent } from './component/logisiticien/produit/produit.component';
+import { GestionCommandeComponent } from './component/secretaire/gestionCommande.component';
+import { GestionUserComponent } from './component/secretaire/gestionUser.component';
+import { SecretaireRegisterComponent } from './component/secretaire/secretaireRegister.component';
+import { SecretaireUpdateUserComponent } from './component/secretaire/secretaireUpdateUser.component';
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./component/login.component').then(m => m.LoginComponent) },
@@ -32,6 +36,11 @@ export const routes: Routes = [
     { path: 'add-produit', component: AddProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
     { path: 'update-produit', component: UpdateProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
     { path: 'delete-produit', component: DeleteProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
+    // secretaire
+    { path: 'app-gestion-commande', component: GestionCommandeComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
+    { path: 'app-secretaire-update-user/:id', component: SecretaireUpdateUserComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
+    { path: 'app-secretaire-register', component: SecretaireRegisterComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
+    { path: 'app-gestion-user', component: GestionUserComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
     // menus par role
     { path: 'menu-admin', loadComponent: () => import('./component/usersMenu/menu-admin.component').then(m => m.MenuAdminComponent) },
     { path: 'menu-client', loadComponent: () => import('./component/usersMenu/menu-client.component').then(m => m.MenuClientComponent) },
@@ -40,3 +49,4 @@ export const routes: Routes = [
     { path: '**', redirectTo: '' }
 ];
 
+ 

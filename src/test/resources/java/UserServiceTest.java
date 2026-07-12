@@ -1,5 +1,6 @@
-package com.maven.test;
 
+
+package com.maven.test;
 
 
 import com.maven.Service.UserService;
@@ -26,7 +27,7 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.openMocks(this); // <-- initialisation des mocks
+        MockitoAnnotations.openMocks(this); 
     }
 
     @Test

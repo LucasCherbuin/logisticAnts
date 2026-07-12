@@ -1,0 +1,32 @@
+<div>
+    <input
+        type="text"
+        [formControl]="filterfcvar"
+        placeholder="Rechercher une commande..."
+        class="form-control mb-3"
+    />
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Commande Id</th>
+                <th scope="col">Client</th>
+                <th scope="col">Articles</th>
+                <th scope="col">Annuler la commande</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="filtre list-group-item"
+                *ngFor="let commande of filteredCommande$ | async; let i = index"
+                (click)="setCurrentAntrag(commande, i)"
+            >
+                <td>{{ commande.id }}</td>
+                <td>{{ commande.user }}</td>
+                <td>{{ commande.articleCommandes }}</td>
+                <td>{{ commande.payement }}</td>
+                <td>{{ commande.facture }}</td>
+                <td>
+                    <app-delete-commande-secretaire [commandeId]="commande.id"></app-delete-commande-secretaire>
+            </tr>
+        </tbody>
+    </table>
+</div>

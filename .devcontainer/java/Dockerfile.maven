@@ -22,6 +22,7 @@ CMD ["java", "-jar", "app.jar"]
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean test
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean compile
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean package
+# docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn clean install -U
 # docker run --rm -it -v "D:\Projet developpements\logisticAnts:/logisticiants" -w /logisticiants maven:3.9.6-eclipse-temurin-17 mvn spring-boot:run
 # docker compose -f .devcontainer/docker-compose.yml --env-file .env build --no-cache java-app
 # docker compose -f .devcontainer/docker-compose.yml --env-file .env up -d

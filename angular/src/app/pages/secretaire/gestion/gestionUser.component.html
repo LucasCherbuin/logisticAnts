@@ -1,0 +1,31 @@
+<div>
+    <input
+        type="text"
+        [formControl]="filterfcvar"
+        placeholder="Rechercher un utilisateur..."
+        class="form-control mb-3"
+    />
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Métier</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="filtre list-group-item"
+                *ngFor="let user of filteredUser$ | async; let i = index"
+                (click)="setCurrentAntrag(user, i)"
+            >
+                <td>{{ user.pseudo }}</td>
+                <td>{{ getRoleLabel(user) }}</td>
+                <td>
+                    <a [routerLink]="['/app-secretaire-update-user', user.id]">Modifier</a>
+                    <button (click)="deleteUser(user.id)"><i class="ph ph-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a routerLink="/app-secretaire-register">Ajouter un utilisateur</a>
+</div>
