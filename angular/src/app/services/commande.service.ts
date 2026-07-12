@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Commande } from '../models/commande.model';
 import { API_BASE_URL } from './api.config';
@@ -10,31 +10,36 @@ import { API_BASE_URL } from './api.config';
 export class CommandeService {
   private apiUrl = `${API_BASE_URL}/Commandes`;
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    getCommandes(): Observable<Commande[]> {
-        return this.http.get<Commande[]>(this.apiUrl);
-    }
+  getCommandes(): Observable<Commande[]> {
+    return this.http.get<Commande[]>(this.apiUrl);
+  }
 
-    getCommandeById(id: number): Observable<Commande> {
-        return this.http.get<Commande>(`${this.apiUrl}/${id}`);
-    }
+  getCommandeById(id: number): Observable<Commande> {
+    return this.http.get<Commande>(`${this.apiUrl}/${id}`);
+  }
 
-    createCommande(commande: Commande): Observable<Commande> {
-        return this.http.post<Commande>(this.apiUrl, commande);
-    }
+  createCommande(commande: Commande): Observable<Commande> {
+    return this.http.post<Commande>(this.apiUrl, commande);
+  }
 
-    updateCommande(id: number, commande: Commande): Observable<Commande> {
-        return this.http.put<Commande>(`${this.apiUrl}/${id}`, commande);
-    }
+  updateCommande(id: number, commande: Commande): Observable<Commande> {
+    return this.http.put<Commande>(`${this.apiUrl}/${id}`, commande);
+  }
 
-    deleteCommande(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
-    }
-    
-    updatedFacture(id: number, pdfBytes: ArrayBuffer): Observable<void> {
-        return this.http.put<void>(`${this.apiUrl}/${id}/facture`, pdfBytes, {
-            headers: { 'Content-Type': 'application/octet-stream' }
-        });
-    }
+  deleteCommande(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  updatedFacture(id: number, pdfBytes: ArrayBuffer): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/facture`, pdfBytes, {
+      headers: { 'Content-Type': 'application/octet-stream' }
+    });
+  }
+
+  searchCommandes(term: string): Observable<Commande[]> {
+    const params = new HttpParams().set('term', term);
+    return this.http.get<Commande[]>(`${this.apiUrl}/search`, { params });
+  }
 }

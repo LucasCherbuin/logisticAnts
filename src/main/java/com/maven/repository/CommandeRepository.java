@@ -9,4 +9,5 @@ import java.util.List;
 public interface CommandeRepository extends JpaRepository<Commande, Integer> {
     List<Commande> findByUserId(int userId);
     List<Commande> findByArticleCommandesId(int articleCommandeId);
+    List<Commande> findByUserPseudoContainingIgnoreCase(String pseudo);
 }

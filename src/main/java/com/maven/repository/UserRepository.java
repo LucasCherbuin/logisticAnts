@@ -1,6 +1,5 @@
 package com.maven.repository;
 
-
 import com.maven.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +12,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByPseudo(String pseudo);
     boolean existsByEmail(String email);
     List<User> findByPseudoContainingIgnoreCase(String pseudo);
+    List<User> findByPseudoContainingIgnoreCaseAndRole_Label(String pseudo, String label);
 }

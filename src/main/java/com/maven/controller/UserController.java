@@ -1,34 +1,31 @@
 package com.maven.controller;
 
-
 import com.maven.model.User;
 import com.maven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import com.maven.model.Role;
+
 import java.util.List;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @CrossOrigin(origins = "${frontend.url}")
-
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
     @GetMapping("/Users")
-
     public List<User> getAllUsers() {
-        return userRepository.findAll(); // Placeholder return
+        return userRepository.findAll();
     }
 
     @GetMapping("/Users/search")
-    public List<User> searchUsers(@RequestParam String pseudo) {
+    public List<User> searchUsers(@RequestParam String pseudo,
+                                @RequestParam(required = false) String role) {
+        if (role != null && !role.isEmpty()) {
+            return userRepository.findByPseudoContainingIgnoreCaseAndRole_Label(pseudo, role);
+        }
         return userRepository.findByPseudoContainingIgnoreCase(pseudo);
     }
 
@@ -42,21 +39,19 @@ public class UserController {
         return userRepository.findByPseudo(pseudo).orElse(null);
     }
 
-    @PutMapping("/Users/{id}/create")
-    public void createUser(User user) {
-        // Implementation to create a new User
-        userRepository.save(user);
+    @PostMapping("/Users")
+    public User createUser(@RequestBody User user) {
+        return userRepository.save(user);
     }
 
-    @PutMapping("/Users/{id}/update")
-    public void updateUser(User user) {
-        // Implementation to update an existing User
-        userRepository.save(user);
+    @PutMapping("/Users/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User user) {
+        user.setId(id);
+        return userRepository.save(user);
     }
 
-    @PutMapping("/Users/{id}/delete")
-    public void deleteUser(int id) {
-        // Implementation to delete a User by ID
+    @DeleteMapping("/Users/{id}")
+    public void deleteUser(@PathVariable int id) {
         userRepository.deleteById(id);
     }
 }

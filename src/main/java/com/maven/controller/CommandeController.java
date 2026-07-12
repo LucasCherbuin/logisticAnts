@@ -3,6 +3,7 @@ package com.maven.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.maven.model.Commande;
 import com.maven.repository.CommandeRepository;
 import com.maven.repository.ArticleCommandeRepository;
@@ -11,6 +12,7 @@ import com.maven.modelNosql.ProduitPhare;
 import com.maven.repositoryNosql.PrixRepository;
 import com.maven.repositoryNosql.ProduitPhareRepository;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -41,10 +43,22 @@ public class CommandeController {
         return commandeRepository.save(commande);
     }
 
-    @PutMapping("/Commandes/{id}/update")
-
+    @PutMapping("/Commandes/{id}")
     public void updateCommande(@PathVariable int id, @RequestBody Commande commande) {
+        commande.setId(id);
         commandeRepository.save(commande);
+    }
+
+    @GetMapping("/Commandes/search")
+    public List<Commande> searchCommandes(@RequestParam String term) {
+        try {
+            int id = Integer.parseInt(term);
+            return commandeRepository.findById(id)
+                .map(Collections::singletonList)
+                .orElse(Collections.emptyList());
+        } catch (NumberFormatException e) {
+            return commandeRepository.findByUserPseudoContainingIgnoreCase(term);
+        }
     }
 
     @PutMapping("/Commandes/{id}/facture")
@@ -55,7 +69,6 @@ public class CommandeController {
         commandeRepository.save(commande);
 
         List<com.maven.model.ArticleCommande> articles = commande.getArticleCommandes();
-        System.out.print("articles:" + (articles == null ? "NULL" : articles.size()));
         if (articles != null) {
             int totalAchat = articles.stream()
                 .mapToInt(a -> (int)(a.getProduit().getPrix() * a.getQuantite()))
@@ -87,29 +100,26 @@ public class CommandeController {
         }
     }
 
-
     @Transactional
     @DeleteMapping("/Commandes/{id}")
-        public ResponseEntity<?> deleteCommande(@PathVariable Integer id) {
-            Commande commande = commandeRepository.findById(id).orElse(null);
-            if (commande != null) {
-                List<com.maven.model.ArticleCommande> articles = commande.getArticleCommandes();
-                if (articles != null) {
-                    int totalRemboursement = articles.stream()
-                        .mapToInt(a -> (int)(a.getProduit().getPrix() * a.getQuantite()))
-                        .sum();
-                    Prix prix = new Prix();
-                    prix.setAchat(0);
-                    prix.setRemboursement(totalRemboursement);
-                    prix.setPrixTotal(-totalRemboursement);
-                    prix.setDate(new Date());
-                    prixRepository.save(prix);
-                }
+    public ResponseEntity<?> deleteCommande(@PathVariable Integer id) {
+        Commande commande = commandeRepository.findById(id).orElse(null);
+        if (commande != null) {
+            List<com.maven.model.ArticleCommande> articles = commande.getArticleCommandes();
+            if (articles != null) {
+                int totalRemboursement = articles.stream()
+                    .mapToInt(a -> (int)(a.getProduit().getPrix() * a.getQuantite()))
+                    .sum();
+                Prix prix = new Prix();
+                prix.setAchat(0);
+                prix.setRemboursement(totalRemboursement);
+                prix.setPrixTotal(-totalRemboursement);
+                prix.setDate(new Date());
+                prixRepository.save(prix);
             }
-            articleCommandeRepository.deleteByCommandeId(id);
-            commandeRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+        }
+        articleCommandeRepository.deleteByCommandeId(id);
+        commandeRepository.deleteById(id);
+        return ResponseEntity.ok().build();
     }
-    
 }
-
