@@ -11,8 +11,8 @@ import { CommonModule } from "@angular/common";
                 <p>Cette action est irréversible.</p>
                 <p>Voulez-vous vraiment supprimer cette commande ?</p>
                 <div class="actions">
-                    <button (click)="confirm()">Confirmer</button>
-                    <button (click)="cancel()">Annuler</button>
+                    <button class="button" (click)="confirm()">Confirmer</button>
+                    <button class="button" (click)="cancel()">Annuler</button>
                 </div>
             </div>
         </div>

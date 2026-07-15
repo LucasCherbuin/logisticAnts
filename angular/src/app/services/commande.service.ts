@@ -37,6 +37,10 @@ export class CommandeService {
       headers: { 'Content-Type': 'application/octet-stream' }
     });
   }
+  
+  confirmedPay(id: number): Observable<Commande> {
+    return this.http.put<Commande>(`${this.apiUrl}/${id}/confirmed`, {});
+  }
 
   searchCommandes(term: string): Observable<Commande[]> {
     const params = new HttpParams().set('term', term);

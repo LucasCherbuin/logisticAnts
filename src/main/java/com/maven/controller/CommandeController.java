@@ -61,6 +61,11 @@ public class CommandeController {
         }
     }
 
+    @PutMapping("/Commandes/{id}(confirmed")
+    public Commande confirmedPay(@PathVariable int id) {
+        return commandeRepository.findById(id).orElse(null);
+    }
+
     @PutMapping("/Commandes/{id}/facture")
     public void updateFacture(@PathVariable int id, @RequestBody byte[] pdfBytes) {
         Commande commande = commandeRepository.findById(id).orElse(null);

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {  timer } from 'rxjs';
+import { timer } from 'rxjs';
 
 @Component({
     selector: 'app-confirmation-commande',
@@ -18,7 +18,7 @@ import {  timer } from 'rxjs';
 export class ConfirmationCommandeComponent {
     isVisible: boolean = false;
 
-    open(commandeId: number, total: number, callback: () => void): void {
+    open(total: number, callback: () => void): void {
         this.isVisible = true;
         callback();
         this.close();
