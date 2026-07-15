@@ -57,7 +57,7 @@ describe("LoginComponent", () => {
     expect(registerSpy.login).not.toHaveBeenCalled();
   });
 
-  it("should parse JSON token, save it and navigate to /app", () => {
+  it("should parse JSON token, save it and navigate to /accueil", () => {
     registerSpy.login.mockReturnValue(
       of(JSON.stringify({ token: "fake-jwt", username: "alice" })),
     );
@@ -65,7 +65,7 @@ describe("LoginComponent", () => {
     component.login();
     expect(registerSpy.login).toHaveBeenCalledWith("alice", "abcd");
     expect(registerSpy.saveToken).toHaveBeenCalledWith("fake-jwt");
-    expect(routerSpy.navigate).toHaveBeenCalledWith(["/app"]);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(["/accueil"]);
   });
 
   it("should save raw string token if response is not JSON", () => {
@@ -73,7 +73,7 @@ describe("LoginComponent", () => {
     component.loginForm.setValue({ pseudo: "alice", password: "abcd" });
     component.login();
     expect(registerSpy.saveToken).toHaveBeenCalledWith("raw-token");
-    expect(routerSpy.navigate).toHaveBeenCalledWith(["/app"]);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(["/accueil"]);
   });
 
   it("should set errorMessage on login failure", () => {

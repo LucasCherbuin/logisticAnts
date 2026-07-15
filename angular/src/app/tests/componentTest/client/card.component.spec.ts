@@ -1,9 +1,9 @@
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { beforeEach, describe, vi, expect, it } from "vitest";
-import { CardComponent } from "../../component/client/card.component";
-import { ProduitService } from "../../services/produit.service";
-import { ArticleCommandeService } from "../../services/articleCommande.service";
+import { CardComponent } from "../../../component/client/card.component";
+import { ProduitService } from "../../../services/produit.service";
+import { ArticleCommandeService } from "../../../services/articleCommande.service";
 import { RouterModule } from "@angular/router";
 import { of } from "rxjs";
 import { BehaviorSubject } from "rxjs";

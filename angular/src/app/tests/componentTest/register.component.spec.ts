@@ -12,6 +12,7 @@ describe('RegisterComponent', () => {
   let fixture: ComponentFixture<RegisterComponent>;
   let registerSpy: any;
   let mailSpy: any;
+  let confirmationRegisteredSpy: any;
 
   beforeEach(async () => {
     registerSpy = { register: vi.fn(), login: vi.fn(), saveToken: vi.fn() };
@@ -32,6 +33,11 @@ describe('RegisterComponent', () => {
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
+
+    fixture.detectChanges();
+    confirmationRegisteredSpy = { open: vi.fn((cb: () => void) => cb()) };
+    component.confirmationRegistered = confirmationRegisteredSpy;
+
     fixture.detectChanges();
   });
 
@@ -41,7 +47,7 @@ describe('RegisterComponent', () => {
     expect(component.errorMessage).toBe('');
   });
 
-  it('should register, login, save token and send confirmation email', () => {
+  it('should register, login, save token, open the popup and send confirmation email', () => {
     registerSpy.register.mockReturnValue(of('ok'));
     registerSpy.login.mockReturnValue(of(JSON.stringify({ token: 'fake-jwt' })));
     mailSpy.sendMailWithToken.mockReturnValue(of({ success: true }));
@@ -55,10 +61,25 @@ describe('RegisterComponent', () => {
     expect(registerSpy.register).toHaveBeenCalledWith('alice', 'alice@mail.com', 'abcd', 'CLIENT');
     expect(registerSpy.login).toHaveBeenCalledWith('alice', 'abcd');
     expect(registerSpy.saveToken).toHaveBeenCalledWith('fake-jwt');
+    expect(confirmationRegisteredSpy.open).toHaveBeenCalledWith(expect.any(Function));
     expect(mailSpy.sendMailWithToken).toHaveBeenCalledWith(
       { to: 'alice@mail.com', subject: 'Inscription réussie', body: 'Cher alice, votre compte a bien été créé.' },
       'fake-jwt'
     );
+  });
+
+  it('should not send the mail if the popup does not trigger the callback', () => {
+    registerSpy.register.mockReturnValue(of('ok'));
+    registerSpy.login.mockReturnValue(of(JSON.stringify({ token: 'fake-jwt' })));
+    confirmationRegisteredSpy.open.mockImplementation(() => {});
+
+    component.pseudo = 'alice';
+    component.email = 'alice@mail.com';
+    component.password = 'abcd';
+    component.register();
+
+    expect(confirmationRegisteredSpy.open).toHaveBeenCalled();
+    expect(mailSpy.sendMailWithToken).not.toHaveBeenCalled();
   });
 
   it('should handle raw string token after login during register', () => {
@@ -99,6 +120,7 @@ describe('RegisterComponent', () => {
     component.password = 'abcd';
     component.register();
     expect(consoleSpy).toHaveBeenCalled();
+    expect(confirmationRegisteredSpy.open).not.toHaveBeenCalled();
     expect(mailSpy.sendMailWithToken).not.toHaveBeenCalled();
     consoleSpy.mockRestore();
   });

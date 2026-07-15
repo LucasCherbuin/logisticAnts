@@ -1,10 +1,11 @@
 import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { AdminDashboardService } from "../../../services/adminDashboard.service";
 import { beforeEach, describe, vi, expect, it } from "vitest";
-import { DeleteCommandeComponent } from "../../component/client/deleteCommande.component";
-import { CommandeService } from "../../services/commande.service";
-import { UserService } from "../../services/user.service";
-import { MailService } from "../../services/mailer.service";
+import { DeleteCommandeComponent } from "../../../component/client/deleteCommande.component";
+import { CommandeService } from "../../../services/commande.service";
+import { UserService } from "../../../services/user.service";
+import { MailService } from "../../../services/mailer.service";
 import { of } from "rxjs";
 
 describe("DeleteCommandeComponent", () => {
@@ -20,6 +21,9 @@ describe("DeleteCommandeComponent", () => {
     const mockMailService = {
         sendMail: vi.fn()
     };
+    const mockAdminDashboardService = {
+        createPrix: vi.fn()
+    }
 
     beforeEach(async () => {
         vi.clearAllMocks();
@@ -63,6 +67,7 @@ describe("DeleteCommandeComponent", () => {
             mockUserService.getUsers.mockReturnValue(of([mockUser]));
             mockCommandeService.deleteCommande.mockReturnValue(of(null));
             mockMailService.sendMail.mockReturnValue(of(null));
+            mockAdminDashboardService.createPrix.mockReturnValue(of(null));
 
             fixture.detectChanges();
             component.execDelete();

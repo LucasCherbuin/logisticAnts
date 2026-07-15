@@ -32,7 +32,7 @@ describe("MailService", () => {
 
   it("should POST to /mail/send with Authorization header (sendMailWithToken)", () => {
     service.sendMailWithToken(mockMail, "my-token").subscribe((res) => {
-      expect(res).toEqual({ success: true });
+      expect(res).toEqual('{"success":true}');
     });
     const req = httpMock.expectOne("http://localhost:8080/mail/send");
     expect(req.request.method).toBe("POST");
@@ -44,7 +44,7 @@ describe("MailService", () => {
   it("should POST to /mail/send using token from localStorage (sendMail)", () => {
     localStorage.setItem("token", "stored-token");
     service.sendMail(mockMail).subscribe((res) => {
-      expect(res).toEqual({ success: true });
+      expect(res).toEqual('{"success":true}');
     });
     const req = httpMock.expectOne("http://localhost:8080/mail/send");
     expect(req.request.method).toBe("POST");
