@@ -5,6 +5,7 @@ import { ArticleCommandeService } from "../../services/articleCommande.service";
 import { Commande } from "../../models/commande.model";
 import { CommandeService } from "../../services/commande.service";
 import { PaymentService } from "../../services/payment.service";
+import { FactureService } from "../../services/facture.service";
 import { AdminDashboardService } from "../../services/adminDashboard.service";
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
@@ -49,6 +50,7 @@ export class PurchaseComponent implements OnInit, AfterViewInit {
         private articleCommandeService: ArticleCommandeService,
         private commandeService: CommandeService,
         private paymentService: PaymentService,
+        private factureService: FactureService,
         private userService: UserService,
         private adminDashboardService: AdminDashboardService,
     ) {
@@ -150,6 +152,20 @@ export class PurchaseComponent implements OnInit, AfterViewInit {
                 forkJoin(saves).subscribe({
                     next: () => {
                         this.articleCommandeService.clearCart();
+                        this.factureService.generateBillPDF(
+                            created.id,
+                            {
+                                entreprise: this.form.value.entreprise,
+                                adresse: this.form.value.adresse,
+                                ville: this.form.value.ville,
+                                NPA: this.form.value.NPA
+                            },
+                            this.cartItems.map(item => ({
+                                nom: item.produit.nom,
+                                quantite: item.quantite,
+                                prix: item.produit.prix
+                            }))
+                        );
                         this.loadCommandes();
                     },
                     error: (err: HttpErrorResponse) => { console.error('Erreur enregistrement articles', err); }
