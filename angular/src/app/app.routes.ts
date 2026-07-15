@@ -17,10 +17,12 @@ import { GestionUserComponent } from './component/secretaire/gestionUser.compone
 import { SecretaireRegisterComponent } from './component/secretaire/secretaireRegister.component';
 import { SecretaireUpdateUserComponent } from './component/secretaire/secretaireUpdateUser.component';
 
+
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./component/login.component').then(m => m.LoginComponent) },
     { path: 'register', loadComponent: () => import('./component/register.component').then(m => m.RegisterComponent) },
     { path: 'menu', loadComponent: () => import('./component/usersMenu/userMenu.component').then(m => m.UserMenuComponent) },
+    { path: 'accueil', loadComponent:() => import('./component/accueil.component').then(m => m.AccueilComponent) }, 
     // CLIENT
     { path: 'shop', component: ShopComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
     { path: 'commandes', component: CommandeComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },

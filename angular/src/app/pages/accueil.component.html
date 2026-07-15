@@ -1,1 +1,5 @@
-<h1> bonjour {{ user.name }} </h1>
+<div>
+    @if (connectedUser.getPseudo()) {
+    <h1> bonjour {{ connectedUser.getPseudo() }} </h1>
+    }
+</div>
