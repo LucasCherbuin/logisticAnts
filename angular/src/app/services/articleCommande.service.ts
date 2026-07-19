@@ -43,6 +43,16 @@ export class ArticleCommandeService {
         this.saveToStorage();
     }
 
+    updateQuantite(produit: Produit, quantite: number): void {
+        const item = this.cartItems.find(i => i.produit.id === produit.id);
+        if (item) {
+            item.quantite = quantite;
+            this.cartItems = [...this.cartItems];
+            this.cartItems$.next([...this.cartItems]);
+            this.saveToStorage
+        }
+    }
+
     getItems(): { produit: Produit; quantite: number }[] {
         return this.cartItems;
     }

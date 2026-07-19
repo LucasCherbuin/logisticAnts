@@ -1,16 +1,21 @@
-<div>
+<div class="cart">
     <p>votre panier</p>
     <hr>
     <div *ngFor="let item of items$ | async; let i = index">
         {{ item.produit.nom }}
-        <select (change)="changeSubtotal(item, i)" #subTotalWrap>
-            <option [value]="item.quantite">{{ item.quantite }}</option>
-        </select>
+        {{ item.produit.image}}
+        <div class="cartInformation">
+            <select [value]="item.quantite" (change)="onQuantiteChange(item, $event)">
+                <option *ngFor="let qte of quantiteOptions" [value]="qte">
+                    {{ qte }}
+                </option>
+            </select>
+        </div>
         {{ item.produit.prix | currency:'CHF' }}
-        <button (click)="deleteFromCart(item.produit)"><i class="ph ph-trash"></i> Supprimer</button>
+        <button class="deleteFromCart" (click)="deleteFromCart(item.produit)"><i class="ph ph-trash"></i> Supprimer</button>
     </div>
     <hr>
     <p>Total : {{ total | currency:'CHF' }}</p>
-    <button routerLink="/purchase">Passez en caisse</button>
+    <button class="buttonPurchaseLink" routerLink="/purchase">Passez en caisse</button>
     <hr>
 </div>

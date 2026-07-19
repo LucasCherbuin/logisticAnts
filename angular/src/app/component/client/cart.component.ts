@@ -29,6 +29,8 @@ export class CartComponent implements OnInit {
     currentUser: User | null = null;
     private router = inject(Router);
 
+    quantiteOptions = Array.from({ length: 20 }, (_, i) => i + 1);
+
     constructor(
         private articleCommandeService: ArticleCommandeService,
         private registerService: RegisterService,
@@ -46,10 +48,10 @@ export class CartComponent implements OnInit {
         );
     }
     
-    changeSubtotal(item: any, index: number): void {
-        const subTotal = item.produit.prix * item.quantite;
-        const subTotal_converted = this.currencyPipe.transform(subTotal, "CHF");
-        this.subTotalItems.toArray()[index].nativeElement.innerHTML = subTotal_converted;
+     changeSubtotal(item: { produit: Produit; quantite: number }, event: Event | undefined): void {
+        if (!event) return;
+        const nouvelleQuantite = Number((event.target as HTMLSelectElement).value);
+        this.articleCommandeService.updateQuantite(item.produit, nouvelleQuantite);
     }
 
     deleteFromCart(produit: Produit): void {
