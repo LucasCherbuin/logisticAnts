@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { of } from 'rxjs';
 import { GestionUserComponent } from '../../../component/secretaire/gestionUser.component';
 import { User } from '../../../models/user.model';
+import { skip } from 'rxjs/operators';
 
 describe('GestionUserComponent', () => {
   let component: GestionUserComponent;
@@ -27,6 +28,30 @@ describe('GestionUserComponent', () => {
       })
     };
     component = new GestionUserComponent(userServiceMock, dialogMock);
+  });
+
+ it('filteredUser$ should filter by pseudo when field is pseudo', () => {
+    component.ngOnInit();
+
+    let result: User[] = [];
+    component.filteredUser$.subscribe(v => result = v);
+
+    component.filterField.setValue('pseudo');
+    component.filterfcvar.setValue('log');
+
+    expect(result.map(u => u.pseudo)).toEqual(['log']);
+  });
+
+  it('filteredUser$ should filter by role when field is role', () => {
+    component.ngOnInit();
+
+    let result: User[] = [];
+    component.filteredUser$.subscribe(v => result = v);
+
+    component.filterField.setValue('role');
+    component.filterfcvar.setValue('secretaire');
+
+    expect(result.map(u => u.pseudo)).toEqual(['sec']);
   });
 
   it('should be created', () => {

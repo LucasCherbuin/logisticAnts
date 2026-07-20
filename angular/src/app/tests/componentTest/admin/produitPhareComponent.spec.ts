@@ -63,7 +63,7 @@ describe("ProduitPhareComponent", () => {
         expect(result).toBeDefined();
     });
 
-    it('trie par achat quand critere est achat', async () => {
+    it('trie par achat quand le champ sélectionné est achat', async () => {
         fixture.detectChanges();
 
         const result = await new Promise<any[]>(resolve => {
@@ -71,7 +71,7 @@ describe("ProduitPhareComponent", () => {
                 .pipe(skip(1))
                 .subscribe(resolve);
 
-            component.filterfcvar.setValue('achat');
+            component.filterField.setValue('achat');
         });
 
         expect(result.map(p => p.achat)).toEqual([2, 5, 8]);

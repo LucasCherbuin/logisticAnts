@@ -3,6 +3,7 @@ import { of } from 'rxjs';
 import { GestionCommandeComponent } from '../../../component/secretaire/gestionCommande.component';
 import { Commande } from '../../../models/commande.model';
 import { User } from '../../../models/user.model'; 
+import { skip } from 'rxjs/operators';
 
 describe('GestionCommandeComponent', () => {
   let component: GestionCommandeComponent;
@@ -15,8 +16,8 @@ describe('GestionCommandeComponent', () => {
   let cdrMock: any;
 
   const commandesFixture: Commande[] = [
-    { id: 1 } as Commande,
-    { id: 2 } as Commande
+    { id: 1, user: 'Alice', articleCommandes: [], payement: '', facture: '' } as unknown as Commande,
+    { id: 2, user: 'Bob', articleCommandes: [], payement: '', facture: '' } as unknown as Commande
   ];
   const usersFixture: User[] = [
     { id: 1, pseudo: 'admin', email: 'admin@mail.com', password: 'x', role: 'ADMIN' as any }
@@ -109,4 +110,29 @@ describe('GestionCommandeComponent', () => {
     expect(component.currentCommande).toBe(commande);
     expect(component.currentIndex).toBe(0);
   });
+
+  it('filteredCommande$ should filter by id when field is id', async () => {
+    component.ngOnInit();
+
+    const result = await new Promise<Commande[]>(resolve => {
+      component.filteredCommande$.pipe(skip(2)).subscribe(resolve);
+      component.filterField.setValue('id');
+      component.filterfcvar.setValue('2');
+    });
+
+    expect(result.map(c => c.id)).toEqual([2]);
+  });
+
+  it('filteredCommande$ should filter by user when field is user', async () => {
+    component.ngOnInit();
+
+    const result = await new Promise<Commande[]>(resolve => {
+      component.filteredCommande$.pipe(skip(2)).subscribe(resolve);
+      component.filterField.setValue('user');
+      component.filterfcvar.setValue('bob');
+    });
+
+    expect(result.map(c => c.user)).toEqual(['Bob']);
+  });
+  
 });
