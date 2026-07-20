@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-import { Observable } from 'rxjs';
-import { startWith, switchMap, map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDeleteUserComponent } from './confirmationDeleteUser.component';
 
@@ -17,7 +17,7 @@ import { ConfirmationDeleteUserComponent } from './confirmationDeleteUser.compon
   styleUrls: ['../../../main.scss']
 })
 export class GestionUserComponent implements OnInit {
-  user: (Omit<User, 'role'> & { role: 'LOGISTICIEN' | 'SECRETAIRE' }) = {
+  user: (Omit<User, 'role'> & { role: 'LOGISTICIEN' | 'SECRETAIRE'; }) = {
     id: 0,
     pseudo: '',
     email: '',
@@ -26,6 +26,7 @@ export class GestionUserComponent implements OnInit {
   };
   users: User[] = [];
   filterfcvar = new FormControl('');
+  filterField = new FormControl<string>('pseudo');
   filteredUser$!: Observable<User[]>;
   currentUser: User | null = null;
   currentIndex = -1;
@@ -37,17 +38,11 @@ export class GestionUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-    this.filteredUser$ = this.filterfcvar.valueChanges.pipe(
-      startWith(''),
-      switchMap(value => value
-        ? this.userService.searchUsers(value)
-        : this.userService.getUsers()
-      ),
-      map(users => users.filter(
-        (user) => ['LOGISTICIEN', 'SECRETAIRE'].includes(
-          (typeof user.role === 'string' ? user.role : user.role?.label)?.toUpperCase()
-        )
-      ))
+    this.filteredUser$ = combineLatest([
+      this.filterfcvar.valueChanges.pipe(startWith('')),
+      this.filterField.valueChanges.pipe(startWith('pseudo'))
+    ]).pipe(
+      map(([value, field]) => this.filterUsers(value ?? '', field ?? 'pseudo'))
     );
   }
 
@@ -69,6 +64,16 @@ export class GestionUserComponent implements OnInit {
     });
   }
 
+  private filterUsers(value: string, field: string): User[] {
+    const term = value.toLowerCase();
+    const base = this.users;
+    if (!term) return base;
+    return base.filter(user => {
+      const target = field === 'role' ? this.getRoleLabel(user) : user.pseudo;
+      return target.toLowerCase().includes(term);
+    });
+}
+
   setCurrentAntrag(user: User, index: number): void {
     this.currentUser = user;
     this.currentIndex = index;
@@ -79,7 +84,6 @@ export class GestionUserComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.userService.deleteUser(id).subscribe(() => {
-          console.log('User supprimé');
           this.loadUsers();
         });
       }

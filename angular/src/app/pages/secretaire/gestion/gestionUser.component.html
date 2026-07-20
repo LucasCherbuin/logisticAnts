@@ -1,19 +1,23 @@
-<div>
+<div class="menuAdmin" >
+    <select [formControl]="filterField" class="form-select mb-2">
+    <option value="pseudo">Nom</option>
+    <option value="role">Métier</option>
+    </select>
     <input
         type="text"
         [formControl]="filterfcvar"
         placeholder="Rechercher un utilisateur..."
         class="form-control mb-3"
     />
-    <table>
-        <thead>
+    <table class="tableAdmin">
+        <thead class="theadAdmin">
             <tr>
                 <th scope="col">Nom</th>
                 <th scope="col">Métier</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tbodyAdmin">
             <tr class="filtre list-group-item"
                 *ngFor="let user of filteredUser$ | async; let i = index"
                 (click)="setCurrentAntrag(user, i)"
@@ -21,11 +25,12 @@
                 <td>{{ user.pseudo }}</td>
                 <td>{{ getRoleLabel(user) }}</td>
                 <td>
-                    <a [routerLink]="['/app-secretaire-update-user', user.id]">Modifier</a>
-                    <button (click)="deleteUser(user.id)"><i class="ph ph-trash"></i></button>
+                    <a class="optionUser" [routerLink]="['/app-secretaire-update-user', user.id]"><i class="ph ph-pencil"></i></a>
+                    <button class="optionUser" (click)="deleteUser(user.id)"><i class="ph ph-x-circle"></i></button>
                 </td>
             </tr>
         </tbody>
+        <a class="optionUser" routerLink="/app-secretaire-register"><i class="ph ph-plus-circle"></i></a>
     </table>
-    <a routerLink="/app-secretaire-register">Ajouter un utilisateur</a>
+    
 </div>

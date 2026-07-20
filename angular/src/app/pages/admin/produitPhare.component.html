@@ -1,18 +1,22 @@
-<div>
-    <input 
-        type="text" 
-        [formControl]="filterfcvar" 
+<div class="menuAdmin">
+    <select [formControl]="filterField" class="form-select mb-2">
+    <option value="produit">Produit</option>
+    <option value="achat">Achat</option>
+    </select>
+    <input class="column-table-filter"
+        type="text"
+        [formControl]="filterfcvar"
         placeholder="Rechercher un produit..."
         class="form-control mb-3"
-        />
-    <table>
-        <thead>
+    />
+    <table class="tableAdmin">
+        <thead thead class="theadAdmin">
             <tr>
                 <th scope="col">Produit</th>
                 <th scope="col">Achat</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="tbodyAdmin">
             <tr
                 *ngFor="let produitPhare of filteredProduitPhare$ | async"
                 class="list-group-item"

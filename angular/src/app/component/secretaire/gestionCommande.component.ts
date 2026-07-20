@@ -9,14 +9,15 @@ import { Produit } from "../../models/produit.model";
 import { ProduitService } from "../../services/produit.service";
 import { MatDialogModule } from '@angular/material/dialog';
 import { ChangeDetectorRef } from '@angular/core';
-import { Observable } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { Prix } from '../../models/nosql/prix.model';
 import { AdminDashboardService } from '../../services/adminDashboard.service';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { MailService } from '../../services/mailer.service';
 import { DeleteCommandeComponentSecretaire } from "./deleteCommandeSecretaire.component";
+
 @Component({
     selector: 'app-gestion-commande',
     standalone: true,
@@ -30,6 +31,7 @@ export class GestionCommandeComponent implements OnInit {
     produits: Produit[] = [];
     user!: User;
     filterfcvar = new FormControl('');
+    filterField = new FormControl<string>('user');
     filteredCommande$!: Observable<Commande[]>;
     currentCommande: Commande | null = null;
     currentIndex = -1;
@@ -53,12 +55,11 @@ export class GestionCommandeComponent implements OnInit {
         this.loadProduits();
         this.loadUser();
 
-        this.filteredCommande$ = this.filterfcvar.valueChanges.pipe(
-            startWith(''),
-            switchMap(value => value
-                ? this.commandeService.searchCommandes(value)
-                : this.commandeService.getCommandes()
-            )
+        this.filteredCommande$ = combineLatest([
+            this.filterfcvar.valueChanges.pipe(startWith('')),
+            this.filterField.valueChanges.pipe(startWith('user'))
+        ]).pipe(
+            map(([value, field]) => this.filterCommandes(value ?? '', field ?? 'user'))
         );
     }
 
@@ -93,9 +94,17 @@ export class GestionCommandeComponent implements OnInit {
         });
     }
 
+    private filterCommandes(value: string, field: string): Commande[] {
+        const term = value.toLowerCase();
+        if (!term) return this.commandes;
+        return this.commandes.filter(commande => {
+            const target = field === 'id' ? String(commande.id) : String(commande.user);
+            return target.toLowerCase().includes(term);
+        });
+    }
+
     setCurrentAntrag(commande: Commande, index: number): void {
         this.currentCommande = commande;
         this.currentIndex = index;
     }
-    
 }
