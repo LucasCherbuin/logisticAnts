@@ -1,1 +1,47 @@
-<router-outlet></router-outlet>
+<div class="app-container">
+  <div class="sidebar" [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }">
+    <button
+      class="sidebar-toggle-btn"
+      [ngClass]="{ 'sidebar-collapsed': isSidebarCollapsed }"
+      (click)="toggleSidebar()"
+    >
+    <i [class]="isSidebarCollapsed ? 'ph ph-arrow-right' : 'ph ph-arrow-left'"></i>
+  </button>
+    <div class="sidebar-menu">
+      <ul>
+        <li *ngFor="let item of menuItems" class="sidebar-menu-item">
+         <a 
+            [routerLink]="item.route"
+            class="sidebar-item"
+            [ngClass]="{ 'has-children': item.children, 'menu-item-active': item.isOpen }"
+            (click)="toggleMenuItem(item)"
+          >
+            <i [class]="item.icon"></i>
+            <span class="sidebar-item-text">{{ item.label }}</span>
+          </a>
+          <ul *ngIf="item.children && !isSidebarCollapsed && item.isOpen" class="sidebar-submenu">
+            <li *ngFor="let child of item.children">
+              <a [routerLink]="child.route" class="sidebar-item sidebar-subitem">
+                <i [class]="child.icon"></i>
+                <span class="sidebar-item-text">{{ child.label }}</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="role === 'CLIENT'" class="sidebar-menu-item">
+          <button class="sidebar-item cartIcon" (click)="goToCart()">
+            <i class="ph ph-shopping-cart"></i>
+            <span class="sidebar-item-text">Panier ({{ articleCommandeService.cartItems$.value.length }})</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <button class="sidebar-item logout-btn" (click)="logout()">
+      <i class="ph ph-sign-out"></i>
+      <span class="sidebar-item-text">Se déconnecter</span>
+    </button>
+  </div>
+  <main class="content" [ngClass]="{ 'content-expanded': isSidebarCollapsed }">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -16,39 +16,43 @@ import { GestionCommandeComponent } from './component/secretaire/gestionCommande
 import { GestionUserComponent } from './component/secretaire/gestionUser.component';
 import { SecretaireRegisterComponent } from './component/secretaire/secretaireRegister.component';
 import { SecretaireUpdateUserComponent } from './component/secretaire/secretaireUpdateUser.component';
-
+import { PaymentReturnComponent } from './component/client/PaymentReturn.component';
 
 export const routes: Routes = [
-    { path: '', loadComponent: () => import('./component/login.component').then(m => m.LoginComponent) },
+    { path: '', pathMatch: 'full', loadComponent: () => import('./component/login.component').then(m => m.LoginComponent) },
     { path: 'register', loadComponent: () => import('./component/register.component').then(m => m.RegisterComponent) },
-    { path: 'menu', loadComponent: () => import('./component/usersMenu/userMenu.component').then(m => m.UserMenuComponent) },
-    { path: 'accueil', loadComponent:() => import('./component/accueil.component').then(m => m.AccueilComponent) }, 
-    // CLIENT
-    { path: 'shop', component: ShopComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
-    { path: 'commandes', component: CommandeComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
-    { path: 'purchase', component: PurchaseComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
-    { path: 'card', component: CardComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
-    { path: 'cart', component: CartComponent, canActivate: [RoleGuardService], data: { role: ['client'] } },
-    // Admin
-    { path: 'prix', component: PrixComponent, canActivate: [RoleGuardService], data: { role: ['admin'] } },
-    { path: 'produit-phare', component: ProduitPhareComponent, canActivate: [RoleGuardService], data: { role: ['admin']} },
-    // LOGISTICIEN
-    { path: 'picking', component: PickingComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
-    { path: 'produit', component: ProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
-    { path: 'add-produit', component: AddProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
-    { path: 'update-produit', component: UpdateProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
-    { path: 'delete-produit', component: DeleteProduitComponent, canActivate: [RoleGuardService], data: { role: ['logisticien']} },
-    // secretaire
-    { path: 'app-gestion-commande', component: GestionCommandeComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
-    { path: 'app-secretaire-update-user/:id', component: SecretaireUpdateUserComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
-    { path: 'app-secretaire-register', component: SecretaireRegisterComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
-    { path: 'app-gestion-user', component: GestionUserComponent, canActivate: [RoleGuardService], data: { role: ['secretaire']} },
-    // menus par role
-    { path: 'menu-admin', loadComponent: () => import('./component/usersMenu/menu-admin.component').then(m => m.MenuAdminComponent) },
-    { path: 'menu-client', loadComponent: () => import('./component/usersMenu/menu-client.component').then(m => m.MenuClientComponent) },
-    { path: 'menu-logisticien', loadComponent: () => import('./component/usersMenu/menu-logisticien.component').then(m => m.MenuLogisticienComponent) },
-    { path: 'menu-secretaire', loadComponent: () => import('./component/usersMenu/menu-secretaire.component').then(m => m.MenuSecretaireComponent) },
+    {
+        path: '',
+        loadComponent: () => import('./component/usersMenu/userMenu.component').then(m => m.UserMenuComponent),
+        children: [
+            { path: 'accueil', loadComponent: () => import('./component/accueil.component').then(m => m.AccueilComponent) },
+            { path: 'admin', loadComponent: () => import('./component/usersMenu/menu-admin.component').then(m => m.MenuAdminComponent), canActivate: [RoleGuardService], data: { role: ['ADMIN'] } },
+            { path: 'client', loadComponent: () => import('./component/usersMenu/menu-client.component').then(m => m.MenuClientComponent), canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            { path: 'logisticien', loadComponent: () => import('./component/usersMenu/menu-logisticien.component').then(m => m.MenuLogisticienComponent), canActivate: [RoleGuardService], data: { role: ['LOGISTICIEN'] } },
+            { path: 'secretaire', loadComponent: () => import('./component/usersMenu/menu-secretaire.component').then(m => m.MenuSecretaireComponent), canActivate: [RoleGuardService], data: { role: ['SECRETAIRE'] } },
+            { path: 'visiteur', loadComponent: () => import('./component/usersMenu/menu-visiteur.component').then(m => m.MenuVisiteurComponent) },
+            // CLIENT
+            { path: 'shop', component: ShopComponent, canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            { path: 'commandes', component: CommandeComponent, canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            { path: 'purchase', component: PurchaseComponent, canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            { path: 'payment-return', component: PaymentReturnComponent, canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            { path: 'card', component: CardComponent, canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            { path: 'cart', component: CartComponent, canActivate: [RoleGuardService], data: { role: ['CLIENT'] } },
+            // ADMIN
+            { path: 'prix', component: PrixComponent, canActivate: [RoleGuardService], data: { role: ['ADMIN'] } },
+            { path: 'produit-phare', component: ProduitPhareComponent, canActivate: [RoleGuardService], data: { role: ['ADMIN'] } },
+            // LOGISTICIEN
+            { path: 'picking', component: PickingComponent, canActivate: [RoleGuardService], data: { role: ['LOGISTICIEN'] } },
+            { path: 'produit', component: ProduitComponent, canActivate: [RoleGuardService], data: { role: ['LOGISTICIEN'] } },
+            { path: 'add-produit', component: AddProduitComponent, canActivate: [RoleGuardService], data: { role: ['LOGISTICIEN'] } },
+            { path: 'update-produit', component: UpdateProduitComponent, canActivate: [RoleGuardService], data: { role: ['LOGISTICIEN'] } },
+            { path: 'delete-produit', component: DeleteProduitComponent, canActivate: [RoleGuardService], data: { role: ['LOGISTICIEN'] } },
+            // SECRETAIRE
+            { path: 'gestion-commande', component: GestionCommandeComponent, canActivate: [RoleGuardService], data: { role: ['SECRETAIRE'] } },
+            { path: 'secretaire-update-user/:id', component: SecretaireUpdateUserComponent, canActivate: [RoleGuardService], data: { role: ['SECRETAIRE'] } },
+            { path: 'secretaire-register', component: SecretaireRegisterComponent, canActivate: [RoleGuardService], data: { role: ['SECRETAIRE'] } },
+            { path: 'gestion-user', component: GestionUserComponent, canActivate: [RoleGuardService], data: { role: ['SECRETAIRE'] } },
+        ]
+    },
     { path: '**', redirectTo: '' }
 ];
-
- 
