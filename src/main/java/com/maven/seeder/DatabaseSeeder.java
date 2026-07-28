@@ -1,17 +1,10 @@
 package com.maven.seeder;
 
-import com.maven.model.Role;
-
-import com.maven.repository.RoleRepository;
-import com.maven.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component 
 public class DatabaseSeeder implements CommandLineRunner {
-    private final RoleSeeder roleSeeder;
-    private final UserSeeder userSeeder;
-
     private final RoleSeeder roleSeeder;
     private final UserSeeder userSeeder;
 

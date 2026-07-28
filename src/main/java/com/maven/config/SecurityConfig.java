@@ -14,6 +14,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.config.Customizer;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -57,6 +59,7 @@ public class SecurityConfig {
                     "/login",
                     "/mail/**",
                     "/register",
+                    "/register-employee",
                     "/Users/**",
                     "/pay"
                 ).permitAll()
@@ -93,5 +96,10 @@ public class SecurityConfig {
         return servletContext -> servletContext.setSessionTrackingModes(
             Set.of(SessionTrackingMode.COOKIE)
         );
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

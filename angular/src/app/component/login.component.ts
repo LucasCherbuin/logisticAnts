@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RegisterService } from '../services/register.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 
 interface LoginResponse {
   token: string;
@@ -15,7 +16,7 @@ interface LoginResponse {
   templateUrl: '../pages/login/login.component.html',
   standalone: true,
   styleUrls: ["../../main.scss"],
-  imports: [ReactiveFormsModule, CommonModule], 
+  imports: [ReactiveFormsModule, CommonModule, RouterLink], 
 })
 export class LoginComponent {
   loginForm = this.fb.group({
@@ -44,7 +45,7 @@ export class LoginComponent {
         } catch {
           this.registerService.saveToken(res);
         }
-        this.router.navigate(['/app']);
+        this.router.navigate(['/accueil']);
       },
       error: (err: HttpErrorResponse) => {
         this.errorMessage = 'Login ou mot de passe incorrect.';
@@ -57,8 +58,6 @@ export class LoginComponent {
     this.registerService.logout();
     this.router.navigate(['/']);
   }
-
-
 
   
 }

@@ -20,6 +20,7 @@ export class AddProduitComponent implements OnInit {
   @ViewChild('confirmationUpdate') confirmationUpdate!: ConfirmationupdateProduitComponent;
 
   produits: Produit[] = [];
+  showAddForm = true;
   fournisseurs: Fournisseur[] = [];
   selectedProduit: Produit | null = null;
   newProduit: Produit = this.emptyProduit();

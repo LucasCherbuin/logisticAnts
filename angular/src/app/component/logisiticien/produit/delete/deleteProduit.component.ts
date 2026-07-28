@@ -1,23 +1,21 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProduitService } from '../../../../services/produit.service';
 import { Produit } from '../../../../models/produit.model';
 import { ConfirmationDeleteProduitComponent } from './confirmationDeleteProduit.component';
-import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delete-produit',
   standalone: true,
+  imports: [],
   templateUrl: '../../../../pages/logisticien/produit/deleteProduit/deleteProduit.component.html',
-  imports: [CommonModule, ConfirmationDeleteProduitComponent],
   styleUrls: ['../../../../../main.scss']
 })
 export class DeleteProduitComponent implements OnInit {
-  @ViewChild('confirmationDelete') confirmationDelete!: ConfirmationDeleteProduitComponent;
-
   produits: Produit[] = [];
   selectedProduit: Produit | null = null;
 
-  constructor(private produitService: ProduitService) {}
+  constructor(private produitService: ProduitService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadProduits();
@@ -30,16 +28,31 @@ export class DeleteProduitComponent implements OnInit {
     );
   }
 
-  selectProduit(produit: Produit): void {
-    this.selectedProduit = { ...produit };
+  deleteProduit(produit: Produit): void {
+    this.selectedProduit = produit;
+    this.ouvrirConfirmation();
   }
 
-  deleteProduit(produit: Produit): void {
-    this.confirmationDelete.open(() => {
-      this.produitService.deleteProduit(produit.id).subscribe({
-        next: () => this.loadProduits(),
-        error: (err) => console.error('Erreur suppression', err)
-      });
+  ouvrirConfirmation(): void {
+    console.log('CLIC DETECTE');
+    const dialogRef = this.dialog.open(ConfirmationDeleteProduitComponent);
+    console.log('DIALOG OPEN APPELE', dialogRef);
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      console.log('DIALOG FERME, résultat:', result);
+      if (result) {
+        this.execDelete();
+      }
+    });
+  }
+
+  execDelete(): void {
+    if (!this.selectedProduit) return;
+    this.produitService.deleteProduit(this.selectedProduit.id).subscribe({
+      next: () => {
+        this.produits = this.produits.filter(p => p.id !== this.selectedProduit!.id);
+        this.selectedProduit = null;
+      },
+      error: (err: any) => console.error('erreur suppression')
     });
   }
 }

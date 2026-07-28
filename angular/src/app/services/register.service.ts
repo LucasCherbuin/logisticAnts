@@ -43,6 +43,15 @@ export class RegisterService {
     }, { responseType: 'text' });
   }
 
+  registerEmploye(pseudo: string, email: string, password: string, role: string) {
+    return this.http.post(`${this.apiUrl}/register-employee`, {
+      pseudo,
+      email,
+      password,
+      role
+    }, { responseType: 'text' });
+  }
+
   getPseudo(): string | null {
     const token = this.getToken();
     if (!token) return null;

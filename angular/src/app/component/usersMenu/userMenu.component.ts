@@ -81,9 +81,10 @@ export class UserMenuComponent implements OnInit {
             case 'LOGISTICIEN':
                 return [
                     { icon: 'ph ph-house', label: 'Accueil', route: '/accueil' },
+                    { icon: 'ph ph-package', label: 'reception marchandises', route: '/add-produit' },
                     { icon: 'ph ph-magnifying-glass', label: 'consulter un produit', route: '/produit' },
-                    { icon: 'ph ph-package', label: 'Produits', route: '/update-produit' },
-                    { icon: 'ph ph-x', label: 'Produits', route: '/delete-produit' },
+                    { icon: 'ph ph-package', label: 'mettre à jour un Produit', route: '/update-produit' },
+                    { icon: 'ph ph-x', label: 'supprimer un Produit', route: '/delete-produit' },
                     { icon: 'ph ph-clipboard-text', label: 'Picking', route: '/picking' }
                 ];
             case 'SECRETAIRE':

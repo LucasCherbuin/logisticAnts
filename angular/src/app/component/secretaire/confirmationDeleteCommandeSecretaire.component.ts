@@ -9,9 +9,13 @@ import { OnInit, OnDestroy } from '@angular/core';
   standalone: true,
   imports: [MatDialogModule, MatButtonModule, CommonModule],
   template: `
-    <p>Voulez-vous vraiment supprimer cette commande ?</p>
-    <button (click)="confirm()">Confirmer</button>
-    <button (click)="cancel()">Annuler</button>
+  <div class="overlay">
+    <div class="popup">
+      <p>Voulez-vous vraiment supprimer cette commande ?</p>
+        <button class="button" (click)="confirm()">Confirmer</button>
+        <button class="button" (click)="cancel()">Annuler</button>
+    </div>
+  </div> 
   `,
   styleUrls: ['../../../main.scss']
 })

@@ -5,6 +5,7 @@ import com.maven.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.maven.model.Role;
+import com.maven.repository.RoleRepository;
 
 import java.util.List;
 
@@ -14,6 +15,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/Users")
     public List<User> getAllUsers() {
@@ -47,6 +51,11 @@ public class UserController {
     @PutMapping("/Users/{id}")
     public User updateUser(@PathVariable int id, @RequestBody User user) {
         user.setId(id);
+        if (user.getRole() != null && user.getRole().getLabel() != null) {
+            Role role = roleRepository.findByLabel(user.getRole().getLabel())
+                    .orElseThrow(() -> new RuntimeException("Role not found: " + user.getRole().getLabel()));
+            user.setRole(role);
+        }
         return userRepository.save(user);
     }
 

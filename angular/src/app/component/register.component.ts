@@ -7,6 +7,7 @@ import { switchMap, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RegisterConfirmedComponent } from './RegisterConfirmed.component';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: '../pages/login/register.component.html',

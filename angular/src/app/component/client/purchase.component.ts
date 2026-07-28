@@ -25,6 +25,7 @@ import { forkJoin, switchMap } from 'rxjs';
         ReactiveFormsModule,
         CommonModule,
         HttpClientModule,
+        CommonModule,
         FormsModule,
         ConfirmationCommandeComponent,
         DeleteCommandeComponent,

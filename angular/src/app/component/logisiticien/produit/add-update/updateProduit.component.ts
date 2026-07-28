@@ -58,7 +58,9 @@ export class UpdateProduitComponent implements OnInit {
     if (form.invalid || !this.selectedProduit) return;
     this.produitService.updateProduit(this.selectedProduit.id, this.selectedProduit).subscribe({
       next: () => {
+        console.log('CLIC DETECTE');
         this.confirmationUpdate.open(() => {
+          console.log('DIALOG OPEN APPELE');
           this.loadProduits();
           this.selectedProduit = null;
         });

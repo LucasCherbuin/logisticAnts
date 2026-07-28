@@ -107,4 +107,8 @@ export class GestionCommandeComponent implements OnInit {
         this.currentCommande = commande;
         this.currentIndex = index;
     }
+
+    onCommandeSupprimee(id: number): void {
+        this.commandes = this.commandes.filter(c => c.id !== id);
+    }
 }

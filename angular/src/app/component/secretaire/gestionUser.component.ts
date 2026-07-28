@@ -66,13 +66,15 @@ export class GestionUserComponent implements OnInit {
 
   private filterUsers(value: string, field: string): User[] {
     const term = value.toLowerCase();
-    const base = this.users;
-    if (!term) return base;
-    return base.filter(user => {
-      const target = field === 'role' ? this.getRoleLabel(user) : user.pseudo;
-      return target.toLowerCase().includes(term);
-    });
-}
+    const filtered = term
+      ? this.users.filter(user => this.getFieldValue(user, field).toLowerCase().includes(term))
+      : [...this.users];
+    return filtered.sort((a, b) => this.getFieldValue(a, field).localeCompare(this.getFieldValue(b, field)));
+  }
+
+  private getFieldValue(user: User, field: string): string {
+    return field === 'role' ? this.getRoleLabel(user) : String(user.pseudo);
+  }
 
   setCurrentAntrag(user: User, index: number): void {
     this.currentUser = user;

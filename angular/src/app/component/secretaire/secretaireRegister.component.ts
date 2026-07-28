@@ -5,6 +5,7 @@ import { RegisterService } from '../../services/register.service';
 import { MailRequest, MailService } from '../../services/mailer.service';
 import { switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-secretaire-register',
@@ -19,7 +20,8 @@ export class SecretaireRegisterComponent {
   constructor(
     private fb: FormBuilder,
     private registerService: RegisterService,
-    private mailService: MailService
+    private mailService: MailService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       pseudo: ['', [Validators.required, Validators.minLength(3)]],
@@ -36,7 +38,7 @@ export class SecretaireRegisterComponent {
     }
     const { pseudo, email, password, role } = this.loginForm.value;
     this.registerService
-      .register(pseudo, email, password, role)
+      .registerEmploye(pseudo, email, password, role)
       .pipe(
         switchMap(() => {
           const mail: MailRequest = {

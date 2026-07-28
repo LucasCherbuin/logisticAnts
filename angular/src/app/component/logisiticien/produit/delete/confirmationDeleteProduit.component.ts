@@ -1,42 +1,31 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from "@angular/common";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-confirmation-delete-produit',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, CommonModule],
   template: `
-    <div class="overlay" *ngIf="isVisible">
-        <div class="popup">
-            <p>Attention cette action est irréversible</p>
-            <div class="actions">
-                <button (click)="confirm()">Confirmer</button>
-                <button (click)="cancel()">Annuler</button>
-            </div>
-        </div>
+  <div class="overlay">
+     <div class="popup">
+      <p>Voulez vous supprimer ce produit</p>
+        <button class="buttonPopup" (click)="confirm()">Confirmer</button>
+        <button class="buttonPopup" (click)="cancel()">Annuler</button>
     </div>
-`,
+  </div>
+  `,
   styleUrls: ['../../../../../main.scss']
 })
-export class ConfirmationDeleteProduitComponent  {
-  isVisible: boolean = false;
-  private confirmCallback!: () => void;
+export class ConfirmationDeleteProduitComponent {
+  constructor(private dialogRef: MatDialogRef<ConfirmationDeleteProduitComponent>) {}
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  confirm(): void {
+    this.dialogRef.close(true);
+  }
 
-  open(onConfirm: () => void): void {
-        this.isVisible = true;
-        this.confirmCallback = onConfirm;
-        this.cdr.detectChanges();
-    }
-
-   confirm(): void {
-        this.isVisible = false;
-        this.cdr.detectChanges();
-        this.confirmCallback();
-    }
-
-    cancel(): void {
-        this.isVisible = false;
-        this.cdr.detectChanges();
-    }
+  cancel(): void {
+    this.dialogRef.close(false);
+  }
 }

@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { CommandeService } from '../../services/commande.service';
 import { Commande } from '../../models/commande.model';
 import { Prix } from '../../models/nosql/prix.model';
 import { AdminDashboardService } from '../../services/adminDashboard.service';
 import { User } from '../../models/user.model';
-
 import { UserService } from '../../services/user.service';
 import { ConfirmationDeleteCommandeSecretaireComponent } from './confirmationDeleteCommandeSecretaire.component';
 import { MailService } from '../../services/mailer.service';
@@ -14,11 +13,12 @@ import { MatDialog } from '@angular/material/dialog';
     selector: 'app-delete-commande-secretaire',
     standalone: true,
     imports: [],
-    template: `<button (click)="ouvrirConfirmation()"><i class="ph ph-trash"></i> Supprimer</button>`,
+    template: `<button class="deleteCommandeSecretaire " (click)="ouvrirConfirmation()"><i class="ph ph-x-circle"></i></button>`,
     styleUrls: ["../../../main.scss"]
 })
 export class DeleteCommandeComponentSecretaire implements OnInit {
     @Input() commandeId!: number;
+    @Output() commandeSupprimee = new EventEmitter<number>();
     user!: User;
 
     constructor(
@@ -52,6 +52,7 @@ export class DeleteCommandeComponentSecretaire implements OnInit {
     execDelete(): void {
         this.commandeService.deleteCommande(this.commandeId).subscribe({
             next: () => {
+                this.commandeSupprimee.emit(this.commandeId);
                 const mail = {
                     to: this.user.email,
                     subject: 'Commande supprimée',

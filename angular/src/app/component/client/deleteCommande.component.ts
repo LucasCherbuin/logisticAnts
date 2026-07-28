@@ -1,33 +1,33 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommandeService } from '../../services/commande.service';
-import { Commande } from '../../models/commande.model';
 import { Prix } from '../../models/nosql/prix.model';
 import { AdminDashboardService } from '../../services/adminDashboard.service';
 import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
 import { ConfirmationDeleteCommandeComponent } from './commandes/confirmationDeleteCommande.component';
 import { MailService } from '../../services/mailer.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-delete-commande',
     standalone: true,
-    imports: [ConfirmationDeleteCommandeComponent],
+    imports: [],
     template: `
-        <button (click)="ouvrirConfirmation()"><i class="ph ph-trash"></i> Supprimer</button>
-        <app-confirmation-delete #confirmDialog></app-confirmation-delete>
+        <button class="deleteCommande" (click)="ouvrirConfirmation()">annuler la commande</button>
     `,
     styleUrls: ["../../../main.scss"]
 })
 export class DeleteCommandeComponent implements OnInit {
     @Input() commandeId!: number;
-    @ViewChild('confirmDialog') confirmDialog!: ConfirmationDeleteCommandeComponent;
     user!: User;
 
     constructor(
+        
         private commandeService: CommandeService,
         private userService: UserService,
         private mailService: MailService,
         private adminDashboardService: AdminDashboardService,
+        private dialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -42,8 +42,13 @@ export class DeleteCommandeComponent implements OnInit {
     }
 
     ouvrirConfirmation(): void {
-        this.confirmDialog.open(() => this.execDelete());
-    }
+            const dialogRef = this.dialog.open(ConfirmationDeleteCommandeComponent);
+            dialogRef.afterClosed().subscribe((result: boolean) => {
+                if (result) {
+                    this.execDelete();
+                }
+            });
+        }
 
     execDelete(): void {
     this.commandeService.deleteCommande(this.commandeId).subscribe({

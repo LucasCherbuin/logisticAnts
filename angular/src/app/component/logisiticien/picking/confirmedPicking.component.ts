@@ -11,8 +11,8 @@ import { Commande } from "../../../models/commande.model";
             <div class="popup">
                 <p>Avez vous bien selectionné le produit</p>
                 <div class="actions">
-                    <button (click)="confirm()">Confirmer</button>
-                    <button (click)="cancel()">Annuler</button>
+                    <button class="buttonPopup" (click)="confirm()">Confirmer</button>
+                    <button class="buttonPopup" (click)="cancel()">Annuler</button>
                 </div>
             </div>
         </div>

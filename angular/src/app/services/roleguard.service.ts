@@ -25,7 +25,9 @@ export class RoleGuardService implements CanActivate {
 
       const allowed: string[] = route.data['role'];
       const hasAccess = allowed.some(r =>
-        Array.isArray(userRole) ? userRole.includes(r) : userRole === r
+        Array.isArray(userRole) 
+          ? userRole.some((ur: string) => ur.toLocaleLowerCase() === r.toLowerCase())
+          : String(userRole).toLowerCase() === r.toLowerCase()
       );
 
       console.log('ACCÈS:', hasAccess);

@@ -8,9 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [MatDialogModule, MatButtonModule, CommonModule],
   template: `
-    <h1>Attention l'utilisateur sera supprimé</h1>
-    <button (click)="confirm()">Confirmer</button>
-    <button (click)="cancel()">Annuler</button>
+    <div class="overlay">
+      <p>Attention l'utilisateur sera supprimé</p>
+        <button class="button" (click)="confirm()">Confirmer</button>
+        <button class="button" (click)="cancel()">Annuler</button>
+      </div>
   `,
   styleUrls: ['../../../main.scss']
 })

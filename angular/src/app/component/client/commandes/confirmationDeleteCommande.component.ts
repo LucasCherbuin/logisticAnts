@@ -1,44 +1,50 @@
-import { Component, ChangeDetectorRef } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { OnInit, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'app-confirmation-delete',
     standalone: true,
-    imports: [CommonModule],
+    imports: [MatDialogModule, MatButtonModule, CommonModule],
     template: `
-        <div class="overlay" *ngIf="isVisible">
-            <div class="popup">
-                <p>Cette action est irréversible.</p>
-                <p>Voulez-vous vraiment supprimer cette commande ?</p>
-                <div class="actions">
-                    <button class="button" (click)="confirm()">Confirmer</button>
-                    <button class="button" (click)="cancel()">Annuler</button>
-                </div>
+    <div class="overlay">
+        <div class="popup">
+            <p>Voulez-vous vraiment supprimer cette commande ?</p>
+            <div class="actions">
+                <button class="button" (click)="confirm()">Confirmer</button>
+                <button class="button" (click)="cancel()">Annuler</button>
             </div>
         </div>
+    </div> 
     `,
     styleUrls: ['../../../../main.scss'],
 })
-export class ConfirmationDeleteCommandeComponent {
-    isVisible: boolean = false;
-    private confirmCallback!: () => void;
+export class ConfirmationDeleteCommandeComponent implements OnInit, OnDestroy {
+    private timer: any;
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(
+        private dialogRef: MatDialogRef<ConfirmationDeleteCommandeComponent>
+    ) {}
 
-    open(onConfirm: () => void): void {
-        this.isVisible = true;
-        this.confirmCallback = onConfirm;
-        this.cdr.detectChanges();
+    ngOnInit() {
+        this.timer = setTimeout(() => {
+            this.dialogRef.close(false);
+        }, 5000);
     }
 
-    confirm(): void {
-        this.isVisible = false;
-        this.cdr.detectChanges();
-        this.confirmCallback();
+    ngOnDestroy() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
     }
 
-    cancel(): void {
-        this.isVisible = false;
-        this.cdr.detectChanges();
+    confirm() {
+        this.dialogRef.close(true);
+    }
+
+    cancel() {
+        this.dialogRef.close(false);
     }
 }
