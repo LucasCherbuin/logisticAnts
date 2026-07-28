@@ -41,4 +41,9 @@ wireframe, maquettage et prototype de l'interface de l'application. lien : https
 
 Diagrammes de classes et cas d'utilisation dans le dossier public
 
+### Demo
+
+Utilisation de la barre menu de l'application
+https://youtu.be/6ZsfrdTV-1g
+
 
