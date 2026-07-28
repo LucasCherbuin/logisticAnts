@@ -1,91 +1,52 @@
-import { TestBed, ComponentFixture } from "@angular/core/testing";
-import { beforeEach, describe, vi, expect, it, afterEach } from "vitest";
-import { ConfirmationDeleteCommandeComponent } from "../../../component/client/commandes/confirmationDeleteCommande.component";
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { ConfirmationDeleteCommandeComponent } from '../../../component/client/commandes/confirmationDeleteCommande.component'; 
 
-describe("ConfirmationDeleteCommandeComponent", () => {
-    let component: ConfirmationDeleteCommandeComponent;
-    let fixture: ComponentFixture<ConfirmationDeleteCommandeComponent>;
+describe('ConfirmationDeleteCommandeSecretaireComponent', () => {
+  let component: ConfirmationDeleteCommandeComponent;
+  let dialogRefMock: any;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [ConfirmationDeleteCommandeComponent]
-        }).compileComponents();
+  beforeEach(() => {
+    vi.useFakeTimers();
+    dialogRefMock = {
+      close: vi.fn()
+    };
+    component = new ConfirmationDeleteCommandeComponent(dialogRefMock);
+  });
 
-        fixture = TestBed.createComponent(ConfirmationDeleteCommandeComponent);
-        component = fixture.componentInstance;
+  afterEach(() => {
+    vi.useRealTimers();
+  });
 
-        vi.useFakeTimers();
-    });
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
 
-    afterEach(() => {
-        vi.useRealTimers();
-    });
+  it('confirm should close the dialog with true', () => {
+    component.confirm();
+    expect(dialogRefMock.close).toHaveBeenCalledWith(true);
+  });
 
-    it('crée le composant avec isVisible à false par défaut', () => {
-        expect(component).toBeTruthy();
-        expect(component.isVisible).toBe(false);
-    });
+  it('cancel should close the dialog with false', () => {
+    component.cancel();
+    expect(dialogRefMock.close).toHaveBeenCalledWith(false);
+  });
 
-    describe('open()', () => {
-        it('passe isVisible à true sans exécuter le callback', () => {
-            const callbackSpy = vi.fn();
+  it('ngOnInit should auto-close the dialog with false after 5 seconds', () => {
+    component.ngOnInit();
+    vi.advanceTimersByTime(5000);
+    expect(dialogRefMock.close).toHaveBeenCalledWith(false);
+  });
 
-            component.open(callbackSpy);
+  it('ngOnInit should not close the dialog before 5 seconds', () => {
+    component.ngOnInit();
+    vi.advanceTimersByTime(4000);
+    expect(dialogRefMock.close).not.toHaveBeenCalled();
+  });
 
-            expect(component.isVisible).toBe(true);
-            expect(callbackSpy).not.toHaveBeenCalled();
-        });
-
-        it('affiche l\'overlay dans le DOM', () => {
-            component.open(() => {});
-            fixture.detectChanges();
-
-            const overlay = fixture.nativeElement.querySelector('.overlay');
-            expect(overlay).toBeTruthy();
-        });
-    });
-
-    describe('confirm()', () => {
-        it('exécute le callback et masque le composant', () => {
-            const callbackSpy = vi.fn();
-            component.open(callbackSpy);
-
-            component.confirm();
-
-            expect(callbackSpy).toHaveBeenCalledOnce();
-            expect(component.isVisible).toBe(false);
-        });
-
-       it("devrait masquer l'overlay du DOM HTML après confirmation", () => {
-            component.open(() => {});
-            fixture.detectChanges();
-            expect(fixture.nativeElement.querySelector('.overlay')).toBeTruthy();
-            component.confirm();
-            fixture.detectChanges();
-            expect(fixture.nativeElement.querySelector('.overlay')).toBeNull();
-        });
-    });
-
-    describe('cancel()', () => {
-        it('masque le composant sans exécuter le callback', () => {
-            const callbackSpy = vi.fn();
-            component.open(callbackSpy);
-
-            component.cancel();
-
-            expect(component.isVisible).toBe(false);
-            expect(callbackSpy).not.toHaveBeenCalled();
-        });
-
-        it("devrait masquer l'overlay du DOM HTML après confirmation", () => {
-            component.open(() => {});
-            fixture.detectChanges();
-            expect(fixture.nativeElement.querySelector('.overlay')).toBeTruthy();
-            component.confirm();
-            fixture.detectChanges();
-            expect(fixture.nativeElement.querySelector('.overlay')).toBeNull();
-        });
-
-       
-    });
+  it('ngOnDestroy should clear the timer so it does not fire afterward', () => {
+    component.ngOnInit();
+    component.ngOnDestroy();
+    vi.advanceTimersByTime(5000);
+    expect(dialogRefMock.close).not.toHaveBeenCalled();
+  });
 });

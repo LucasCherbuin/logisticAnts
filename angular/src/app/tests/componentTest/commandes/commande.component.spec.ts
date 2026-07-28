@@ -81,8 +81,8 @@ describe("CommandeComponent", () => {
     describe('getTotalByCommande', () => {
         it('calcule le total correct pour une commande', () => {
             component.produits = [
-                { id: 10, nom: 'Assiette', prix: 12, quantiteStock: 50, perissable: false, datePeremption: new Date('2000-11-11'), dernierAjout: new Date('2000-11-11'), fournisseur: { nom: '', email: '', adresse: '' } },
-                { id: 11, nom: 'Verre', prix: 5, quantiteStock: 30, perissable: false, datePeremption: new Date('2000-11-11'), dernierAjout: new Date('2000-11-11'), fournisseur: { nom: '', email: '', adresse: '' } }
+                { id: 10, nom: 'Assiette', prix: 12, quantiteStock: 50, perissable: false, datePeremption: new Date('2000-11-11'), dernierAjout: new Date('2000-11-11'), fournisseur: { id: 1 , nom: '', email: '', adresse: '' } },
+                { id: 11, nom: 'Verre', prix: 5, quantiteStock: 30, perissable: false, datePeremption: new Date('2000-11-11'), dernierAjout: new Date('2000-11-11'), fournisseur: { id: 2 ,nom: '', email: '', adresse: '' } }
             ];
             component.articleCommandes = [
                 { id: 1, produit: { id: 10 }, quantite: 2 },
@@ -93,7 +93,7 @@ describe("CommandeComponent", () => {
         });
 
         it('retourne 0 si le produit est introuvable', () => {
-            component.produits = [{ id: 10, nom: 'Assiette', prix: 12, quantiteStock: 50, perissable: false, datePeremption: new Date(), dernierAjout: new Date(), fournisseur: { nom: '', email: '', adresse: '' }}];
+            component.produits = [{ id: 10, nom: 'Assiette', prix: 12, quantiteStock: 50, perissable: false, datePeremption: new Date(), dernierAjout: new Date(), fournisseur: { id: 1, nom: '', email: '', adresse: '' }}];
             component.articleCommandes = [{ id: 1, produit: { id: 999 }, quantite: 2 }] as any;
             expect(component.getTotalByCommande(1)).toBe(0);
         });

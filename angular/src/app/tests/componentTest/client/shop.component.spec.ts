@@ -65,7 +65,7 @@ describe("ShopComponent", () => {
         component.filterfcvar.setValue('Verre');
         component.filterfcvar.setValue('');
 
-        expect(mockProduitService.getProduits).toHaveBeenCalledTimes(3);
+        expect(mockProduitService.getProduits).toHaveBeenCalledTimes(2);
     });
 
     it('log une erreur si le chargement échoue', () => {

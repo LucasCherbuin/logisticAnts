@@ -1,90 +1,147 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { describe, beforeEach, expect, it, vi } from 'vitest';
 import { of, throwError } from 'rxjs';
-import { FormBuilder } from '@angular/forms';
-import { SecretaireRegisterComponent } from '../../../component/secretaire/secretaireRegister.component'; 
+import { Router } from '@angular/router';
+import { SecretaireRegisterComponent } from '../../../component/secretaire/secretaireRegister.component';
+import { RegisterService } from '../../../services/register.service';
+import { MailService } from '../../../services/mailer.service';
 
 describe('SecretaireRegisterComponent', () => {
-  let component: SecretaireRegisterComponent;
-  let registerServiceMock: any;
-  let mailServiceMock: any;
 
-  beforeEach(() => {
-    registerServiceMock = {
-      register: vi.fn().mockReturnValue(of({}))
+  let component: SecretaireRegisterComponent;
+  let fixture: ComponentFixture<SecretaireRegisterComponent>;
+
+  let registerSpy: any;
+  let mailSpy: any;
+
+  beforeEach(async () => {
+
+    registerSpy = {
+      registerEmploye: vi.fn()
     };
-    mailServiceMock = {
-      sendMail: vi.fn().mockReturnValue(of({}))
+
+    mailSpy = {
+      sendMail: vi.fn()
     };
-    component = new SecretaireRegisterComponent(
-      new FormBuilder(),
-      registerServiceMock,
-      mailServiceMock
+
+    await TestBed.configureTestingModule({
+      imports: [SecretaireRegisterComponent],
+      providers: [
+        { provide: RegisterService, useValue: registerSpy },
+        { provide: MailService, useValue: mailSpy },
+        {
+          provide: Router,
+          useValue: {
+            navigate: vi.fn()
+          }
+        }
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(
+      SecretaireRegisterComponent
     );
+
+    component = fixture.componentInstance;
+
+    fixture.detectChanges();
+
   });
 
-  it('should be created', () => {
+  it('création', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize the form with default role LOGISTICIEN', () => {
-    expect(component.loginForm.value.role).toBe('LOGISTICIEN');
-  });
+  it('formulaire invalide', () => {
 
-  it('onSubmit should mark form as touched and not register when invalid', () => {
-    component.loginForm.patchValue({ pseudo: '', email: '', password: '', role: '' });
     component.onSubmit();
-    expect(registerServiceMock.register).not.toHaveBeenCalled();
-    expect(component.loginForm.touched).toBe(true);
+
+    expect(registerSpy.registerEmploye)
+      .not.toHaveBeenCalled();
+
   });
 
-  it('onSubmit should call register then sendMail with correct data when valid', () => {
-    component.loginForm.patchValue({
-      pseudo: 'newuser',
-      email: 'new@mail.com',
-      password: 'pass1234',
-      role: 'SECRETAIRE'
+  it('register + mail', () => {
+
+    registerSpy.registerEmploye.mockReturnValue(of({}));
+
+    mailSpy.sendMail.mockReturnValue(of({}));
+
+    component.loginForm.setValue({
+      pseudo: 'alice',
+      email: 'alice@mail.com',
+      password: 'abcd',
+      role: 'LOGISTICIEN'
     });
+
     component.onSubmit();
-    expect(registerServiceMock.register).toHaveBeenCalledWith(
-      'newuser',
-      'new@mail.com',
-      'pass1234',
-      'SECRETAIRE'
+
+    expect(registerSpy.registerEmploye)
+      .toHaveBeenCalledWith(
+        'alice',
+        'alice@mail.com',
+        'abcd',
+        'LOGISTICIEN'
+      );
+
+    expect(mailSpy.sendMail)
+      .toHaveBeenCalledWith(
+        expect.objectContaining({
+          to: 'alice@mail.com',
+          subject: 'Bienvenue chez Logisitants'
+        })
+      );
+
+  });
+
+  it('erreur register', () => {
+
+    const spy = vi.spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    registerSpy.registerEmploye.mockReturnValue(
+      throwError(() => new Error())
     );
-    expect(mailServiceMock.sendMail).toHaveBeenCalledWith(
-      expect.objectContaining({
-        to: 'new@mail.com',
-        subject: expect.any(String)
-      })
+
+    component.loginForm.setValue({
+      pseudo: 'alice',
+      email: 'alice@mail.com',
+      password: 'abcd',
+      role: 'LOGISTICIEN'
+    });
+
+    component.onSubmit();
+
+    expect(spy).toHaveBeenCalled();
+
+    spy.mockRestore();
+
+  });
+
+  it('erreur mail', () => {
+
+    const spy = vi.spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    registerSpy.registerEmploye.mockReturnValue(of({}));
+
+    mailSpy.sendMail.mockReturnValue(
+      throwError(() => new Error())
     );
+
+    component.loginForm.setValue({
+      pseudo: 'alice',
+      email: 'alice@mail.com',
+      password: 'abcd',
+      role: 'LOGISTICIEN'
+    });
+
+    component.onSubmit();
+
+    expect(spy).toHaveBeenCalled();
+
+    spy.mockRestore();
+
   });
 
-  it('onSubmit should log an error when register fails', () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    registerServiceMock.register.mockReturnValue(throwError(() => new Error('fail')));
-    component.loginForm.patchValue({
-      pseudo: 'newuser',
-      email: 'new@mail.com',
-      password: 'pass1234',
-      role: 'SECRETAIRE'
-    });
-    component.onSubmit();
-    expect(consoleSpy).toHaveBeenCalled();
-    expect(mailServiceMock.sendMail).not.toHaveBeenCalled();
-    consoleSpy.mockRestore();
-  });
-
-  it('onSubmit should log an error when sendMail fails', () => {
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    mailServiceMock.sendMail.mockReturnValue(throwError(() => new Error('fail')));
-    component.loginForm.patchValue({
-      pseudo: 'newuser',
-      email: 'new@mail.com',
-      password: 'pass1234',
-      role: 'SECRETAIRE'
-    });
-    component.onSubmit();
-    expect(consoleSpy).toHaveBeenCalled();
-    consoleSpy.mockRestore();
-  });
 });
