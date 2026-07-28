@@ -1,19 +1,13 @@
 <div class="menuAdmin" >
-    <select [formControl]="filterField" class="form-select mb-2">
+    <select class="filtreSelect" [formControl]="filterField">
     <option value="user">Client</option>
     <option value="id">Commande Id</option>
     </select>
-    <input
-        type="text"
-        [formControl]="filterfcvar"
-        placeholder="Rechercher une commande..."
-        class="form-control mb-3"
-    />
     <table class="tableAdmin">
         <thead class="theadAdmin">
             <tr>
-                <th scope="col">Commande Id</th>
-                <th scope="col">Client</th>
+                <th scope="col" [class.column-table-filter]="filterField.value === 'id'">Commande Id</th>
+                <th scope="col" [class.column-table-filter]="filterField.value === 'user'">Client</th>
                 <th scope="col">Articles</th>
                 <th scope="col">moyen de payement</th>
                 <th scope="col">Annuler <br> la commande</th>
@@ -24,12 +18,12 @@
                 *ngFor="let commande of filteredCommande$ | async; let i = index"
                 (click)="setCurrentAntrag(commande, i)"
             >
-                <td>{{ commande.id }}</td>
-                <td>{{ commande.user }}</td>
+                <td [class.column-table-filter]="filterField.value === 'id'">{{ commande.id }}</td>
+                <td [class.column-table-filter]="filterField.value === 'user'">{{ commande.user }}</td>
                 <td>{{ commande.articleCommandes }}</td>
                 <td>{{ commande.payement }}</td>
                 <td>
-                    <app-delete-commande-secretaire [commandeId]="commande.id"></app-delete-commande-secretaire>
+                    <app-delete-commande-secretaire [commandeId]="commande.id" (commandeSupprimee)="onCommandeSupprimee($event)"></app-delete-commande-secretaire>
             </tr>
         </tbody>
     </table>

@@ -1,4 +1,5 @@
 @use 'sass:map';
+@use './assets/font/Kulim_Park/fonts' as *;
 
 $padding-base: 12px;
 
@@ -7,7 +8,8 @@ $role-themes: (
   'ADMIN': ("primary": #207DE6, "secondary": #4D91DF),
   'LOGISTICIEN': ("primary": #FD3131, "secondary": #EA8888),
   'VISITEUR': ("primary": #F087DD, "secondary": #FAE4FA),
-  'CLIENT': ("primary": #E0E82E, "secondary": #EEF378)
+  'SECRETAIRE': ("primary": #8E44AD, "secondary": #C39BD3),
+  'CLIENT': ("primary": #23CD3D, "secondary": #63CF73)
 );
 
 @mixin center {
@@ -17,42 +19,51 @@ $role-themes: (
 }
 
 
+$font-kulim: 'Kulim Park', sans-serif;
+
+
+@import '@phosphor-icons/web/regular/style.css';
+@import '@phosphor-icons/web/fill/style.css';
+
 .page {
-  height: 100vh;
-  @include center;
-  font-family: Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: $font-kulim;
 }
 
 @each $role, $colors in $role-themes {
 
   .#{$role}-theme {
-    background-color: map.get($colors, "secondary");
     min-height: 100vh;
     @include center;
+    align-items: flex-start;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
   }
 
 
   .#{$role}-theme .formulaire {
-    background: white;
-    border-radius: 20px;
-    padding: 25px;
-    width: 320px;
-
-    border: 3px solid map.get($colors, "primary");
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    background: map.get($colors, "primary");
+    grid-column-start: 2;
+    grid-row-start: 2;
   }
 
 
   .#{$role}-theme input {
     border-radius: 999px;
     border: 1px solid map.get($colors, "primary");
+    background-color: map.get($colors, "secondary");
     padding: 10px 15px;
     outline: none;
-    background: #fff;
   }
 
   .#{$role}-theme input:focus {
@@ -64,7 +75,6 @@ $role-themes: (
     padding: 10px;
     border: none;
     cursor: pointer;
-
     background: map.get($colors, "primary");
     color: white;
     transition: 0.2s;
@@ -75,8 +85,1009 @@ $role-themes: (
     transform: scale(1.02);
   }
 
-  .dashboard {
+  //authentification  
+
+  .logForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    padding: 30px;
+    @include center;
+    align-items: center;
+    min-height: 100vh;
+    grid-row: 1 / -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .logForm.row-layout form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .logForm.column-layout form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .logForm.column-layout form input {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .logForm.column-layout .employeeForm > div {
+    width: 100%;
+  }
+
+  .logForm.column-layout .employeeForm .roleField {
+    justify-content: center;
+  }
+
+  .logForm.column-layout .employeeForm .roleField select {
+    width: 100%;
+  }
+
+  .logForm label,
+  .logForm small {
+    display: none;
+  }
+
+  .logForm form > div > div{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    white-space: nowrap;
+  }
+  
+  .logForm button {
+    padding: 6px 16px;
+    font-size: 0.35rem;
+    white-space: nowrap;
+    width: fit-content;
+  }
+
+  .logForm button,
+  .logForm .formActions button {
+    background-color: map.get($colors, "secondary");
+    font-size: 0.85rem;
+    padding: 10px 20px;
+  }
+
+  .logForm a {
+    border-radius: 999px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background: map.get($colors, "primary");
+    color: white;
+    transition: 0.2s;
+    text-align: center;
+    text-decoration: none;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .registerbutton button {
+    border-radius: 999px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    background: map.get($colors, "primary");
+    color: white;
+    transition: 0.2s;
+    text-align: center;
+    text-decoration: none;
+    padding: 6px 16px;
+    font-size: 0.35rem;
+    width: fit-content;
+    align-items: end;
+  }
+
+  .logForm .formActions {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: end;
+    size: 1em;
+  }
+
+  .logForm select {
+    width: auto;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    border-radius: 999px;
+    border: 1px solid map.get($colors, "primary");
+    background-color: map.get($colors, "secondary");
+    outline: none;
+  }
+
+   .logForm .roleField {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .logForm.column-layout form .registerbutton {
+   align-self: flex-end;
+  }
+
+  // Logisticien
+
+
+  .formToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 0;
+    height: fit-content;
+
+    @media (max-width: 428px) {
+      flex-direction: column;
+    }
+  }
+
+  .formToggle button {
     background-color: map.get($colors, "primary");
+    border-radius: 50px;
+    padding: 10px 20px;
+    white-space: nowrap;
+  }
+
+
+  .Produitform {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 24px;
+    border-radius: 25px;
+    gap: 16px;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    h3 {
+      display: none;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border-radius: 999px;
+      background-color: map.get($colors, "primary");
+      padding: 10px 18px;
+      min-height: 44px;
+      box-sizing: border-box;
+      text-align: center;
+
+      label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      input,
+      select {
+        border: none;
+        background: transparent;
+        outline: none;
+        text-align: center;
+        width: 100%;
+        padding: 0;
+        color: black;
+      }
+    }
+
+    .form-group-toggle {
+      flex-direction: row;
+      gap: 8px;
+
+      label {
+        flex-direction: row;
+        gap: 8px;
+        color: white;
+      }
+
+      input[type="checkbox"] {
+        width: auto;
+      }
+    }
+
+    .form-group-file label {
+      flex-direction: row;
+    }
+
+    .fournisseur-form-wrapper {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .buttonConfirmed {
+      grid-column: 2;
+      justify-self: end;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: map.get($colors, "secondary");
+      border: 2px solid map.get($colors, "primary");
+      color: black;
+      padding: 0;
+    }
+
+
+    .panel-fournisseur {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .selectProduitButton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      border-radius: 999px;
+      padding: 10px 18px;
+      min-height: 44px;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: map.get($colors, "primary");
+      border: none;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+
+      &::before {
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+    }
+
+    .produitList .produitRow {
+      border-radius: 999px;
+      background-color: map.get($colors, "primary");
+      padding: 20px 38px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .produitRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border-radius: 999px;
+    padding: 10px 18px;
+    min-height: 44px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: map.get($colors, "primary");
+    border: map.get($colors, "secondary");
+    color: white;
+
+    &::before {
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+  }
+
+    .selectProduit {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 15px;
+      background-color: map.get($colors, "primary");
+      outline: none;
+      text-align: center;
+      max-width: 460px;
+      width: 100%;
+    }
+
+    .produitList {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 460px;
+    }
+
+  }
+
+  .blocDelete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: map.get($colors, "secondary"); 
+    border-radius: 50px;
+    width: 100%;
+    padding: 16px 32px;
+    gap: 4px;
+    max-width: 300px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .blocDelete .deleterow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 12px;
+   }
+
+  .blocDelete .deleterow span {
+    white-space: nowrap;
+  }
+
+  .blocDelete .buttonDelete {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: map.get($colors, "secondary"); 
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    flex-shrink: 0;
+    padding: 0;
+  }
+
+  .pickingDesktopOnly {
+    display: block;
+  }
+
+  .pickingMobileOnly {
+    display: none;
+  }
+
+  @media (max-width: 428px) {
+    .pickingDesktopOnly {
+      display: none;
+    }
+
+    .pickingMobileOnly {
+      display: block;
+    }
+  }
+
+  .commencerCommande {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    border: 2px solid map.get($colors, "secondary");
+    background-color: map.get($colors, "primary");
+    color: white;
+    font-weight: 600;
+    padding: 10px 24px;
+    cursor: pointer;
+  }
+  
+
+  //CLIENT
+
+  //shop
+
+  .article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .article input.sreach {
+    border-radius: 50px;
+    background-color: map.get($colors, "secondary");
+    color: black;
+    width: 200px;
+    gap: 8px;
+    border-color: transparent;
+  }
+
+  @media (max-width: 428px) {
+    .article {
+      width: 100%;
+    }
+
+    .article input.sreach {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .article .card-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .article .card-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 10px;
+    width: 100%;
+  }
+
+
+.article .card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+app-card {
+  display: contents;
+}
+
+  .card {
+    border-radius: 25px;
+    background-color: map.get($colors, "secondary");
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75em;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .card .card-img {
+    border-radius: 16px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background-color: white;
+  }
+
+  .card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    .card-nom {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .card-prix {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+  }
+
+  .card button.addToCart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 50px;
+    background-color: map.get($colors, "primary");
+    border: none;
+    width: 100%;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  //cart
+
+  .imageCart {
+    border-color: map.get($colors, "primary"); 
+  }
+
+  .cart .panier {
+    align-items: start;
+  }
+
+  .cart .imageCart {
+    background-color: map.get($colors, "primary");
+  }
+
+  .cart .itemInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cart .cartInformation {
+    margin-left: auto;
+  }
+  
+  .cart .selectorQuantity {
+    border-radius: 50px;
+    background-color: map.get($colors, "primary");
+    border-color: transparent;
+  }
+
+  .cart button.deleteFromCart {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .cart .total {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 12px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .cart .buttonPurchase {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+
+  .cart button.buttonPurchaseLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50px;
+    background-color: map.get($colors, "primary");
+    border-color: transparent;
+    width: 150px;
+    gap: 8px;
+  }
+
+  //purchase
+
+  .purchase {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: 900px;
+  }
+
+  .payBlock {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  border-radius: 20px;
+  background-color: map.get($colors, "secondary");
+  text-align: start;
+  padding: 15px;
+  width: fit-content;
+}
+
+.payColumn {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.cartPay {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: map.get($colors, "secondary");
+  border-radius: 20px;
+  padding: 15px;
+  width: 220px;
+  box-shadow: -8px -8px 12px rgba(255, 255, 255, 0.2),
+              8px 8px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+  .payChoose {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+
+  .chooseUnity {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .chooseUnity hr,
+    .cartPay > div hr {
+      flex-basis: 100%;
+      width: 100%;
+      height: 0;
+      margin: 2px 0 0;
+      border: none;
+      border-bottom: 1px solid black;
+      background-color: map.get($colors, "primary");
+    }
+
+  .cartPay > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+  }
+
+  .adresses {
+    border-color: black;
+    border-radius: 50px;
+    width: 100%;
+    background-color: map.get($colors, "secondary");
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .center-adresse {
+    background-color: map.get($colors, "primary");
+    border-width: thin;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 20px 30px;
+    position: relative;
+  }
+
+  .center-adresse form {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+
+  .center-adresse label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    padding: 5px 15px;
+    background-color: map.get($colors, "secondary");
+  }
+
+  .center-adresse input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: map.get($colors, "secondary");
+    border-color: black;
+    border-radius: 50px;
+    text-align: center;
+  }
+
+  .label-adresse {
+    border-radius: 25px;
+    background-color: map.get($colors, "primary");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    flex: 1 1 140px;
+    min-width: 120px;
+    box-sizing: border-box;
+
+    input {
+      width: 100%;
+    }
+
+    span {
+      font-size: 0.75rem;
+      color: darkred;
+      text-align: center;
+    }
+  }
+
+
+  .center-adresse form > p {
+    margin: 0;
+    align-self: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+
+   .confirmed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: map.get($colors, "primary");
+    color:black;
+    border-color: transparent;
+    margin-top: 15px;
+    align-self: flex-end;
+  }
+
+  //commandesClient
+
+  
+    .commande {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .commande > hr {
+      flex-basis: 100%;
+      width: 100%;
+      height: 0;
+      margin: 2px 0 0;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+
+    .Pcommandes {
+      width: 90%;
+      max-width: 900px;
+      text-align: left;
+      font-weight: bold;
+      margin: 0 0 10px;
+    }
+
+    @media (max-width: 428px) {
+    .menuAdmin {
+      width: 100%;
+      max-width: 100%;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+
+    .tableAdmin,
+    .tableCommande {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .Pcommandes {
+      width: 100%;
+    }
+
+    .tableCommande-wrapper {
+     width: 100%;
+     overflow-x: auto;
+     -webkit-overflow-scrolling: touch;
+   }
+
+    .tableCommande th,
+    .tableCommande td {
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+  }
+
+    .tableCommande {
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    .tableCommande-wrapper {
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto;
+      overflow-x: auto;
+    }
+
+    .tableCommande th,
+    .tableCommande td {
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    .headCommande th {
+      border-bottom: 2px solid black;
+    }
+
+    .bodyCommande tr {
+      border-bottom: 1px solid black;
+    }
+
+
+    .facture {
+      border-color: transparent;
+      background-color: transparent;
+      color: blue;
+    }
+
+    .facture:hover {
+      border-color: transparent;
+      background-color: transparent;
+      color: blue($color: #000000);
+      text-decoration: underline;
+    }
+
+    .deleteCommande {
+      border-radius: 30px;
+      background-color: map.get($colors, "secondary");
+      gap: 5px;
+      width: 100%;
+      border-color: transparent;
+    } 
+
+    
+  //admin et secretaire
+
+    //dashboards
+
+    .menuAdmin {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      justify-content: center;
+      min-height: 100vh;
+      color:white;
+      text-align: center;
+    }
+
+    .tableAdmin {
+      background-color: map.get($colors, "primary");
+      border-color: transparent;
+      border-radius: 25px;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+    }
+
+    .theadAdmin th {
+      border-bottom: 2px solid white;
+      border-right: 1px solid white;
+      padding: 30px;
+    }
+
+    .tbodyAdmin tr {
+      border-bottom: 1px solid white;
+      padding: 20px;
+    }
+
+    .tbodyAdmin td {
+      border-right: 1px solid white;
+      border-bottom: 1px solid white; ;
+      padding: 20px;
+    }
+
+    .theadAdmin th:last-child,
+    .tbodyAdmin td:last-child {
+      border-right: none;
+    }
+
+    .filtreSelect {
+       background-color: #D9D9D9;
+       border-color: transparent;
+       border-radius: 50px;
+    }
+
+    //commandes Secrataire
+
+    .deleteCommandeSecretaire {
+      border-radius: 30px;
+      background-color: transparent;
+      gap: 5px;
+      width: 100%;
+      border-color: transparent;
+      color:white;
+    } 
+
+    .tbodyAdmin .tableSecretaire td {
+      color: white;
+    }
+
+    .optionUser {
+      background-color: transparent;
+      border-color: transparent;
+      align-items: end;
+      border-bottom: transparent;
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
+      justify-content: end;
+      gap: 8px;
+    } 
+
+  //user
+
+  .usermenu {
+    background-color: map.get($colors, "primary");
+    grid-row: span 5 / span 5;
+  }
+
+  .shopButton {
+    background-color: map.get($colors, "primary");
+  }
+
+  .articlePage {
+    grid-column: span 3 / span 3;
+    grid-row: span 3 / span 3;
+    grid-column-start: 2;
+  }
+
+  .cartInformation{
+    grid-column-start: 4;
+    grid-row-start: 2;
+  }
+
+  .deleteFromCart{
+    grid-column-start: 4;
+    grid-row-start: 3;
   }
 
   :host {
@@ -85,18 +1096,303 @@ $role-themes: (
     }
   }
 
-
-  .popup {
+  .articleQuantity{
     background-color: map.get($colors, "secondary");
   }
 
-  .table {
-    background-color: map.get($colors, "secondary");
+
+  .buttonPurchaseLink {
+    grid-column-start: 4;
+    grid-row-start: 3;
+  }
+
+  .commande {
+    grid-column: span 3 / span 3;
+    grid-row: span 3 / span 3;
+    grid-column-start: 2;
+  }
+
+  .action {
+    grid-column-start: 3;
+    grid-row-start: 4;
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 6px;
+  }
+
+  .cart {
+    grid-column: span 5 / span 5;
+    grid-row: span 2 / span 2;
+  }
+
+  .deleteFromCart {
+    grid-column-start: 4;
+    grid-row-start: 3;
+  }
+  .photoArticle{
+    border-color: map.get($colors, "secondary");
   }
 
   .column-table-filter {
     background-color: #D9D9D9;
+    color:  map.get($colors, "secondary");
   }
 
-  
+  .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup {
+  border-radius: 24px;
+  background-color: map.get($colors, "secondary");
+  box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.2),
+              15px 15px 15px rgba(0, 0, 0, 0.1),
+              inset -50px -50px 50px rgba(255, 255, 255, 0.2),
+              inset 50px 50px 50px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 32px;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+.actionsButton, .actions {
+  display: flex;
+  gap: 16px;
+}
+
+.button, .buttonPopup {
+  border-radius: 40px;
+  padding: 10px 28px;
+  border: 1px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  border-color: map.get($colors, "primary");
+  transition: transform 0.15s ease, background-color 0.15s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+}
+
+//usermenu
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  flex-grow: 1;
+  margin-left: 250px;
+  transition: all 0.3s ease-in-out;
+  background-color: #f4f6f7;
+  overflow-y: auto;
+
+  @media (max-width: 428px) {
+    margin-left: 50px;
+  }
+
+  &-inner {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  &-expanded {
+    margin-left: 50px;
+  }
+}
+
+.sidebar-toggle-btn {
+  background-color: map.get(map.get($role-themes, 'DEFAULT'), 'primary');
+  position: absolute;
+  top: 1rem;
+  left: 200px; 
+  border: none;
+  color: black;
+  padding: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #34495e;
+  }
+
+  &.sidebar-collapsed {
+    left: 15px; 
+  }
+}
+
+.sidebar {
+  background-color: map.get(map.get($role-themes, 'DEFAULT'), 'primary');
+  color: black;
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  overflow-x: hidden;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 428px) {
+    width: 50px;
+
+    .sidebar-item-text,
+    .sidebar-item-arrow {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-submenu {
+      display: none;
+    }
+  }
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.sidebar-logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sidebar-menu {
+  padding: 1rem 0;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.sidebar-menu-item {
+  position: relative;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  color: black;
+  text-decoration: none;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  background: none;
+  font: inherit;
+  text-align: left;
+
+  i {
+    margin-right: 0.75rem;
+
+    &.sidebar-item-arrow {
+      margin-left: auto;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+
+      &.rotated {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &-text {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &.has-children {
+    position: relative;
+  }
+}
+
+.sidebar-submenu {
+  .sidebar-item {
+    padding-left: 3rem;
+    font-size: 0.9rem;
+  }
+}
+
+.sidebar-collapsed {
+  width: 50px;
+
+  .sidebar-menu-item {
+    position: static;
+  }
+
+  .sidebar-item {
+    i {
+      margin-right: 0;
+    }
+
+    &-text,
+    &-arrow {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+    }
+  }
+
+  .sidebar-submenu {
+    display: none;
+  }
+}
+
+@each $role, $colors in $role-themes {
+  .#{$role}-theme.sidebar,
+  .#{$role}-theme.sidebar-toggle-btn {
+    background-color: map.get($colors, "primary");
+  }
+
+  .#{$role}-theme.sidebar .sidebar-item:hover,
+  .#{$role}-theme.sidebar .sidebar-item.menu-item-active {
+    background: map.get($colors, "primary");
+  }
+
+  .#{$role}-theme.sidebar .sidebar-submenu {
+    background: map.get($colors, "primary");
+  }
 }

@@ -1,9 +1,12 @@
-<article>
+<div class="article">
     <input
+        class="sreach"
         type="text"
         [formControl]="filterfcvar"
+        style="color: black;"
         placeholder="Rechercher un produit..."
     />
-    <app-card></app-card>
-</article>
-
+    <div class="card-list">
+        <app-card [produits]="produits"></app-card>
+    </div>
+</div>

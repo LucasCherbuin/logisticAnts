@@ -1,43 +1,51 @@
 <div>
-  <h2>Picking</h2>
+ <p class="pickingDesktopOnly">Passez en version mobile pour accéder au picking.</p>
 
-  <!-- Vue liste : uniquement si aucune commande sélectionnée -->
-  <ng-container *ngIf="!commandeSelectionnee">
-    <div *ngFor="let commande of commandes">
-      <h3>
-        Commande #{{ commande.id }} — {{ commande.user?.email }}
-        <button type="button" class="btn btn-primary" (click)="commencerCommande(commande)">
-          commencer la commande
-        </button>
-      </h3>
-    </div>
-    <p *ngIf="commandes.length === 0">Aucune commande en attente.</p>
-  </ng-container>
+ <div class="pickingMobileOnly">
+  <div class="menuAdmin" *ngIf="!commandeSelectionnee">
+    <table class="tableAdmin">
+      <thead class="theadAdmin">
+       <tr>
+         <th>Commande</th>
+         <th>Commencer</th>
+       </tr>
+     </thead>
+     <tbody class="tbodyAdmin">
+       <tr *ngFor="let commande of commandes">
+         <td>#{{ commande.id }}</td>
+         <td>
+           <button type="button" class="commencerCommande" (click)="commencerCommande(commande)">Commencer la commande<i class="ph ph-flag-checkered"></i></button>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+   <p *ngIf="commandes.length === 0">Aucune commande en attente.</p>
+  </div>
 
-  <!-- Vue détail : uniquement la commande sélectionnée -->
-  <ng-container *ngIf="commandeSelectionnee">
+  <div class="menuAdmin" *ngIf="commandeSelectionnee">
     <h3>Commande n°{{ commandeSelectionnee.id }}</h3>
-    <table class="table">
-      <thead>
+    <table class="tableAdmin">
+      <thead class="theadAdmin">
         <tr>
           <th>Produit</th>
           <th>Quantité</th>
           <th>Valider</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="tbodyAdmin">
         <tr *ngFor="let articleCommandes of commandeSelectionnee.articleCommandes">
           <td>{{ articleCommandes.produit.nom }}</td>
           <td>{{ articleCommandes.quantite }}</td>
           <td>
-            <button type="button" (click)="pickerArticle(articleCommandes)">✓</button>
+            <button type="button" class="confirmed" (click)="pickerArticle(articleCommandes)"><i class="ph ph-check-circle"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
 
-    <p *ngIf="commandeSelectionnee.articleCommandes.length === 0">Commande terminée</p>
-  </ng-container>
+    <p style="color:black;" *ngIf="commandeSelectionnee.articleCommandes.length === 0" >Commande terminée</p>
+  </div>
 
   <app-confirmation-picking [commande]="commandeSelectionnee"></app-confirmation-picking>
++ </div>
 </div>

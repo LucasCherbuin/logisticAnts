@@ -1,10 +1,13 @@
-
-<div>
-  <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <input formControlName="pseudo" placeholder="Pseudo" />
-    <input formControlName="password" type="password" placeholder="Mot de passe" />
-    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
-    <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
-    
-  </form>
+<div class="page DEFAULT-theme">
+  <div class="logForm column-layout">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input formControlName="pseudo" placeholder="Pseudo" />
+      <input formControlName="password" type="password" placeholder="Mot de passe" />
+      <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+      <div class="formActions">
+        <a class="register" [routerLink]="['/register']">S'inscrire</a>
+        <button class="logbutton" type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,19 +1,13 @@
 <div class="menuAdmin">
-    <select [formControl]="filterField" class="form-select mb-2">
+    <select class="filtreSelect" [formControl]="filterField">
     <option value="produit">Produit</option>
     <option value="achat">Achat</option>
     </select>
-    <input class="column-table-filter"
-        type="text"
-        [formControl]="filterfcvar"
-        placeholder="Rechercher un produit..."
-        class="form-control mb-3"
-    />
     <table class="tableAdmin">
         <thead thead class="theadAdmin">
             <tr>
-                <th scope="col">Produit</th>
-                <th scope="col">Achat</th>
+                <th scope="col" [class.column-table-filter]="filterField.value === 'produit'">Produit</th>
+                <th scope="col" [class.column-table-filter]="filterField.value === 'achat'">Achat</th>
             </tr>
         </thead>
         <tbody class="tbodyAdmin">
@@ -21,8 +15,8 @@
                 *ngFor="let produitPhare of filteredProduitPhare$ | async"
                 class="list-group-item"
                 >
-                <td>{{ produitPhare.produit }}</td>
-                <td>{{ produitPhare.achat }}</td>
+                <td [class.column-table-filter]="filterField.value === 'produit'">{{ produitPhare.produit }}</td>
+                <td [class.column-table-filter]="filterField.value === 'achat'">{{ produitPhare.achat }}</td>
             </tr>
         </tbody>
     </table>

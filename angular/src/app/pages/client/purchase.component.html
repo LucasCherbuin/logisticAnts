@@ -1,70 +1,55 @@
-<div>
-    <div>
-        <h3>Moyen de paiement</h3>
-        @for (option of paymentOptions; track option) {
-        <div>
-            <input type="radio" [id]="option" name="payement" [value]="option" [(ngModel)]="selectedPayement" (change)="showCarteOptions = option === 'carte'" />
-            <label [for]="option">{{ option }}</label>
+<div class="purchase">
+    <div class="payBlock">
+        <div class="payColumn">
+            @for (option of paymentOptions; track option) {
+            <div class="payChoose">
+                <div class="chooseUnity">
+                    <input type="radio" [id]="option" name="payement" [value]="option" [(ngModel)]="selectedPayement" (change)="showCarteOptions = option === 'carte'" />
+                    <label [for]="option">{{ option }}</label>
+                    <hr>
+                </div>
+            </div>
+            }
         </div>
-        }
-        <div *ngIf="showCarteOptions">
-            <h4>Choisissez votre carte</h4>
+        <div class="cartPay" *ngIf="showCarteOptions">
+            <h4>Type de carte</h4>
             @for (carte of carteOptions; track carte) {
             <div>
                 <input type="radio" [id]="carte" name="carte" [value]="carte" [(ngModel)]="selectedCarte" />
                 <label [for]="carte">{{ carte }}</label>
+                <hr>
             </div>
             }
         </div>
     </div>
-
-    <div>
-        <h3>Adresse de livraison</h3>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div>
+    <div class="adresses">
+        <div class="center-adresse">
+        <form id="purchaseForm" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <p>Indiquez votre adresse :</p>
+            <div class="label-adresse">
                 <label for="entreprise">Entreprise</label>
-                <input
-                    id="entreprise"
-                    type="text"
-                    formControlName="entreprise"
-                    autocomplete="organization"
-                />
+                <input id="entreprise" type="text" formControlName="entreprise" autocomplete="organization" />
                 <span *ngIf="form.get('entreprise')?.hasError('required') && form.get('entreprise')?.touched">
                     Indiquez le nom de l'entreprise
                 </span>
             </div>
-            <div>
+            <div class="label-adresse">
                 <label for="adresse">Adresse</label>
-                <input
-                    id="adresse"
-                    type="text"
-                    formControlName="adresse"
-                    autocomplete="street-address"
-                />
+                <input id="adresse" type="text" formControlName="adresse" autocomplete="street-address" />
                 <span *ngIf="form.get('adresse')?.hasError('required') && form.get('adresse')?.touched">
                     Indiquez l'adresse
                 </span>
             </div>
-            <div>
+            <div class="label-adresse">
                 <label for="ville">Ville</label>
-                <input
-                    id="ville"
-                    type="text"
-                    formControlName="ville"
-                    autocomplete="address-level2"
-                />
+                <input id="ville" type="text" formControlName="ville" autocomplete="address-level2" />
                 <span *ngIf="form.get('ville')?.hasError('required') && form.get('ville')?.touched">
                     Indiquez la ville
                 </span>
             </div>
-            <div>
+            <div class="label-adresse">
                 <label for="NPA">NPA</label>
-                <input
-                    id="NPA"
-                    type="text"
-                    formControlName="NPA"
-                    autocomplete="postal-code"
-                />
+                <input id="NPA" type="text" formControlName="NPA" autocomplete="postal-code" />
                 <span *ngIf="form.get('NPA')?.hasError('required') && form.get('NPA')?.touched">
                     Indiquez le code postal
                 </span>
@@ -72,10 +57,9 @@
                     Le NPA doit contenir 4 chiffres
                 </span>
             </div>
-
-            <button type="submit" [disabled]="form.invalid">Commander</button>
         </form>
+</div>
     </div>
-
+    <button class="confirmed" type="submit" form="purchaseForm" [disabled]="form.invalid"><i class="ph ph-check-circle"></i></button>
     <app-confirmation-commande></app-confirmation-commande>
 </div>

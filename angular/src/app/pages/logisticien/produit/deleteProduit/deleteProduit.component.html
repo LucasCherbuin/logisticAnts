@@ -1,7 +1,11 @@
-@for (produit of produits; track produit.id) {
-  <div>
-    {{ produit.id }} - {{ produit.nom }}
-    <button (click)="deleteProduit(produit)"><i class="ph ph-x"></i></button>
+<div class="DEFAULT-theme">
+  <div class="page">
+    <div class="blocDelete">
+    @for (produit of produits; track produit.id) {
+      <div class="deleterow">
+        <span>{{ produit.id }}  {{ produit.nom }}</span> <button class="buttonDelete" (click)="deleteProduit(produit)"><i class="ph ph-x"></i></button>
+      </div>
+    }
+    </div>
   </div>
-}
-<app-confirmation-delete-produit #confirmationDelete></app-confirmation-delete-produit>
+</div>

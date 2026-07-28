@@ -1,9 +1,11 @@
-
-<div class="logForm" [ngClass]="(role || 'DEFAULT') + '-theme'">
-    <input [(ngModel)]="pseudo" placeholder="Pseudo">
-    <input [(ngModel)]="email" placeholder="Email">
-    <input [(ngModel)]="password" type="password" placeholder="Password">
-
-    <button (click)="register()">S'inscrire</button>
-    <confirmation-registered #confirmationRegistered></confirmation-registered>
+<div class="page DEFAULT-theme">
+    <div class="logForm column-layout">
+        <form >
+        <input [(ngModel)]="pseudo" placeholder="Pseudo">
+        <input [(ngModel)]="email" placeholder="Email">
+        <input [(ngModel)]="password" type="password" placeholder="Mot de passe">
+        <button class="registerbutton" (click)="register()">S'inscrire</button>
+         </form>
+        <confirmation-registered #confirmationRegistered></confirmation-registered>    
+    </div>
 </div>

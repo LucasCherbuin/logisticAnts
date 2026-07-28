@@ -1,15 +1,15 @@
-<div> 
+<div class="articlePage"> 
 
     <p>votre panier</p>
     <hr>
-        {{ articleCommande.produitId.image }} 
+        <div class="photoArticle">{{ articleCommande.produitId.image }}</div> 
         {{ articleCommande.produitId.nom }}
-        <option>{{ articleCommande.quantite }}</option>
+        <option class="articleQuantity">{{ articleCommande.quantite }}<i class="ph ph-down"></i></option>
         {{ articleCommande.produitId.prix }}
         <button(click="deletCommande(commande.id)")><i class="ph ph-trash"></i> Supprimer </button>
     <hr>
     frais d'expédition 
     <hr>
-        <button cart="" >ajouter au panier</button>
+        <button class="shopButton" cart="shopping" >ajouter au panier</button>
     <hr>
 </div>

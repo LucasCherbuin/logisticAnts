@@ -1,19 +1,13 @@
 <div class="menuAdmin" >
-    <select [formControl]="filterField" class="form-select mb-2">
+    <select class="filtreSelect" [formControl]="filterField">
     <option value="pseudo">Nom</option>
     <option value="role">Métier</option>
     </select>
-    <input
-        type="text"
-        [formControl]="filterfcvar"
-        placeholder="Rechercher un utilisateur..."
-        class="form-control mb-3"
-    />
     <table class="tableAdmin">
         <thead class="theadAdmin">
             <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Métier</th>
+                <th scope="col" [class.column-table-filter]="filterField.value === 'pseudo'">Nom</th>
+                <th scope="col" [class.column-table-filter]="filterField.value === 'role'">Métier</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
@@ -22,15 +16,15 @@
                 *ngFor="let user of filteredUser$ | async; let i = index"
                 (click)="setCurrentAntrag(user, i)"
             >
-                <td>{{ user.pseudo }}</td>
-                <td>{{ getRoleLabel(user) }}</td>
+                <td [class.column-table-filter]="filterField.value === 'pseudo'">{{ user.pseudo }}</td>
+                <td [class.column-table-filter]="filterField.value === 'role'">{{ getRoleLabel(user) }}</td>
                 <td>
-                    <a class="optionUser" [routerLink]="['/app-secretaire-update-user', user.id]"><i class="ph ph-pencil"></i></a>
+                    <a class="optionUser" [routerLink]="['/secretaire-update-user', user.id]"><i class="ph ph-pencil"></i></a>
                     <button class="optionUser" (click)="deleteUser(user.id)"><i class="ph ph-x-circle"></i></button>
                 </td>
             </tr>
         </tbody>
-        <a class="optionUser" routerLink="/app-secretaire-register"><i class="ph ph-plus-circle"></i></a>
+        <a class="optionUser" routerLink="/secretaire-register"><i class="ph ph-plus-circle"></i></a>
     </table>
     
 </div>
