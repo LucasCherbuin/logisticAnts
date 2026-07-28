@@ -6,7 +6,7 @@ import { RoleService } from '../../services/role.service';
 import { RegisterService } from '../../services/register.service';
 import { ArticleCommandeService } from '../../services/articleCommande.service';
 
-interface MenuItem {
+export interface MenuItem {
   icon: string;
   label: string;
   route: string;
