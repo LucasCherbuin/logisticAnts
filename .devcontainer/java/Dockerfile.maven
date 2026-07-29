@@ -38,8 +38,8 @@ CMD ["java", "-jar", "app.jar"]
 # docker compose -f .devcontainer/docker-compose.yml up
 
 
-# docker compose build --no-cache java-app
-# docker compose up java-app
+# docker compose -f .devcontainer/docker-compose.yml build --no-cache java-app
+# docker compose -f .devcontainer/docker-compose.yml up java-app
 
 # docker logs logisticants-java --tail 200
 
