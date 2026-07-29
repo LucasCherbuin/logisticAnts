@@ -41,6 +41,12 @@ wireframe, maquettage et prototype de l'interface de l'application. lien : https
 
 Diagrammes de classes et cas d'utilisation dans le dossier public
 
+### Deployement
+
+*plateforme* Vercel
+*cloud* AWS
+
+
 ### Demo
 
 Utilisation de la barre menu de l'application
