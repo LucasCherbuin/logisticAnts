@@ -51,10 +51,25 @@ Diagrammes de classes et cas d'utilisation dans le dossier public
 Utilisation de la barre menu de l'application
 https://youtu.be/6ZsfrdTV-1g
 
-Voici le lien ainsi que les identifiants pour tester les fonctionnalités
 
-admin admin123
-logisticien log123
-secretaire sec123
-client client123
+Voici le lien de l'application
+
+https://logistic-ants-hwec.vercel.app/
+
+
+## 🔑 Comptes de démonstration (Test)
+
+Pour tester l'application immédiatement sans créer de compte, utilisez les identifiants suivants :
+
+| pseudo |  Mdp |
+
+|  admin  | admin123 
+|  logisticien | log123 
+|  client | client123 
+|  secretaire | sec123 
+
+> ⚠️ **Sécurité** : Ces comptes sont partagés publiquement. Lorsque vous naviguez et tester. N'indiquez aucun email professionnel ou informations privées pour des raisons de sécurités.
+
+
+
 
