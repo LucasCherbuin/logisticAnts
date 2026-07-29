@@ -46,10 +46,15 @@ Diagrammes de classes et cas d'utilisation dans le dossier public
 *plateforme* Vercel
 *cloud* AWS
 
-
 ### Demo
 
 Utilisation de la barre menu de l'application
 https://youtu.be/6ZsfrdTV-1g
 
+Voici le lien ainsi que les identifiants pour tester les fonctionnalités
+
+admin admin123
+logisticien log123
+secretaire sec123
+client client123
 
